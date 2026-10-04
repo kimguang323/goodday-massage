@@ -58,4 +58,14 @@ ${allPages.map(p => `  <url>
 const outPath = resolve(__dirname, '../public/sitemap.xml')
 writeFileSync(outPath, sitemap, 'utf-8')
 console.log(`✅ sitemap.xml 생성 완료 — ${allPages.length}개 URL`)
-console.log(`   저장 위치: ${outPath}`)
+
+const sitemapIndex = `<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>${SITE_URL}/sitemap.xml</loc>
+    <lastmod>${today}</lastmod>
+  </sitemap>
+</sitemapindex>
+`
+writeFileSync(resolve(__dirname, '../public/sitemap_index.xml'), sitemapIndex, 'utf-8')
+console.log(`✅ sitemap_index.xml 생성 완료`)
