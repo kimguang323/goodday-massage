@@ -1,0 +1,14 @@
+{
+  "title": "굿데이 출장마사지 공식홈피 | 전국 24시간 프리미엄 방문 케어",
+  "description": "서울·경기·전국 24시간 방문 출장마사지. 스웨디시·아로마·딥티슈·림프 코스. 100% 후불제·번호공개 없이 안전한 예약. 평균 배정 40분.",
+  "icons": {
+    "icon": "/favicon.svg"
+  },
+  "robots": {
+    "index": true
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
