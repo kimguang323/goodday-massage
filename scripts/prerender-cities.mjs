@@ -89,9 +89,11 @@ for (const region of REGIONS) {
   for (const city of region.cities) {
     const cityHead = buildCityHead(city, region.name)
     // Replace the existing <title> and inject our tags right before </head>
+    const h1 = `<h1 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap">${escape(city)} 출장마사지 | 굿데이출장마사지 24시간 방문 케어</h1>`
     const html = template
       .replace(/<title>[^<]*<\/title>/, '')
       .replace('</head>', `${cityHead}\n</head>`)
+      .replace('<div id="root"></div>', `<div id="root">${h1}</div>`)
 
     const dir = `${DIST}/cities/${encodeURIComponent(city)}`
     mkdirSync(dir, { recursive: true })
