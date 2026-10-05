@@ -1802,6 +1802,13 @@ function PullToRefresh({ children }: { children: ReactNode }) {
   const startY = useRef(0)
   const distanceRef = useRef(0)
   const pulling = useRef(false)
+  const lastScrollTime = useRef(0)
+
+  useEffect(() => {
+    const onScroll = () => { lastScrollTime.current = Date.now() }
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   useEffect(() => {
     const updateDistance = (distance: number) => {
@@ -1811,6 +1818,7 @@ function PullToRefresh({ children }: { children: ReactNode }) {
 
     const handleTouchStart = (event: TouchEvent) => {
       if (window.scrollY !== 0 || event.touches.length !== 1 || refreshing) return
+      if (Date.now() - lastScrollTime.current < 800) return
       startY.current = event.touches[0].clientY
       pulling.current = true
     }
@@ -2654,12 +2662,10 @@ export function CityPageRoute() {
   const decodedCity = decodeURIComponent(city ?? '')
   const regionName = getRegionForCity(decodedCity)
   return (
-    <PullToRefresh>
-      <CityPage
-        city={decodedCity}
-        regionName={regionName}
-        onClose={() => navigate(-1)}
-      />
-    </PullToRefresh>
+    <CityPage
+      city={decodedCity}
+      regionName={regionName}
+      onClose={() => navigate(-1)}
+    />
   )
 }
