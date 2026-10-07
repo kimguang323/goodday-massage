@@ -467,7 +467,7 @@ function ReviewPage({ onBook }: { onBook: () => void }) {
     <section id="reviews" className="pb-24 min-h-screen" style={{ background: '#fff8fa' }}>
       {/* 메인 배너 */}
       <div className="w-full">
-        <img loading="lazy" decoding="async" src="/reviews-banner.webp" alt="굿데이마사지 고객후기" className="w-full" style={{ display: 'block' }} />
+        <Image width={1280} height={1280} sizes="100vw" priority src="/reviews-banner.webp" alt="굿데이마사지 고객후기" className="w-full h-auto" style={{ display: 'block' }} />
       </div>
       {/* 히어로 */}
       <div className="py-10 text-center" style={{ background: 'linear-gradient(160deg, #3a1828, #6b2040)' }}>
@@ -619,7 +619,7 @@ function BlogPage() {
     <section id="blog" className="min-h-screen pb-24" style={{ background: '#fff8fa' }}>
       {/* 메인 배너 */}
       <div className="w-full">
-        <img loading="lazy" decoding="async" src="/blog-banner.webp" alt="굿데이마사지 블로그" className="w-full" style={{ display: 'block' }} />
+        <Image width={1280} height={720} sizes="100vw" priority src="/blog-banner.webp" alt="굿데이마사지 블로그" className="w-full h-auto" style={{ display: 'block' }} />
       </div>
 
       {/* 히어로 */}
@@ -808,7 +808,7 @@ function VipPage({ onClose, onGoTherapists }: { onClose: () => void; onGoTherapi
 
       {/* 코스 핵심 안내 배너 */}
       <div className="w-full overflow-hidden" style={{ maxHeight: 340 }}>
-        <img loading="lazy" decoding="async" src="/course-banner.webp" alt="굿데이마사지 코스안내" className="w-full object-cover object-top" style={{ maxHeight: 340 }} />
+        <Image width={1280} height={1280} sizes="100vw" priority src="/course-banner.webp" alt="굿데이마사지 코스안내" className="w-full object-cover object-top" style={{ maxHeight: 340 }} />
       </div>
 
       {/* 코스 핵심 안내 */}
@@ -1261,18 +1261,6 @@ export default function App() {
       document.removeEventListener('focusin', prepareOnIntent)
     }
   }, [])
-
-  useEffect(() => {
-    if (location.pathname !== '/contact') return
-    let timer: ReturnType<typeof setTimeout> | undefined
-    const schedule = () => { timer = setTimeout(prepareCrispChat, 2000) }
-    if (document.readyState === 'complete') schedule()
-    else window.addEventListener('load', schedule, { once: true })
-    return () => {
-      if (timer) clearTimeout(timer)
-      window.removeEventListener('load', schedule)
-    }
-  }, [location.pathname])
 
   const navigateTo = useCallback((href: string) => {
     setMenuOpen(false)
@@ -1753,7 +1741,7 @@ export default function App() {
         {/* 히어로 */}
         {/* 메인 배너 */}
         <div className="w-full">
-          <img loading="lazy" decoding="async" src="/regions-banner.webp" alt="굿데이마사지 지역선택" className="w-full" style={{ display: 'block' }} />
+          <Image width={1280} height={720} sizes="100vw" priority src="/regions-banner.webp" alt="굿데이마사지 지역선택" className="w-full h-auto" style={{ display: 'block' }} />
         </div>
 
         <div className="relative pt-12 pb-14 overflow-hidden" style={{ background: 'linear-gradient(160deg, #3a1828, #6b2040)' }}>
@@ -1790,7 +1778,7 @@ export default function App() {
 
         {/* 배너 이미지 */}
         <div className="w-full">
-          <img loading="lazy" decoding="async" src="/contact-new-banner.webp" alt="굿데이마사지 예약문의" className="w-full" style={{ display: 'block' }} />
+          <Image width={1280} height={720} sizes="100vw" priority src="/contact-new-banner.webp" alt="굿데이마사지 예약문의" className="w-full h-auto" style={{ display: 'block' }} />
         </div>
 
         {/* 헤더 */}
