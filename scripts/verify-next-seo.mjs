@@ -60,6 +60,8 @@ assert.equal(profiles.length, 174, 'Every detailed region must have researched l
 assert.equal(new Set(profiles.map(row => row[0])).size, 174, 'Regional introductions must not duplicate keys')
 for (const [key, landmark, , source] of profiles) {
   const html = readFileSync(join(directory, 'cities', key + '.html'), 'utf8')
+  assert.ok(!html.includes('전국'), key + ': regional detail must only promote its own locality')
+  assert.ok(!html.includes('주변 지역을 찾고 계신가요'), key + ': no other-city promotion')
   const local = html.split('id="local-characteristics"')[1].split('</section>')[0].replace(/<[^>]+>/g, '')
   assert.ok(local.includes(landmark.split('·')[0]), key + ': local landmark must be rendered')
   assert.ok(local.includes('출장마사지·출장안마') && local.includes('24시간 상담'), key + ': service introduction')

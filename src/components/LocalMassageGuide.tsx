@@ -1,7 +1,5 @@
 import Link from 'next/link'
 import Image from 'next/image'
-import { REGIONS } from '../data/regions'
-import { cityPath } from '../data/site'
 import { COURSE_COMBINATIONS, getLocalGuide } from '../data/local-guide'
 
 function LocalIntroText({ text, highlights = [] }: { text: string; highlights?: string[] }) {
@@ -13,7 +11,6 @@ function LocalIntroText({ text, highlights = [] }: { text: string; highlights?: 
 export default function LocalMassageGuide({ region, city }: { region: string; city: string }) {
   const place = `${region} ${city}`
   const local = getLocalGuide(region, city)
-  const related = REGIONS.find(item => item.name === region)?.cities.filter(name => name !== city).slice(0, 4) ?? []
   const sectionClass = 'mx-auto max-w-5xl px-6 py-10'
   return <>
     <section className={sectionClass} aria-labelledby="local-massage-guide">
@@ -48,7 +45,6 @@ export default function LocalMassageGuide({ region, city }: { region: string; ci
       <h2 id="local-course-combinations" className="text-2xl font-semibold leading-snug">{place} 추천 코스 조합과 선택 예시</h2>
       <p className="mt-4 leading-relaxed">한 가지 코스로 정하기 어렵다면 아래 선택 예시를 상담에서 활용하세요. 조합은 구성 상담을 위한 예시이며, 별도 패키지·할인·총 이용 시간을 뜻하지 않습니다. 실제 조합 가능 여부와 가격은 예약 전에 확인하세요.</p>
       <div className="mt-6 grid gap-4 sm:grid-cols-2">{COURSE_COMBINATIONS.map(item => <article key={item.title} className="overflow-hidden rounded-2xl border border-rose-100"><div className="bg-rose-950 p-5 text-white"><h3 className="font-semibold">{item.title}</h3><p className="mt-2 text-rose-200">{item.courses}</p></div><p className="p-5 leading-relaxed">{item.description}</p></article>)}</div>
-      {related.length > 0 && <div className="mt-6 rounded-2xl bg-rose-50 p-5"><h3 className="font-semibold">주변 지역을 찾고 계신가요?</h3><p className="mt-2 leading-relaxed">방문 장소가 {city} 밖에 있다면 같은 시·도의 다른 지역 안내도 살펴보세요. 아래 링크는 거리순 추천이 아닌 관련 지역 안내입니다.</p><nav aria-label={`${city} 관련 지역`} className="mt-4 flex flex-wrap gap-3">{related.map(name => <Link key={name} href={cityPath(region, name)} prefetch={false} className="rounded-lg bg-white px-4 py-3 underline">{region} {name} 출장마사지</Link>)}</nav></div>}
     </section>
 
     <figure className="mx-auto max-w-5xl px-6 pb-10">

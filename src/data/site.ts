@@ -25,7 +25,7 @@ export function getPageInfo(pathname: string) {
   const city = cityEntries.find(entry => decodeURI(entry.path) === decodeURI(path))
   const post = BLOG_POSTS.find(entry => path === `/blog/${entry.slug}`)
   const copy = city
-    ? [`${city.region} ${city.city} 출장마사지 · 24시간 방문 | 굿데이`, `${city.region} ${city.city} 자택·호텔·오피스텔 출장마사지 안내. 스웨디시·아로마·스포츠·림프순환·VIP 코스, 배정과 방문 비용을 24시간 상담하세요. 전국 방문 굿데이, 100% 후불제·신규 회원 예약 문의.`]
+    ? [`${city.region} ${city.city} 출장마사지 · 24시간 방문 | 굿데이`, `굿데이 ${city.region} ${city.city} 출장마사지·출장안마. 자택·호텔·오피스텔 방문과 스웨디시·아로마·스포츠·림프순환·VIP 코스를 24시간 상담하세요. 100% 후불제 운영, 신규 회원님은 예약 문의.`]
     : post ? [post.title + ' | 굿데이', post.desc] : pageCopy[path]
   // Summary-only drafts stay usable but are not submitted for indexing.
   const noindex = !copy || !!(post && !post.body?.length)
