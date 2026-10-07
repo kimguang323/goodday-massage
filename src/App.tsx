@@ -250,13 +250,13 @@ function CityModal({ city, therapists, onClose }: {
           {/* 예약 버튼 */}
           <div className="px-5 pb-6 flex flex-col gap-2">
             <button type="button" onClick={openCrispChat}
-              className="flex items-center justify-center gap-2 w-full py-3.5 rounded-full font-medium text-sm transition-all hover:opacity-90"
+              className="booking-shimmer flex items-center justify-center gap-2 w-full py-3.5 rounded-full font-medium text-sm transition-all hover:opacity-90"
               style={{ background: '#FEE500', color: '#3a1828' }}>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 5.92 2 10.8c0 3.07 1.73 5.77 4.35 7.43L5.5 22l4.13-2.17c.77.17 1.57.27 2.37.27 5.52 0 10-3.92 10-8.8S17.52 2 12 2z"/></svg>
               카카오톡으로 바로 예약
             </button>
             <a href="https://t.me/sy2267" target="_blank" rel="noopener noreferrer"
-              className="flex items-center justify-center gap-2 w-full py-3.5 rounded-full font-medium text-sm text-white transition-all hover:opacity-90"
+              className="booking-shimmer flex items-center justify-center gap-2 w-full py-3.5 rounded-full font-medium text-sm text-white transition-all hover:opacity-90"
               style={{ background: '#2AABEE' }}>
               ✈️ 텔레그램 상담
             </a>
@@ -535,13 +535,13 @@ function ReviewPage({ onBook }: { onBook: () => void }) {
           <p className="text-xs mb-5" style={{ color: 'rgba(255,210,225,0.7)' }}>지금 바로 예약하고 특별한 힐링을 경험하세요</p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
             <button onClick={onBook}
-              className="inline-flex items-center justify-center gap-2 px-7 py-3 rounded-full text-sm font-medium hover:opacity-90"
+              className="booking-shimmer inline-flex items-center justify-center gap-2 px-7 py-3 rounded-full text-sm font-medium hover:opacity-90"
               style={{ background: '#FEE500', color: '#3a1828' }}>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 5.92 2 10.8c0 3.07 1.73 5.77 4.35 7.43L5.5 22l4.13-2.17c.77.17 1.57.27 2.37.27 5.52 0 10-3.92 10-8.8S17.52 2 12 2z"/></svg>
               실시간 예약 상담
             </button>
             <a href="https://t.me/sy2267" target="_blank" rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-7 py-3 rounded-full text-sm font-medium text-white hover:opacity-90"
+              className="booking-shimmer inline-flex items-center justify-center gap-2 px-7 py-3 rounded-full text-sm font-medium text-white hover:opacity-90"
               style={{ background: '#2AABEE' }}>
               ✈️ 텔레그램 예약
             </a>
@@ -593,7 +593,7 @@ function BlogPage() {
               실시간 예약 상담
             </button>
             {selected.slug === 'nationwide-massage-service-guide' && <div className="mt-3">
-              <a href="https://t.me/sy2267" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-[#087eaf] px-6 py-3 text-sm font-medium text-white hover:opacity-90 sm:w-64">
+              <a href="https://t.me/sy2267" target="_blank" rel="noopener noreferrer" className="booking-shimmer inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-[#087eaf] px-6 py-3 text-sm font-medium text-white hover:opacity-90 sm:w-64">
                 <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5"><path d="M21.7 3.3a1 1 0 0 0-1.1-.2L2.7 10a1 1 0 0 0 .1 1.9l4.6 1.4 1.8 5.5a1 1 0 0 0 1.7.4l2.6-2.7 4.6 3.4a1 1 0 0 0 1.6-.6l2.3-15a1 1 0 0 0-.3-1ZM9.1 12.7l9-6.1-6.9 7.6-.9 2.9-1.2-4.4Z" /></svg>
                 텔레그램 상담하기
               </a>
@@ -781,7 +781,7 @@ function VipPage({ onClose, onGoTherapists }: { onClose: () => void; onGoTherapi
           </div>
           <div className="flex flex-col sm:flex-row gap-3 justify-center mt-8">
             <button type="button" onClick={openCrispChat}
-              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-medium text-sm hover:opacity-90 transition-opacity"
+              className="booking-shimmer inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-medium text-sm hover:opacity-90 transition-opacity"
               style={{ background: '#FEE500', color: '#3a1828' }}>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 5.92 2 10.8c0 3.07 1.73 5.77 4.35 7.43L5.5 22l4.13-2.17c.77.17 1.57.27 2.37.27 5.52 0 10-3.92 10-8.8S17.52 2 12 2z"/></svg>
               바로 예약하기
@@ -939,13 +939,13 @@ function VipPage({ onClose, onGoTherapists }: { onClose: () => void; onGoTherapi
         <p className="text-sm mb-8" style={{ color: 'rgba(255,210,225,0.8)' }}>24시간 연중무휴 · 전국 방문</p>
         <div className="flex flex-col sm:flex-row gap-3 justify-center">
           <button type="button" onClick={openCrispChat}
-            className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-medium hover:opacity-90 transition-opacity"
+            className="booking-shimmer inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-medium hover:opacity-90 transition-opacity"
             style={{ background: '#FEE500', color: '#3a1828' }}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 5.92 2 10.8c0 3.07 1.73 5.77 4.35 7.43L5.5 22l4.13-2.17c.77.17 1.57.27 2.37.27 5.52 0 10-3.92 10-8.8S17.52 2 12 2z"/></svg>
             실시간 상담
           </button>
           <a href="https://t.me/sy2267" target="_blank" rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-medium text-white hover:opacity-90 transition-opacity"
+            className="booking-shimmer inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-medium text-white hover:opacity-90 transition-opacity"
             style={{ background: '#2AABEE' }}>
             ✈️ 텔레그램 상담
           </a>
@@ -975,8 +975,8 @@ function CityPage({ city, regionName }: { city: string; regionName: string; onCl
       <Link to="/blog/business-trip-massage-booking-guide" className="mt-5 inline-block underline">예약 방법과 결제 안내 자세히 보기</Link>
     </section>
     <div className="mx-auto flex max-w-5xl flex-col items-start gap-3 px-6">
-      <button type="button" onClick={openCrispChat} className="min-h-12 w-full rounded-full bg-rose-800 px-6 py-4 font-semibold text-white sm:w-80">{regionName} {city} 방문 상담하기</button>
-      <a href="https://t.me/sy2267" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-[#087eaf] px-6 py-4 font-semibold text-white hover:opacity-90 sm:w-80">
+      <button type="button" onClick={openCrispChat} className="booking-shimmer min-h-12 w-full rounded-full bg-rose-800 px-6 py-4 font-semibold text-white sm:w-80">{regionName} {city} 방문 상담하기</button>
+      <a href="https://t.me/sy2267" target="_blank" rel="noopener noreferrer" className="booking-shimmer inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-[#087eaf] px-6 py-4 font-semibold text-white hover:opacity-90 sm:w-80">
         <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5"><path d="M21.7 3.3a1 1 0 0 0-1.1-.2L2.7 10a1 1 0 0 0 .1 1.9l4.6 1.4 1.8 5.5a1 1 0 0 0 1.7.4l2.6-2.7 4.6 3.4a1 1 0 0 0 1.6-.6l2.3-15a1 1 0 0 0-.3-1ZM9.1 12.7l9-6.1-6.9 7.6-.9 2.9-1.2-4.4Z" /></svg>
         텔레그램 상담하기
       </a>
@@ -1062,7 +1062,7 @@ function CitiesDirectory() {
       {/* 지역 목록 */}
       <div className="max-w-5xl mx-auto px-6 pb-16">
         {filtered.length === 0 ? (
-          <div className="text-center py-12 text-sm text-rose-950"><p>해당 지역의 안내 페이지가 아직 없습니다. 전국 방문 서비스를 운영하므로 지역명을 알려주시면 상담해 드립니다.</p><Link to="/contact" className="mt-4 inline-block rounded-full bg-rose-800 px-6 py-3 text-white">목록에 없는 지역 방문 문의</Link></div>
+          <div className="text-center py-12 text-sm text-rose-950"><p>해당 지역의 안내 페이지가 아직 없습니다. 전국 방문 서비스를 운영하므로 지역명을 알려주시면 상담해 드립니다.</p><Link to="/contact" className="booking-shimmer mt-4 inline-block rounded-full bg-rose-800 px-6 py-3 text-white">목록에 없는 지역 방문 문의</Link></div>
         ) : (
           <div className="flex flex-col divide-y" style={{ borderColor: '#fce8ef' }}>
             {filtered.map(region => (
@@ -1379,7 +1379,7 @@ export default function App() {
             })}
           </nav>
           <button type="button" onClick={openCrispChat}
-            className="hidden lg:inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-medium text-white"
+            className="booking-shimmer hidden lg:inline-flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-medium text-white"
             style={{ background: 'linear-gradient(135deg, #f9a8b8, #e05080)' }}>
             📞 1:1 예약 문의
           </button>
@@ -1402,7 +1402,7 @@ export default function App() {
               </Link>
             ))}
             <button type="button" onClick={openCrispChat}
-              className="mt-2 flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full text-sm font-medium text-white"
+              className="booking-shimmer mt-2 flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full text-sm font-medium text-white"
               style={{ background: 'linear-gradient(135deg, #f9a8b8, #e05080)' }}>
               📞 1:1 예약 문의
             </button>
@@ -1434,7 +1434,7 @@ export default function App() {
             ))}
           </ul>
           <div className="flex flex-wrap justify-center gap-3 mt-8">
-            <Link to="/contact" className="inline-flex h-12 w-40 items-center justify-center rounded-full bg-yellow-300 text-rose-950 px-3 font-semibold">예약 상담</Link>
+            <Link to="/contact" className="booking-shimmer inline-flex h-12 w-40 items-center justify-center rounded-full bg-yellow-300 text-rose-950 px-3 font-semibold">예약 상담</Link>
             <Link to="/services" className="inline-flex h-12 w-40 items-center justify-center rounded-full bg-white text-rose-950 px-3 font-semibold">코스·가격 확인</Link>
             <Link to="/cities" className="rounded-full border border-white px-6 py-3">방문 지역 확인</Link>
           </div>
@@ -1784,7 +1784,7 @@ export default function App() {
           </div>
           <div className="text-center mt-10">
             <button type="button" onClick={openCrispChat}
-              className="inline-flex items-center gap-2 px-8 py-3 rounded-full text-sm font-medium text-white transition-all hover:opacity-90"
+              className="booking-shimmer inline-flex items-center gap-2 px-8 py-3 rounded-full text-sm font-medium text-white transition-all hover:opacity-90"
               style={{ background: 'linear-gradient(135deg, #f9a8b8, #e05080)' }}>
               테라피스트 예약 문의하기
             </button>
@@ -1860,7 +1860,7 @@ export default function App() {
           <button
             type="button"
             onClick={openCrispChat}
-            className="mt-7 flex flex-col items-center gap-2 mx-auto"
+            className="booking-shimmer mt-7 flex flex-col items-center gap-2 mx-auto"
             style={{ background: 'none', border: 'none', cursor: 'pointer' }}
           >
             <span
@@ -1883,18 +1883,18 @@ export default function App() {
           {/* 예약 버튼 */}
           <div className="flex flex-col sm:flex-row gap-3 justify-center mt-8">
             <button type="button" onClick={openCrispChat}
-              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-medium text-sm hover:opacity-90 transition-opacity"
+              className="booking-shimmer inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-medium text-sm hover:opacity-90 transition-opacity"
               style={{ background: 'linear-gradient(135deg, #ef4444, #dc2626)', color: 'white', border: '1px solid rgba(255,255,255,0.25)' }}>
               번호공개❌ 익명 예약 (추천)
             </button>
             <button type="button" onClick={openCrispChat}
-              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-medium text-sm hover:opacity-90 transition-opacity"
+              className="booking-shimmer inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-medium text-sm hover:opacity-90 transition-opacity"
               style={{ background: '#FEE500', color: '#3a1828' }}>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 5.92 2 10.8c0 3.07 1.73 5.77 4.35 7.43L5.5 22l4.13-2.17c.77.17 1.57.27 2.37.27 5.52 0 10-3.92 10-8.8S17.52 2 12 2z"/></svg>
               실시간 예약 상담
             </button>
             <a href="https://t.me/sy2267" target="_blank" rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-medium text-sm text-white hover:opacity-90 transition-opacity"
+              className="booking-shimmer inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-medium text-sm text-white hover:opacity-90 transition-opacity"
               style={{ background: '#2AABEE' }}>
               ✈️ 텔레그램 예약
             </a>
@@ -2010,13 +2010,13 @@ export default function App() {
             <p className="text-sm mb-6" style={{ color: 'rgba(255,210,225,0.85)' }}>지금 바로 문의하고 빠른 배정 받으세요</p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <button type="button" onClick={openCrispChat}
-                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-medium text-sm hover:opacity-90"
+                className="booking-shimmer inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-medium text-sm hover:opacity-90"
                 style={{ background: '#FEE500', color: '#3a1828' }}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 5.92 2 10.8c0 3.07 1.73 5.77 4.35 7.43L5.5 22l4.13-2.17c.77.17 1.57.27 2.37.27 5.52 0 10-3.92 10-8.8S17.52 2 12 2z"/></svg>
                 실시간 상담
               </button>
               <a href="https://t.me/sy2267" target="_blank" rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-medium text-sm text-white hover:opacity-90"
+                className="booking-shimmer inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-medium text-sm text-white hover:opacity-90"
                 style={{ background: '#2AABEE' }}>
                 ✈️ 텔레그램 상담
               </a>
@@ -2051,7 +2051,7 @@ export default function App() {
       {/* ── BOTTOM STICKY BAR (krmassage.com 동일) ── */}
 <div className="fixed bottom-0 inset-x-0 z-50 flex" style={{ background: 'white', borderTop: '1px solid #fce8ef', boxShadow: '0 -4px 20px rgba(200,70,110,0.1)' }}>
         <Link to={PAGE_PATHS.contact}
-          className="flex-1 flex flex-col items-center justify-center py-3 gap-0.5 text-xs font-medium transition-opacity hover:opacity-90"
+          className="booking-shimmer flex-1 flex flex-col items-center justify-center py-3 gap-0.5 text-xs font-medium transition-opacity hover:opacity-90"
           style={{ background: '#FEE500', color: '#3a1828' }}>
           <span>📞</span>
           <span>예약하기</span>

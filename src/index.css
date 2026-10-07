@@ -57,7 +57,7 @@ h2 {
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  background: linear-gradient(110deg, transparent 15%, #fff8aa 40%, #fff 50%, #fff8aa 60%, transparent 85%);
+  background: linear-gradient(110deg, transparent 15%, rgb(255 255 255 / 12%) 40%, rgb(255 255 255 / 28%) 50%, rgb(255 255 255 / 12%) 60%, transparent 85%);
   transform: translateX(-110%);
   animation: booking-shimmer-slide 3s ease-in-out infinite alternate;
 }
