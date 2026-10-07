@@ -1411,7 +1411,11 @@ export default function App() {
         <div className="relative z-10 max-w-5xl mx-auto px-6 py-16 text-center text-white">
           <h1 className="text-3xl sm:text-5xl font-bold leading-snug">전국 출장마사지<br />굿데이 24시간 방문 서비스</h1>
           <p className="mt-6 leading-relaxed">전국 모든 지역의 자택·호텔·오피스텔로 찾아갑니다.<br />홈타이·스웨디시·아로마·스포츠·림프순환·VIP 등 원하는 마사지 종류와 방문 시간을 상담해 주세요.</p>
-          <p className="mt-4 text-sm">100% 후불제로 운영합니다. 신규 회원님은 예약하기로 문의해 주세요.</p>
+          <ul aria-label="서비스 핵심 포인트" className="mt-6 flex flex-wrap justify-center gap-2 sm:gap-3">
+            {['100% 후불제', '30분 내 도착', '철저한 프라이버시'].map(point => (
+              <li key={point} className="rounded-full border border-white/40 bg-white/10 px-4 py-2 text-sm font-semibold">{point}</li>
+            ))}
+          </ul>
           <div className="flex flex-wrap justify-center gap-3 mt-8">
             <Link to="/contact" className="rounded-full bg-yellow-300 text-rose-950 px-6 py-3 font-semibold">예약 상담</Link>
             <Link to="/services" className="rounded-full bg-white text-rose-950 px-6 py-3 font-semibold">코스·가격 확인</Link>
