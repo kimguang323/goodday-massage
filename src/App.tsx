@@ -1,5 +1,8 @@
 import { useState, useCallback, useEffect, useRef, type ReactNode } from 'react'
-import { useNavigate, useParams } from 'react-router'
+import { Link, useLocation, useNavigate, useParams } from 'react-router'
+import { REGIONS } from './data/regions'
+import { cityPath, PAGE_PATHS } from './data/site'
+import { BLOG_POSTS } from './data/blog'
 
 declare global {
   interface Window {
@@ -10,6 +13,16 @@ declare global {
 const CRISP_CHAT_URL = 'https://go.crisp.chat/chat/embed/?website_id=8228327c-a1a7-4ba2-b41e-657b36b5105f'
 
 function openCrispChat() {
+  if (!window.$crisp) {
+    window.$crisp = []
+    ;(window as Window & { CRISP_WEBSITE_ID?: string }).CRISP_WEBSITE_ID = '8228327c-a1a7-4ba2-b41e-657b36b5105f'
+    const script = document.createElement('script')
+    script.src = 'https://client.crisp.chat/l.js'
+    script.async = true
+    script.onerror = () => window.open(CRISP_CHAT_URL, '_blank', 'noopener,noreferrer')
+    document.head.appendChild(script)
+    window.$crisp.push(['on', 'chat:closed', () => window.$crisp?.push(['do', 'chat:hide'])])
+  }
   if (window.$crisp) {
     window.$crisp.push(['do', 'chat:show'])
     window.$crisp.push(['do', 'chat:open'])
@@ -66,19 +79,19 @@ const SERVICES = [
 ]
 
 const THERAPISTS = [
-  { name: '가인', stars: 4.9, desc: '밝고 섬세한 응대, 밸런스 케어', status: '실시간 상담 가능', img: '/therapist-ga-in.png' },
-  { name: '나연', stars: 5.0, desc: '부드러운 리듬감, 꼼꼼한 컨디션 체크', status: '상담중', img: '/therapist-na-yeon.png' },
-  { name: '미영', stars: 4.9, desc: '활기찬 에너지, 압 조절, 피로 포인트 집중', status: '실시간 상담 가능', img: '/therapist-mi-young.png' },
-  { name: '미유', stars: 4.9, desc: '차분한 분위기, 릴랙싱 중심', status: '실시간 상담 가능', img: '/therapist-mi-yu.png' },
-  { name: '민영', stars: 4.9, desc: '부드러운 리듬, 스트레스 완화', status: '상담중', img: '/therapist-min-young.png' },
-  { name: '소연', stars: 5.0, desc: '정돈된 진행, 집중도 높은 케어', status: '실시간 상담 가능', img: '/therapist-so-yeon.png' },
-  { name: '수연', stars: 4.9, desc: '편안한 대화, 꼼꼼한 진행', status: '실시간 상담 가능', img: '/therapist-su-yeon.png' },
-  { name: '은별', stars: 4.9, desc: '경쾌한 분위기, 또렷한 리듬', status: '실시간 상담 가능', img: '/therapist-eun-byeol.png' },
-  { name: '은영', stars: 4.9, desc: '차분한 릴랙싱, 안정적 흐름', status: '실시간 상담 가능', img: '/therapist-eun-young.png' },
-  { name: '재인', stars: 5.0, desc: '안정적 압 조절, 완성도 높은 루틴', status: '상담중', img: '/therapist-jae-in.png' },
-  { name: '지은', stars: 4.9, desc: '밝은 분위기, 부드러운 진행', status: '실시간 상담 가능', img: '/therapist-ji-eun.png' },
-  { name: '하린', stars: 5.0, desc: '섬세하고 가벼운 리듬, 긴장 완화', status: '실시간 상담 가능', img: '/therapist-ha-rin.png' },
-  { name: '하은', stars: 4.9, desc: '균형 잡힌 템포, 전신 케어', status: '상담중', img: '/therapist-ha-eun.png' },
+  { name: '가인', stars: 4.9, desc: '밝고 섬세한 응대, 밸런스 케어', status: '실시간 상담 가능', img: '/therapist-ga-in.webp' },
+  { name: '나연', stars: 5.0, desc: '부드러운 리듬감, 꼼꼼한 컨디션 체크', status: '상담중', img: '/therapist-na-yeon.webp' },
+  { name: '미영', stars: 4.9, desc: '활기찬 에너지, 압 조절, 피로 포인트 집중', status: '실시간 상담 가능', img: '/therapist-mi-young.webp' },
+  { name: '미유', stars: 4.9, desc: '차분한 분위기, 릴랙싱 중심', status: '실시간 상담 가능', img: '/therapist-mi-yu.webp' },
+  { name: '민영', stars: 4.9, desc: '부드러운 리듬, 스트레스 완화', status: '상담중', img: '/therapist-min-young.webp' },
+  { name: '소연', stars: 5.0, desc: '정돈된 진행, 집중도 높은 케어', status: '실시간 상담 가능', img: '/therapist-so-yeon.webp' },
+  { name: '수연', stars: 4.9, desc: '편안한 대화, 꼼꼼한 진행', status: '실시간 상담 가능', img: '/therapist-su-yeon.webp' },
+  { name: '은별', stars: 4.9, desc: '경쾌한 분위기, 또렷한 리듬', status: '실시간 상담 가능', img: '/therapist-eun-byeol.webp' },
+  { name: '은영', stars: 4.9, desc: '차분한 릴랙싱, 안정적 흐름', status: '실시간 상담 가능', img: '/therapist-eun-young.webp' },
+  { name: '재인', stars: 5.0, desc: '안정적 압 조절, 완성도 높은 루틴', status: '상담중', img: '/therapist-jae-in.webp' },
+  { name: '지은', stars: 4.9, desc: '밝은 분위기, 부드러운 진행', status: '실시간 상담 가능', img: '/therapist-ji-eun.webp' },
+  { name: '하린', stars: 5.0, desc: '섬세하고 가벼운 리듬, 긴장 완화', status: '실시간 상담 가능', img: '/therapist-ha-rin.webp' },
+  { name: '하은', stars: 4.9, desc: '균형 잡힌 템포, 전신 케어', status: '상담중', img: '/therapist-ha-eun.webp' },
 ]
 
 const REVIEWS = [
@@ -116,143 +129,7 @@ const FAQS = [
   { q: '테라피스트 신원은 어떻게 확인하나요?', a: '모든 테라피스트는 입사 전 신원조회, 자격증 검증, 위생 교육을 완료합니다. 고객 방문 시 고유 인증 코드가 발급되며, 개인정보는 서비스 완료 즉시 삭제됩니다.' },
 ]
 
-const REGIONS = [
-  { name: '서울', cities: ['강남구', '강동구', '강북구', '강서구', '관악구', '광진구', '구로구', '금천구', '노원구', '도봉구', '동대문구', '동작구', '마포구', '서대문구', '서초구', '성동구', '성북구', '송파구', '양천구', '영등포구', '용산구', '은평구', '종로구', '중구', '중랑구'] },
-  { name: '경기', cities: ['수원', '성남', '고양', '용인', '부천', '안산', '화성', '남양주', '안양', '평택', '의정부', '시흥', '파주', '광명', '김포', '군포', '광주', '이천', '양주', '오산', '구리', '안성', '포천', '의왕', '하남', '여주'] },
-  { name: '인천', cities: ['중구', '동구', '미추홀구', '연수구', '남동구', '부평구', '계양구', '서구', '강화군', '옹진군'] },
-  { name: '부산', cities: ['강서구', '금정구', '기장군', '남구', '동구', '동래구', '부산진구', '북구', '사상구', '사하구', '서구', '수영구', '연제구', '영도구', '중구', '해운대구'] },
-  { name: '대구', cities: ['중구', '동구', '서구', '남구', '북구', '수성구', '달서구', '달성군'] },
-  { name: '광주', cities: ['동구', '서구', '남구', '북구', '광산구', '나주', '화순'] },
-  { name: '대전', cities: ['동구', '중구', '서구', '유성구', '대덕구', '세종'] },
-  { name: '울산', cities: ['중구', '남구', '동구', '북구', '울주군'] },
-  { name: '세종', cities: ['세종시'] },
-  { name: '강원', cities: ['춘천', '원주', '강릉', '동해', '태백', '속초', '삼척', '홍천'] },
-  { name: '충북', cities: ['청주', '충주', '제천', '보은', '옥천', '영동', '증평', '진천'] },
-  { name: '충남', cities: ['천안', '공주', '보령', '아산', '서산', '논산', '계룡', '당진', '금산', '부여', '서천'] },
-  { name: '전북', cities: ['전주', '군산', '익산', '정읍', '남원', '김제', '완주', '진안', '무주', '장수', '임실'] },
-  { name: '전남', cities: ['목포', '여수', '순천', '나주', '광양', '담양', '곡성'] },
-  { name: '경북', cities: ['포항', '경주', '김천', '안동', '구미', '영주', '영천', '상주', '문경', '경산', '군위', '의성'] },
-  { name: '경남', cities: ['창원', '진주', '통영', '사천', '김해', '밀양', '거제', '양산', '의령', '함안', '창녕', '고성', '하동'] },
-  { name: '제주', cities: ['제주시', '서귀포시'] },
-]
 
-const BLOG_IMG = [
-  'https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=600&h=400&fit=crop&auto=format',
-  'https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=600&h=400&fit=crop&auto=format',
-  'https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=600&h=400&fit=crop&auto=format',
-  'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&h=400&fit=crop&auto=format',
-  'https://images.unsplash.com/photo-1519046904884-53103b34b206?w=600&h=400&fit=crop&auto=format',
-  'https://images.unsplash.com/photo-1601134467661-3d775b999c18?w=600&h=400&fit=crop&auto=format',
-  'https://images.unsplash.com/photo-1532592068623-db1978e40df5?w=600&h=400&fit=crop&auto=format',
-  'https://images.unsplash.com/photo-1535424781509-66b572984e46?w=600&h=400&fit=crop&auto=format',
-  'https://images.unsplash.com/photo-1643122966676-29e8597257f7?w=600&h=400&fit=crop&auto=format',
-  'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=600&h=400&fit=crop&auto=format',
-]
-function bi(i: number) { return BLOG_IMG[i % BLOG_IMG.length] }
-
-const BLOG_POSTS = [
-  { cat: '수원', title: '수원 출장스웨디시: 하이엔드 비즈니스 리더를 위한 프라이빗 홈케어', desc: '비즈니스 라운딩 후 누적된 근막 피로를 이동 없이 회복하는 방법. 스웨디시 테라피가 림프를 지배하여 뇌를 쉬게 하는 원리를 알아봅니다.', date: '2026.05.12', read: '5분', img: bi(0), slug: 'suwon-premium-swedish-massage' },
-  { cat: '수원', title: '스타필드·행궁동 데이트 후 완벽한 커플 홈스파', desc: '수원의 핫플레이스를 즐긴 후 자택이나 호텔에서 받는 커플 마사지로 하루를 완벽하게 마무리하는 방법을 안내합니다.', date: '2026.04.28', read: '4분', img: bi(1), slug: 'suwon-date-course-massage' },
-  { cat: '수원', title: '수원 출장마사지: 광교·영통·인계동 30분 내 24시 방문 홈케어', desc: '광교신도시, 영통, 인계동 전 지역 30분 이내 배정. 심야·새벽에도 동일한 퀄리티로 방문하는 24시 홈케어 서비스를 안내합니다.', date: '2026.04.10', read: '4분', img: bi(2), slug: 'suwon-premium-home-massage' },
-  { cat: '강릉', title: '강릉 출장안마: 경포대 호텔 & 펜션으로 찾아가는 오션뷰 힐링', desc: '강릉 경포대 호텔과 펜션에서 오션뷰를 바라보며 받는 프리미엄 출장 마사지. 여행 피로를 완벽하게 회복하는 방법을 소개합니다.', date: '2026.03.22', read: '5분', img: bi(3), slug: 'gangneung-ocean-view-massage-service' },
-  { cat: '강릉', title: '강릉 출장마사지: 경포대 호텔 & 펜션으로 찾아가는 오션뷰 힐링', desc: '강릉 여행 중 호텔·펜션에서 바로 받는 출장 마사지. 이동 없이 오션뷰 힐링을 완성하는 방법을 상세히 안내합니다.', date: '2026.03.15', read: '4분', img: bi(4), slug: 'gangneung-ocean-view-home-massage' },
-  { cat: '서울', title: '서울 출장마사지: 강남, 호텔, 자택 어디든 30분 컷 홈케어', desc: '서울 전 25개 구 30분 이내 배정. 강남·여의도·홍대·성수 지역별 맞춤 솔루션과 24시간 즉시 배정 시스템을 소개합니다.', date: '2026.03.05', read: '5분', img: bi(5), slug: 'seoul-premium-home-massage' },
-  { cat: '김포·경기', title: '김포 출장마사지: 골드라인 & 공항 피로를 푸는 24시 홈케어', desc: '김포 골드라인 이용객과 공항 출도착객을 위한 빠른 배정 시스템. 이동 직후 즉시 케어가 가능합니다.', date: '2026.02.28', read: '4분', img: bi(6), slug: 'gimpo-goldline-airport-massage' },
-  { cat: '지역 가이드', title: '김천 출장마사지: 혁신도시 & KTX 출장객을 위한 24시 홈케어', desc: '김천 혁신도시 비즈니스 출장객과 KTX 이용객을 위한 전문 홈케어 서비스 안내입니다.', date: '2026.02.20', read: '4분', img: bi(7), slug: 'gimcheon-innovation-city-business-massage' },
-  { cat: '지역 가이드', title: '춘천 출장마사지: 라이딩 & 글램핑 후 펜션에서 즐기는 힐링', desc: '춘천 자전거 라이딩과 글램핑 후 펜션에서 받는 힐링 마사지. 여행 피로를 완벽히 해소하는 방법입니다.', date: '2026.02.14', read: '4분', img: bi(8), slug: 'chuncheon-business-trip-massage-camping' },
-  { cat: '이용 가이드', title: '출장안마: 뇌과학이 밝힌 방문 홈케어의 놀라운 회복 효과', desc: '이동 없이 받는 홈케어가 왜 더 효과적인지 뇌과학 관점에서 분석합니다. 코르티솔 감소와 부교감 신경 활성화의 원리를 알아보세요.', date: '2026.02.10', read: '6분', img: bi(9), slug: 'science-of-home-massage-therapy' },
-  { cat: '이용 가이드', title: '출장마사지 예약: 내 주변 24시간 안전한 홈케어 힐링', desc: '안전하게 첫 출장마사지를 예약하는 방법부터 이용 팁까지. 처음 이용하시는 분들을 위한 완벽 가이드입니다.', date: '2026.02.05', read: '5분', img: bi(0), slug: 'business-trip-massage-booking-guide' },
-  { cat: '이용 가이드', title: '출장마사지: 집과 호텔에서 즐기는 상위 1% 프리미엄 홈케어', desc: '일반 마사지샵과 다른 프리미엄 홈케어의 차이점. 상위 1% 서비스 퀄리티를 자택·호텔에서 경험하는 방법입니다.', date: '2026.01.30', read: '5분', img: bi(1), slug: 'premium-business-trip-massage-guide' },
-  { cat: '제주·서귀포', title: '서귀포출장마사지: 가족 여행 육아 피로 & 비 오는 날 힐링 팁', desc: '서귀포 가족 여행 중 육아 피로를 빠르게 해소하는 방법. 비 오는 날 실내에서 즐기는 힐링 마사지 가이드입니다.', date: '2026.01.25', read: '4분', img: bi(2), slug: 'seogwipo-massage-family-travel-rainy-day' },
-  { cat: '제주·서귀포', title: '서귀포출장홈타이: 한라산 등반 후 가성비 최고의 스트레칭 힐링', desc: '한라산 등반으로 지친 근육을 홈타이 스트레칭으로 회복하는 방법. 서귀포 전 숙소 방문 가능합니다.', date: '2026.01.20', read: '4분', img: bi(3), slug: 'seogwipo-home-thai-massage-stretching' },
-  { cat: '제주·서귀포', title: '서귀포출장스웨디시: 중문 호캉스 & 커플 여행 감성 힐링 가이드', desc: '중문 호캉스를 더욱 특별하게 만들어주는 커플 스웨디시 마사지. 서귀포 최고급 호텔 전담 배정 서비스입니다.', date: '2026.01.15', read: '5분', img: bi(4), slug: 'seogwipo-swedish-massage-healing' },
-  { cat: '제주·서귀포', title: '서귀포출장안마: 골프 라운딩 & 운전 피로 푸는 5성급 홈케어', desc: '골프 라운딩 후 쌓인 편측 근육 피로와 장거리 운전 피로를 5성급 수준의 홈케어로 해소합니다.', date: '2026.01.10', read: '4분', img: bi(5), slug: 'seogwipo-anma-golf-driving-recovery' },
-  { cat: '제주·서귀포', title: '서귀포출장마사지: 중문 호캉스 & 올레길 7코스 피로 회복 가이드', desc: '올레길 7코스 완주 후 붓기와 근육통을 즉시 케어받는 방법. 중문 일대 전 숙소 30분 내 배정입니다.', date: '2025.12.30', read: '4분', img: bi(6), slug: 'seogwipo-massage-jungmun-olle' },
-  { cat: '제주', title: '제주도출장마사지: 한라산 등반 & 올레길 트레킹 피로 회복 가이드', desc: '제주 여행 필수 코스인 한라산·올레길 후 피로 회복을 위한 출장 마사지 완벽 가이드입니다.', date: '2025.12.25', read: '5분', img: bi(7), slug: 'jeju-massage-hiking-recovery' },
-  { cat: '광주·전남', title: '광주출장마사지: 무등산 등산 & 상무지구 비즈니스 피로 회복', desc: '무등산 등반 후 하체 피로와 상무지구 비즈니스 출장 피로를 동시에 해소하는 맞춤 케어 안내입니다.', date: '2025.12.20', read: '4분', img: bi(8), slug: 'gwangju-massage-hiking-business' },
-  { cat: '광주·전남', title: '목포출장마사지: 유달산 산행 & 케이블카 여행 피로 싹 푸는 법', desc: '목포 유달산 산행과 케이블카 체험 후 쌓인 피로를 호텔·자택에서 바로 해소하는 방법입니다.', date: '2025.12.15', read: '4분', img: bi(9), slug: 'mokpo-massage-hiking-recovery' },
-  { cat: '전북', title: '군산출장마사지: 맛집 웨이팅 & 뚜벅이 여행 피로 싹 푸는 법', desc: '군산 맛집 투어와 도보 여행 후 붓기를 빠르게 빼는 림프 마사지. 군산 전 숙소 방문 가능합니다.', date: '2025.12.10', read: '4분', img: bi(0), slug: 'gunsan-massage-travel-fatigue' },
-  { cat: '전남', title: '여수출장마사지: 밤바다 산책 & 낭만포차 후 붓기 빼는 꿀팁', desc: '여수 밤바다 산책과 낭만포차 투어 후 하체 붓기를 즉시 케어받는 방법. 여수 호텔·펜션 전 구역 배정합니다.', date: '2025.12.05', read: '4분', img: bi(1), slug: 'yeosu-massage-night-sea-healing' },
-  { cat: '강원', title: '속초출장마사지: 설악산 등산 & 먹방 후 붓기 싹 빼는 법', desc: '설악산 등반과 속초 먹방 투어 후 하체 붓기와 근육통을 빠르게 케어받는 방법을 안내합니다.', date: '2025.12.01', read: '4분', img: bi(2), slug: 'sokcho-massage-hiking-recovery' },
-  { cat: '강릉', title: '강릉출장마사지: 겨울철 근육통 녹이는 마사지 루틴 & 관리 팁', desc: '겨울철 강릉 여행에서 쌓인 근육 경직을 해소하는 스페셜 마사지 루틴. 추운 날씨에 더 효과적인 케어 팁을 소개합니다.', date: '2025.11.25', read: '5분', img: bi(3), slug: 'gangneung-massage-winter-tips' },
-  { cat: '충남', title: '당진 출장마사지 | 야간 회복 루틴으로 컨디션 관리하는 방법', desc: '당진 야간 근무 후 효과적인 회복 루틴. 수면 품질을 높이는 아로마 마사지 코스를 추천합니다.', date: '2025.11.20', read: '3분', img: bi(4), slug: 'dangjin-outcall-massage-night-routine' },
-  { cat: '전남', title: '순천 출장마사지 | 밤에도 깔끔하게 리셋되는 홈타이 루틴', desc: '순천 야간에도 신속 배정. 홈타이 스트레칭으로 하루를 깔끔하게 리셋하는 방법을 안내합니다.', date: '2025.11.15', read: '3분', img: bi(5), slug: 'suncheon-massage-blog-24h-reset' },
-  { cat: '강원', title: '동해 출장마사지', desc: '동해 바다 여행 후 피로 회복을 위한 출장 마사지. 동해 전 숙소 방문하여 완벽한 힐링을 제공합니다.', date: '2025.11.10', read: '3분', img: bi(6), slug: 'donghae-outcall-massage-night-routine' },
-  { cat: '지역 가이드', title: '안동 출장마사지', desc: '안동 하회마을 관광 후 피로 회복을 위한 출장 마사지. 전통 도시에서 즐기는 현대적 홈케어 서비스입니다.', date: '2025.11.05', read: '3분', img: bi(7), slug: 'andong-outcall-massage-recovery-guide' },
-  { cat: '충북', title: '충주 출장마사지 — 장거리 이동·야근 후 회복 루틴', desc: '충주 장거리 이동과 야근 후 빠른 회복을 위한 마사지 루틴. 충주 전 지역 30분 내 배정합니다.', date: '2025.11.01', read: '3분', img: bi(8), slug: 'chungju-outcall-massage-recovery-routine' },
-  { cat: '전북', title: '군산 출장마사지', desc: '군산 근대 역사 도시 여행 피로를 빠르게 해소하는 홈케어. 자택·호텔·게스트하우스 전 구역 방문합니다.', date: '2025.10.28', read: '3분', img: bi(9), slug: 'gunsan-massage-tips' },
-  { cat: '서울', title: '서울 출장마사지 | 강남·서초 야근 후 회복 루틴과 릴랙스 관리', desc: '강남·서초 야근 직장인을 위한 맞춤 회복 루틴. 퇴근 후 30분 이내 배정으로 빠르게 릴랙스합니다.', date: '2025.10.20', read: '4분', img: bi(0), slug: 'seoul-night-recovery-routine-massage' },
-  { cat: '이용 가이드', title: '전국 어디서나 즐기는 24시간 출장마사지 이용 팁', desc: '전국 어느 지역에서든 안전하고 편리하게 출장마사지를 이용하는 핵심 팁을 총정리했습니다.', date: '2025.10.15', read: '5분', img: bi(1), slug: 'nationwide-24h-massage-tips' },
-  { cat: '이용 가이드', title: '스웨디시 vs 아로마, 어떤 코스가 나에게 맞을까?', desc: '스웨디시와 아로마 마사지의 효과와 차이점을 비교 분석. 나에게 맞는 코스를 선택하는 방법을 안내합니다.', date: '2025.10.10', read: '5분', img: bi(2), slug: 'swedish-vs-aromamassage' },
-  { cat: '이용 가이드', title: '처음 이용하시는 분들을 위한 출장마사지 가이드', desc: '출장마사지 첫 이용자를 위한 A to Z 가이드. 예약 방법부터 당일 절차, 팁까지 모두 담았습니다.', date: '2025.10.05', read: '6분', img: bi(3), slug: 'first-time-massage-guide' },
-  { cat: '서울 강동', title: '둔촌·고덕 출장마사지 — 신도시 생활 하체 림프 & 균형 루틴', desc: '둔촌·고덕 신도시 생활에서 쌓이는 하체 피로를 림프 드레나쥐로 해소하는 맞춤 루틴입니다.', date: '2025.09.28', read: '3분', img: bi(4), slug: 'dunchon-godeok-lower-body-balance' },
-  { cat: '서울 강동', title: '암사·광나루 출장안마 — 한강 러닝 후 종아리 펌핑 & 족저 케어', desc: '한강 러닝 후 펌핑된 종아리와 족저근막을 전문적으로 케어받는 방법을 안내합니다.', date: '2025.09.22', read: '3분', img: bi(5), slug: 'amsa-gwangnaru-calf-pumping' },
-  { cat: '서울 강동', title: '천호·길동 출장마사지 — 장시간 좌식 뒤 흉곽 열기 & 경추 릴리즈', desc: '장시간 좌식 근무 후 닫힌 흉곽과 굳은 경추를 전문 테라피스트가 릴리즈해드립니다.', date: '2025.09.15', read: '3분', img: bi(6), slug: 'cheonho-gildong-thoracic-release' },
-  { cat: '서울 서초', title: '방배·양재 출장마사지 — 언덕 많은 동네 하체 림프 & 균형 루틴', desc: '방배·양재 언덕길 보행으로 누적된 하체 피로를 림프 마사지와 균형 루틴으로 해소합니다.', date: '2025.09.10', read: '3분', img: bi(7), slug: 'bangbae-yangjae-lower-limb-balance' },
-  { cat: '서울 서초', title: '반포·잠원 출장안마 — 한강 러닝 후 종아리 펌핑 & 족저 케어', desc: '반포 한강공원 러닝 후 펌핑된 종아리와 족저근막을 즉시 케어받는 방법입니다.', date: '2025.09.05', read: '3분', img: bi(8), slug: 'banpo-jamwon-running-recovery' },
-  { cat: '서울 서초', title: '교대·서초 출장마사지 — 장시간 좌식 뒤 흉곽 열기 & 경추 릴리즈', desc: '법조·비즈니스 특구 교대·서초 직장인을 위한 좌식 피로 전문 케어 루틴입니다.', date: '2025.09.01', read: '3분', img: bi(9), slug: 'seochogyo-thoracic-release' },
-  { cat: '서울 관악', title: '낙성대 출장마사지 — 관악산 하이킹 뒤 종아리 펌핑 & 족저 케어', desc: '관악산 하이킹 후 쌓인 종아리 피로와 족저근막 통증을 전문 케어로 빠르게 해소합니다.', date: '2025.08.25', read: '3분', img: bi(0), slug: 'nakseongdae-calf-care' },
-  { cat: '서울 관악', title: '봉천 출장안마 — 계단 많은 동네, 무릎·발목 안정화 루틴', desc: '봉천동 계단길 보행으로 누적된 무릎·발목 피로를 안정화 루틴으로 케어받는 방법입니다.', date: '2025.08.20', read: '3분', img: bi(1), slug: 'bongcheon-joint-balance' },
-  { cat: '서울 관악', title: '신림 출장마사지 — 2호선 장거리 통근 후 허리·골반 리셋', desc: '신림 2호선 장거리 통근으로 굳은 허리와 골반을 전문 테라피스트가 리셋해드립니다.', date: '2025.08.15', read: '3분', img: bi(2), slug: 'sillim-pelvic-reset' },
-  { cat: '서울 동작', title: '상도 출장마사지 — 늦은 귀가 후 릴랙스 아로마 루틴', desc: '상도동 늦은 귀가 후 아로마 오일로 긴장을 풀고 숙면을 유도하는 야간 릴랙스 루틴입니다.', date: '2025.08.10', read: '3분', img: bi(3), slug: 'sangdo-relax-aroma' },
-  { cat: '서울 동작', title: '흑석 출장안마 — 캠퍼스 이동 많은 날 종아리 릴리스', desc: '중앙대 캠퍼스 이동으로 누적된 종아리 피로를 빠르게 릴리스하는 전문 케어입니다.', date: '2025.08.05', read: '3분', img: bi(4), slug: 'heukseok-calf-release' },
-  { cat: '서울 동작', title: '노량진 출장마사지 — 장시간 공부 뒤 어깨 긴장 완화 루틴', desc: '노량진 수험생·직장인을 위한 어깨·목 긴장 완화 전문 케어. 집중력 회복을 위한 릴랙스 루틴입니다.', date: '2025.08.01', read: '3분', img: bi(5), slug: 'noryangjin-shoulder-relax' },
-  { cat: '서울 영등포', title: '당산 출장마사지 — 야간 스케줄 다운시프트', desc: '당산 야간 스케줄 후 몸과 마음을 다운시프트하는 전문 마사지. 숙면 유도에 특화된 코스입니다.', date: '2025.07.25', read: '3분', img: bi(6), slug: 'dangsan-night-recovery' },
-  { cat: '서울 영등포', title: '문래 출장안마 — 보행 많은 날 하체 가볍게', desc: '문래동 보행이 많은 날 하체를 가볍게 만들어주는 림프 드레나쥐 케어입니다.', date: '2025.07.20', read: '3분', img: bi(7), slug: 'mullaewalk-recovery' },
-  { cat: '서울 영등포', title: '여의도 출장마사지 — 퇴근 후 7분 상체 리셋', desc: '여의도 금융·증권 직장인을 위한 퇴근 후 7분 상체 리셋 루틴. IFC·파크원 호텔 전담 배정입니다.', date: '2025.07.15', read: '3분', img: bi(8), slug: 'yeouido-upper-body-reset' },
-  { cat: '서울 금천', title: '시흥동 출장마사지 — 야간 스케줄 다운시프트', desc: '시흥동 야간 근무 후 몸을 이완시키는 다운시프트 마사지. 심야 배정도 신속하게 진행됩니다.', date: '2025.07.10', read: '3분', img: bi(9), slug: 'siheung-downshift' },
-  { cat: '서울 금천', title: '독산 출장안마 — 보행 많은 날 하체 가볍게', desc: '독산동 보행이 많은 날 하체 림프를 가볍게 만들어주는 전문 케어 서비스입니다.', date: '2025.07.05', read: '3분', img: bi(0), slug: 'doksan-light' },
-  { cat: '서울 금천', title: '가산 출장마사지 — 7분 상체 리셋 & 60분 릴랙스', desc: '가산 디지털단지 IT 직장인을 위한 7분 상체 리셋과 60분 딥 릴랙스 패키지 케어입니다.', date: '2025.07.01', read: '3분', img: bi(1), slug: 'gasan-reset' },
-  { cat: '서울 구로', title: '고척 출장마사지 — 행사 밤 스케줄 다운시프트', desc: '고척스카이돔 행사 후 야간 피로를 다운시프트하는 전문 마사지. 신속 배정으로 빠른 회복을 도와드립니다.', date: '2025.06.25', read: '3분', img: bi(2), slug: 'gocheok-downshift' },
-  { cat: '서울 구로', title: '신도림 출장안마 — 환승 뒤 하체 가볍게', desc: '신도림역 환승 피로로 누적된 하체 부담을 가볍게 만들어주는 림프 케어입니다.', date: '2025.06.20', read: '3분', img: bi(3), slug: 'shindorim-light' },
-  { cat: '서울 구로', title: '구디 출장마사지 — 장시간 근무 뒤 7분 상체 리셋', desc: '구로디지털단지 장시간 근무 후 굳은 상체를 7분 안에 리셋하는 집중 케어입니다.', date: '2025.06.15', read: '3분', img: bi(4), slug: 'gudi-reset' },
-  { cat: '서울 강서', title: '염창 출장마사지 — 야간 스케줄 다운시프트', desc: '염창동 야간 이후 몸과 마음을 이완하는 다운시프트 마사지. 심야 즉시 배정이 가능합니다.', date: '2025.06.10', read: '3분', img: bi(5), slug: 'yeomchang-massage' },
-  { cat: '서울 강서', title: '발산 출장안마 — 보행 많은 날 하체 가볍게', desc: '발산동 보행이 많은 날 하체를 가볍게 만들어주는 림프 마사지. 전문 테라피스트가 방문합니다.', date: '2025.06.05', read: '3분', img: bi(6), slug: 'balsan-massage' },
-  { cat: '서울 강서', title: '마곡 출장마사지 — 7분 상체 리셋 & 60분 릴랙스', desc: '마곡 LG·이케아·코오롱 등 대형 단지 직장인을 위한 맞춤 상체 리셋 & 릴랙스 케어입니다.', date: '2025.06.01', read: '3분', img: bi(7), slug: 'magok-anma' },
-  { cat: '서울 강서', title: '신월 출장마사지 — 야간 스케줄 다운시프트', desc: '신월동 야간 근무자를 위한 다운시프트 마사지. 피로를 빠르게 해소하고 숙면을 유도합니다.', date: '2025.05.25', read: '3분', img: bi(8), slug: 'sinwol-massage' },
-  { cat: '서울 강서', title: '신정 출장안마 — 보행 많은 날 릴리즈 포인트', desc: '신정동 보행 후 쌓인 릴리즈 포인트를 정확하게 케어하는 전문 서비스입니다.', date: '2025.05.20', read: '3분', img: bi(9), slug: 'sinjeong-massage' },
-  { cat: '서울 양천', title: '목동 출장마사지 — 러닝 후 하체 가볍게', desc: '목동 러닝 후 누적된 하체 피로를 가볍게 만들어주는 림프 마사지. 목동 전 지역 배정합니다.', date: '2025.05.15', read: '3분', img: bi(0), slug: 'mokdong-anma' },
-  { cat: '서울 서대문', title: '홍제 출장마사지 — 야간 스케줄 다운시프트', desc: '홍제동 야간 이후 몸을 이완하는 다운시프트 마사지. 심야 배정도 빠르게 진행됩니다.', date: '2025.05.10', read: '3분', img: bi(1), slug: 'hongje-massage' },
-  { cat: '서울 서대문', title: '연희 출장안마 — 보행 많은 날 하체 가볍게', desc: '연희동 카페골목 보행으로 쌓인 하체 피로를 빠르게 해소하는 림프 드레나쥐입니다.', date: '2025.05.05', read: '3분', img: bi(2), slug: 'yeonhui-massage' },
-  { cat: '서울 서대문', title: '신촌 출장마사지 — 7분 상체 리셋 & 60분 릴랙스', desc: '신촌 대학가 주변 직장인·학생을 위한 7분 상체 리셋과 60분 릴랙스 패키지입니다.', date: '2025.05.01', read: '3분', img: bi(3), slug: 'shinchon-anma' },
-  { cat: '서울 은평', title: '연신내 출장마사지 — 야간 스케줄 다운시프트', desc: '연신내 야간 스케줄 후 빠른 회복을 위한 다운시프트 마사지. 은평구 전 지역 방문합니다.', date: '2025.04.25', read: '3분', img: bi(4), slug: 'yeonsinnae-massage' },
-  { cat: '서울 은평', title: '응암 출장안마 — 보행 많은 날 릴리즈 포인트', desc: '응암동 보행이 많은 날 릴리즈 포인트를 정확하게 케어하는 전문 출장 마사지입니다.', date: '2025.04.20', read: '3분', img: bi(5), slug: 'eungam-massage' },
-  { cat: '서울 은평', title: '불광 출장마사지 — 러닝 후 하체 가볍게', desc: '불광동 러닝 후 하체를 가볍게 만들어주는 림프 마사지. 북한산 인근 숙소도 방문 가능합니다.', date: '2025.04.15', read: '3분', img: bi(6), slug: 'bulgwang-massage' },
-  { cat: '서울 도봉', title: '쌍문동 출장마사지 — 야간 스케줄 다운시프트', desc: '쌍문동 야간 스케줄 후 몸을 다운시프트하는 전문 마사지. 도봉구 전 지역 배정합니다.', date: '2025.04.10', read: '3분', img: bi(7), slug: 'ssangmun-massage' },
-  { cat: '서울 도봉', title: '방학동 출장안마 — 보행/등산 다음 날 하체 가볍게', desc: '방학동 도봉산 등산 다음 날 하체 피로를 가볍게 만들어주는 림프 & 스트레칭 케어입니다.', date: '2025.04.05', read: '3분', img: bi(8), slug: 'banghakdong-massage' },
-  { cat: '서울 도봉', title: '창동 출장마사지 — 환승일 7분 리셋 루틴', desc: '창동 환승 피로를 7분 안에 리셋하는 집중 케어. 도봉·노원 전 지역 30분 내 배정합니다.', date: '2025.04.01', read: '3분', img: bi(9), slug: 'changdong-massage' },
-  { cat: '서울 도봉', title: '번동 출장마사지 — 무향 오일로 과각성 완화', desc: '번동 과각성 상태를 무향 오일로 부드럽게 완화하는 아로마테라피 케어입니다.', date: '2025.03.25', read: '3분', img: bi(0), slug: 'beondong-massage' },
-  { cat: '서울 강북', title: '수유 출장안마 — 시장·보행 많은 날 림프 드레인', desc: '수유 전통시장 보행 후 하체 림프를 빠르게 드레인하는 전문 케어입니다.', date: '2025.03.20', read: '3분', img: bi(1), slug: 'suyu-massage' },
-  { cat: '서울 성동', title: '건대입구 출장마사지 — 집중 근무 후 어깨 릴리스 케어', desc: '건대입구 집중 근무 후 굳은 어깨를 전문적으로 릴리스하는 케어. 성동구 전 지역 배정합니다.', date: '2025.03.15', read: '3분', img: bi(2), slug: 'konkuk-massage-kara' },
-  { cat: '서울 성동', title: '서울숲 — 보행 다음 날 회복 루틴', desc: '서울숲 산책과 보행 다음 날 하체를 완벽하게 회복하는 림프 마사지 루틴입니다.', date: '2025.03.10', read: '3분', img: bi(3), slug: 'seoulsup-massage' },
-  { cat: '서울 성동', title: '성수동 출장안마 — 야간 이동 후 릴랙스 케어', desc: '성수동 야간 이동 후 몸을 빠르게 이완하는 릴랙스 케어. 성수 핫플 숙소 전 구역 방문합니다.', date: '2025.03.05', read: '3분', img: bi(4), slug: 'seongsu-anma' },
-  { cat: '서울 성동', title: '왕십리 출장마사지 — 출퇴근 피로 해소 루틴', desc: '왕십리 출퇴근 피로를 해소하는 전문 루틴. 왕십리 역세권 전 숙소 방문 가능합니다.', date: '2025.03.01', read: '3분', img: bi(5), slug: 'wangsimni-massage' },
-  { cat: '서울 중구', title: '명동 출장마사지 — 보행 다음 날 회복 루틴', desc: '명동 쇼핑 후 하체 피로와 발 붓기를 빠르게 회복하는 전문 마사지 루틴입니다.', date: '2025.02.25', read: '3분', img: bi(6), slug: 'myeongdong-massage' },
-  { cat: '서울 중구', title: '을지로 출장안마 — 야간 이동 후 릴랙스 케어', desc: '을지로 야간 이동 후 피로를 빠르게 릴랙스하는 케어. 을지로 호텔·오피스텔 전 구역 방문합니다.', date: '2025.02.20', read: '3분', img: bi(7), slug: 'euljiro-massage' },
-  { cat: '경북', title: '점촌 출장마사지 — 퇴근 후 15분 리셋 스트레칭', desc: '점촌 퇴근 후 15분 안에 몸을 리셋하는 스트레칭 마사지. 문경 전 지역 방문합니다.', date: '2025.02.15', read: '3분', img: bi(8), slug: 'jeomchon-massage' },
-  { cat: '경북', title: '함창 출장마사지 — 도보/라이딩 후 하체 회복 루틴', desc: '함창 도보와 라이딩 후 하체를 완벽하게 회복하는 림프 마사지 루틴입니다.', date: '2025.02.10', read: '3분', img: bi(9), slug: 'hamchang-massage' },
-  { cat: '경북', title: '금호 출장마사지 — 트레킹/도보 후 하체 회복 루틴', desc: '금호 트레킹과 도보 후 하체를 가볍게 만들어주는 림프 & 스트레칭 케어입니다.', date: '2025.02.05', read: '3분', img: bi(0), slug: 'geumho-massage' },
-  { cat: '경기', title: '여주역 출장마사지 — 환승일 15분 리셋 루틴', desc: '여주역 환승 피로를 15분 안에 리셋하는 집중 케어. 여주 전 지역 30분 내 배정합니다.', date: '2025.02.01', read: '3분', img: bi(1), slug: 'yeoju-station-relax-guide' },
-  { cat: '경기', title: '생연/송내 출장안마 회복 체크리스트 — 운전/외근 다음 날 가벼움', desc: '부천 생연·송내 운전과 외근 다음 날 몸을 가볍게 만드는 회복 체크리스트와 케어 루틴입니다.', date: '2025.01.25', read: '3분', img: bi(2), slug: 'saengyeon-songnae-massage-recovery' },
-  { cat: '경남', title: '마산항 일정 후 근막 케어 — 창원', desc: '창원 마산항 일정 후 쌓인 근막 피로를 전문적으로 케어하는 출장 마사지 서비스입니다.', date: '2025.01.20', read: '3분', img: bi(3), slug: 'changwon-masan-port-fascia-care' },
-  { cat: '경남', title: '용지호수 산책 후 하체 회복 — 창원', desc: '창원 용지호수 산책 후 하체를 빠르게 회복하는 림프 드레나쥐 케어 루틴입니다.', date: '2025.01.15', read: '3분', img: bi(4), slug: 'changwon-yongji-lake-recovery' },
-  { cat: '경남', title: '창원산단 교대 다음 날 리셋 루틴', desc: '창원 산업단지 교대 근무 다음 날 몸을 완벽하게 리셋하는 전문 마사지 루틴입니다.', date: '2025.01.10', read: '3분', img: bi(5), slug: 'changwon-sandan-shift-reset' },
-  { cat: '경북', title: '금오산 산책·등반 근막 케어 — 구미', desc: '구미 금오산 산책과 등반 후 근막 피로를 전문적으로 케어하는 출장 마사지입니다.', date: '2025.01.05', read: '3분', img: bi(6), slug: 'gumi-geumo-fascia-care' },
-  { cat: '경북', title: '낙동강 수변 러닝 후 회복 — 구미', desc: '구미 낙동강 수변 러닝 후 하체를 빠르게 회복하는 림프 마사지 루틴입니다.', date: '2025.01.01', read: '3분', img: bi(7), slug: 'gumi-nakdong-river-recovery' },
-  { cat: '세종', title: '청사 데스크 워커 15분 리셋', desc: '세종 정부청사 데스크 워커를 위한 15분 집중 리셋 루틴. 어깨·목·허리를 빠르게 케어합니다.', date: '2024.12.25', read: '3분', img: bi(8), slug: 'sejong-office-deskworker-15min-reset' },
-  { cat: '울산', title: '울산대공원 걷기 후 하체 회복', desc: '울산대공원 걷기 후 하체를 가볍게 만들어주는 림프 마사지. 울산 전 지역 30분 내 배정합니다.', date: '2024.12.20', read: '3분', img: bi(9), slug: 'ulsandaegongwon-walking-leg-recovery' },
-  { cat: '울산', title: '삼산 상권 근무자 15분 리셋 — 울산', desc: '울산 삼산 상권 근무자를 위한 15분 리셋 루틴. 퇴근 후 빠른 회복을 도와드립니다.', date: '2024.12.15', read: '3분', img: bi(0), slug: 'samsan-business-15min-reset-ulsan-namgu' },
-  { cat: '울산', title: '태화강 러닝 후 하체 회복 — 울산', desc: '울산 태화강 러닝 후 하체를 완벽하게 회복하는 림프 드레나쥐 케어입니다.', date: '2024.12.10', read: '3분', img: bi(1), slug: 'taehwagang-running-leg-recovery' },
-  { cat: '경기', title: '광교 출퇴근 루틴 — 15분 경흉부 스트레칭 + 45분 릴랙스', desc: '광교 출퇴근 직장인을 위한 15분 경흉부 스트레칭과 45분 딥 릴랙스 패키지 케어입니다.', date: '2024.12.05', read: '3분', img: bi(2), slug: 'gwanggyo-commute-routine' },
-  { cat: '서울 노원', title: '불암산 새벽 산책 후 — 10분 하체 스트레칭 + 40분 림프 드레이닝', desc: '불암산 새벽 산책 후 하체를 10분 스트레칭과 40분 림프 드레이닝으로 완벽하게 회복합니다.', date: '2024.12.01', read: '3분', img: bi(3), slug: 'buramsan-morning-lymph-recovery' },
-  { cat: '서울 노원', title: '공릉 출퇴근 루틴 — 8분 경흉부 폼릴리즈 + 35분 스웨디시', desc: '공릉동 출퇴근 피로를 8분 폼릴리즈와 35분 스웨디시로 해소하는 맞춤 케어입니다.', date: '2024.11.25', read: '3분', img: bi(4), slug: 'gongneung-commute-routine' },
-  { cat: '서울 용산', title: '이촌 한강 러닝 후 회복 체크리스트', desc: '이촌 한강 러닝 후 완벽한 회복을 위한 체크리스트와 전문 마사지 케어 루틴입니다.', date: '2024.11.20', read: '3분', img: bi(5), slug: 'ichon-hangang-running-recovery' },
-  { cat: '서울 용산', title: '이태원 주말 예약 타이밍 — 교통·주차·보안 출입', desc: '이태원 주말 예약 시 최적의 타이밍과 교통·주차·보안 출입 노하우를 안내합니다.', date: '2024.11.15', read: '3분', img: bi(6), slug: 'itaewon-weekend-reservation' },
-  { cat: '이용 가이드', title: '스웨디시 vs 스포츠 마사지', desc: '스웨디시와 스포츠 마사지의 차이점과 효과를 상세히 비교. 나에게 맞는 코스를 선택하는 가이드입니다.', date: '2024.11.10', read: '5분', img: bi(7), slug: 'swedish-vs-sports-massage' },
-  { cat: '서울', title: '서울 24시간 출장마사지', desc: '서울 전 지역 24시간 즉시 배정. 새벽·심야에도 동일한 퀄리티의 프리미엄 출장 마사지 서비스입니다.', date: '2024.11.05', read: '4분', img: bi(8), slug: 'seoul-24h-massage-night-tips' },
-  { cat: '서울', title: '서울 출장마사지 효과&추천 코스', desc: '서울 출장마사지의 효과와 추천 코스를 총정리. 상황별 최적 코스 선택 방법을 안내합니다.', date: '2024.11.01', read: '5분', img: bi(9), slug: 'seoul-massage-benefits-guide' },
-  { cat: '이용 가이드', title: '서울출장마사지 첫 이용 가이드', desc: '서울 출장마사지 처음 이용하시는 분들을 위한 완벽 가이드. 예약부터 이용 후기까지 모두 담았습니다.', date: '2024.10.25', read: '6분', img: bi(0), slug: 'seoul-first-time-home-thai-checklist' },
-]
 
 function Stars({ count }: { count: number }) {
   return <span className="text-rose-400">{'★'.repeat(count)}</span>
@@ -321,7 +198,7 @@ function CityModal({ city, therapists, onClose }: {
           <div className="px-6 py-5 flex items-center justify-between" style={{ borderBottom: '1px solid #fce8ef' }}>
             <div>
               <div className="text-xs tracking-widest mb-0.5" style={{ color: '#c0406a' }}>상담 가능 테라피스트</div>
-              <h3 style={{ fontFamily: "'NexonLv1Gothic', sans-serif", fontSize: '1.4rem', color: '#3a1828', fontWeight: 400 }}>
+              <h3 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: '1.4rem', color: '#3a1828', fontWeight: 400 }}>
                 {city} 배정 가능
               </h3>
             </div>
@@ -338,7 +215,7 @@ function CityModal({ city, therapists, onClose }: {
                   style={{ paddingTop: '120%' }}
                   onClick={() => setZoomedImg({ src: t.img, name: t.name })}
                 >
-                  <img src={t.img} alt={t.name}
+                  <img loading="lazy" decoding="async" src={t.img} alt={t.name}
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-300 hover:scale-105" />
                   {/* 확대 힌트 */}
                   <div className="absolute top-2 left-2 w-6 h-6 flex items-center justify-center rounded-full opacity-80"
@@ -401,7 +278,7 @@ function CityModal({ city, therapists, onClose }: {
               className="rounded-2xl shadow-2xl"
               style={{ maxHeight: '80vh', maxWidth: '90vw', objectFit: 'contain' }}
             />
-            <span className="text-sm font-medium" style={{ color: '#fda4b2', fontFamily: "'NexonLv1Gothic', sans-serif", fontSize: '1.1rem' }}>
+            <span className="text-sm font-medium" style={{ color: '#fda4b2', fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: '1.1rem' }}>
               {zoomedImg.name}
             </span>
           </div>
@@ -478,18 +355,18 @@ function ContactFaqItem({ faq }: { faq: { q: string; a: string } }) {
 
 const REVIEW_REGIONS = [
   { region: '서울특별시', cases: [
-    { area: '강남', course: '스웨디시', badges: ['Verified', '고객방문형', '후불제', '야간'], text: '압 조절이 정확하고 마무리 스트레칭까지 꼼꼼하게 해주셨어요. 최고였습니다.' },
+    { area: '강남', course: '스웨디시', badges: ['Verified', '고객방문형', '기존 고객 후불', '야간'], text: '압 조절이 정확하고 마무리 스트레칭까지 꼼꼼하게 해주셨어요. 최고였습니다.' },
     { area: '마포', course: '아로마', badges: ['Verified', '호텔', '심야'], text: '향이 은은하고 림프 케어가 섬세해요. 심야인데도 빠른 배정 감사합니다.' },
     { area: '용산', course: '딥티슈', badges: ['자택'], text: '뭉친 어깨가 단번에 풀렸습니다. 딥티슈가 이렇게 시원한지 몰랐어요.' },
   ]},
   { region: '경기도', cases: [
-    { area: '수원', course: '스포츠', badges: ['Verified', '자택', '후불제'], text: '딥티슈가 시원하고 회복이 빨랐어요. 다음에도 꼭 이용하겠습니다.' },
+    { area: '수원', course: '스포츠', badges: ['Verified', '자택', '기존 고객 후불'], text: '딥티슈가 시원하고 회복이 빨랐어요. 다음에도 꼭 이용하겠습니다.' },
     { area: '성남', course: '림프', badges: ['Verified', '호텔'], text: '부종이 가볍게 빠졌습니다. 다리가 눈에 띄게 가벼워졌어요.' },
     { area: '부천', course: '스웨디시', badges: ['야간'], text: '편안해서 금방 잠들었어요. 야간 배정도 빠르고 친절했습니다.' },
   ]},
   { region: '인천광역시', cases: [
     { area: '송도', course: '아로마', badges: ['Verified', '호텔'], text: '향과 터치가 완벽했습니다. 호텔에서 받으니 더욱 특별했어요.' },
-    { area: '부평', course: '림프', badges: ['후불제', '자택'], text: '부종이 바로 가벼워졌어요. 후불제라 믿고 이용할 수 있었습니다.' },
+    { area: '부평', course: '림프', badges: ['기존 고객 후불', '자택'], text: '부종이 바로 가벼워졌어요. 후불제라 믿고 이용할 수 있었습니다.' },
     { area: '계양', course: '스포츠', badges: ['Verified'], text: '핵심만 정확히 풀어줍니다. 운동 후 피로 회복에 딱이었어요.' },
   ]},
   { region: '부산광역시', cases: [
@@ -499,27 +376,27 @@ const REVIEW_REGIONS = [
   ]},
   { region: '대구광역시', cases: [
     { area: '수성', course: '딥티슈', badges: ['Verified', '자택'], text: '핵심을 정확히 눌러줘요. 자택 방문이라 이동 없이 편하게 받았습니다.' },
-    { area: '동성로', course: '아로마', badges: ['Verified', '후불제'], text: '은은한 향과 섬세한 케어가 인상적. 후불제라 신뢰가 갔어요.' },
+    { area: '동성로', course: '아로마', badges: ['Verified', '기존 고객 후불'], text: '은은한 향과 섬세한 케어가 인상적. 후불제라 신뢰가 갔어요.' },
     { area: '달서', course: '스포츠', badges: ['야간'], text: '뭉친 부위만 시원하게 공략합니다. 심야 배정도 빠르게 해주셨어요.' },
   ]},
   { region: '광주광역시', cases: [
     { area: '상무지구', course: '스포츠', badges: ['Verified', '호텔'], text: '강약 조절이 완벽합니다. 호텔에서 프로 케어를 받은 느낌이었어요.' },
-    { area: '첨단', course: '림프', badges: ['Verified', '후불제'], text: '부종 관리에 효과적이었어요. 다음날 몸이 확실히 달랐습니다.' },
+    { area: '첨단', course: '림프', badges: ['Verified', '기존 고객 후불'], text: '부종 관리에 효과적이었어요. 다음날 몸이 확실히 달랐습니다.' },
     { area: '동구', course: '스웨디시', badges: ['자택'], text: '편안해서 푹 잤습니다. 자택 방문이라 더 편안하게 받을 수 있었어요.' },
   ]},
   { region: '대전광역시', cases: [
     { area: '유성', course: '스웨디시', badges: ['Verified', '자택'], text: '호흡 맞춤 힐링이 좋았어요. 편안하게 릴랙스할 수 있었습니다.' },
-    { area: '둔산', course: '스포츠', badges: ['Verified', '후불제'], text: '뭉친 부위만 시원하게 공략. 전문적인 케어에 만족했습니다.' },
+    { area: '둔산', course: '스포츠', badges: ['Verified', '기존 고객 후불'], text: '뭉친 부위만 시원하게 공략. 전문적인 케어에 만족했습니다.' },
     { area: '정부청사', course: '림프', badges: ['오피스텔'], text: '붓기 감소 체감했어요. 오피스텔에서도 완벽한 서비스였습니다.' },
   ]},
   { region: '울산광역시', cases: [
     { area: '남구', course: '스포츠', badges: ['Verified', '자택'], text: '등·어깨가 가벼워졌습니다. 정확한 포인트 케어가 인상적이었어요.' },
-    { area: '중구', course: '림프', badges: ['Verified', '후불제'], text: '붓기가 눈에 띄게 줄었어요. 전문적인 림프 드레나쥐였습니다.' },
+    { area: '중구', course: '림프', badges: ['Verified', '기존 고객 후불'], text: '붓기가 눈에 띄게 줄었어요. 전문적인 림프 드레나쥐였습니다.' },
     { area: '동구', course: '스웨디시', badges: ['야간'], text: '편안해서 금방 잠들었어요. 야간 서비스도 퀄리티가 동일해요.' },
   ]},
   { region: '세종특별자치시', cases: [
     { area: '행정중심', course: '스웨디시', badges: ['Verified', '오피스텔'], text: '업무 피로가 싹 풀렸습니다. 오피스텔에서도 완벽한 준비물이었어요.' },
-    { area: '정부세종', course: '아로마', badges: ['Verified', '후불제'], text: '향이 은은해 숙면했어요. 다음날 컨디션이 완전히 달랐습니다.' },
+    { area: '정부세종', course: '아로마', badges: ['Verified', '기존 고객 후불'], text: '향이 은은해 숙면했어요. 다음날 컨디션이 완전히 달랐습니다.' },
     { area: '새롬동', course: '림프', badges: ['자택'], text: '붓기 완화가 확실했어요. 자택 방문으로 편하게 받았습니다.' },
   ]},
   { region: '강원특별자치도', cases: [
@@ -529,12 +406,12 @@ const REVIEW_REGIONS = [
   ]},
   { region: '충청북도', cases: [
     { area: '청주', course: '스웨디시', badges: ['Verified', '오피스텔'], text: '부드럽고 촘촘한 케어가 좋았어요. 숙면 유도 효과가 확실했습니다.' },
-    { area: '충주', course: '스포츠', badges: ['Verified', '후불제'], text: '핵심만 정확히 풀어줍니다. 후불제라 더 믿음이 갔어요.' },
+    { area: '충주', course: '스포츠', badges: ['Verified', '기존 고객 후불'], text: '핵심만 정확히 풀어줍니다. 후불제라 더 믿음이 갔어요.' },
     { area: '제천', course: '림프', badges: ['자택'], text: '붓기 관리에 효과적이었습니다. 다음날 다리가 확실히 달랐어요.' },
   ]},
   { region: '충청남도', cases: [
     { area: '천안', course: '림프', badges: ['Verified', '자택'], text: '부종이 빠르게 가벼워졌어요. 전문적인 케어에 만족했습니다.' },
-    { area: '아산', course: '스포츠', badges: ['Verified', '후불제'], text: '등·어깨 집중 케어가 만족스러워요. 재방문 의사 100%입니다.' },
+    { area: '아산', course: '스포츠', badges: ['Verified', '기존 고객 후불'], text: '등·어깨 집중 케어가 만족스러워요. 재방문 의사 100%입니다.' },
     { area: '당진', course: '스웨디시', badges: ['자택'], text: '편안해서 깊게 잤습니다. 자택 방문 서비스 강력 추천해요.' },
   ]},
   { region: '전라북도', cases: [
@@ -544,22 +421,22 @@ const REVIEW_REGIONS = [
   ]},
   { region: '전라남도', cases: [
     { area: '여수', course: '림프', badges: ['Verified', '호텔'], text: '여행 피로가 빠르게 풀렸습니다. 여수 야경과 함께 최고의 힐링이었어요.' },
-    { area: '순천', course: '스웨디시', badges: ['Verified', '후불제'], text: '편안해서 금방 잠들었어요. 후불제로 부담 없이 이용했습니다.' },
+    { area: '순천', course: '스웨디시', badges: ['Verified', '기존 고객 후불'], text: '편안해서 금방 잠들었어요. 후불제로 부담 없이 이용했습니다.' },
     { area: '목포', course: '스포츠', badges: ['자택'], text: '딥티슈가 제대로 들어갑니다. 자택 방문이라 더 편안했어요.' },
   ]},
   { region: '경상북도', cases: [
     { area: '포항', course: '스포츠', badges: ['Verified', '자택'], text: '딥티슈가 시원합니다. 운동 후 회복이 확실히 빨랐어요.' },
     { area: '경주', course: '스웨디시', badges: ['Verified', '호텔'], text: '편안한 수면을 도와줬어요. 경주 여행의 완벽한 마무리였습니다.' },
-    { area: '구미', course: '림프', badges: ['후불제'], text: '붓기 완화가 확실해요. 후불제 덕분에 믿고 첫 이용 했습니다.' },
+    { area: '구미', course: '림프', badges: ['기존 고객 후불'], text: '붓기 완화가 확실해요. 후불제 덕분에 믿고 첫 이용 했습니다.' },
   ]},
   { region: '경상남도', cases: [
     { area: '창원', course: '림프', badges: ['Verified', '자택'], text: '붓기 관리에 큰 도움이 됐어요. 전문 케어 퀄리티가 놀라웠습니다.' },
-    { area: '김해', course: '스포츠', badges: ['Verified', '후불제'], text: '핵심 근육을 정확히 풀어줍니다. 재이용 의사 100%입니다.' },
+    { area: '김해', course: '스포츠', badges: ['Verified', '기존 고객 후불'], text: '핵심 근육을 정확히 풀어줍니다. 재이용 의사 100%입니다.' },
     { area: '통영', course: '스웨디시', badges: ['호텔'], text: '편안하고 개운합니다. 통영 여행의 완벽한 힐링이었어요.' },
   ]},
   { region: '제주특별자치도', cases: [
     { area: '제주시', course: '스웨디시', badges: ['Verified', '호텔'], text: '여행 피로가 싹 풀리고 개운해요. 제주 여행 필수 코스로 추천합니다.' },
-    { area: '서귀포', course: '아로마', badges: ['Verified', '후불제'], text: '향과 터치가 편안해 금방 잠들었어요. 풀빌라에서 받으니 완벽했습니다.' },
+    { area: '서귀포', course: '아로마', badges: ['Verified', '기존 고객 후불'], text: '향과 터치가 편안해 금방 잠들었어요. 풀빌라에서 받으니 완벽했습니다.' },
     { area: '애월', course: '림프', badges: ['호텔'], text: '부종 케어 효과가 확실했습니다. 애월 감성에 최고의 힐링이었어요.' },
   ]},
 ]
@@ -574,7 +451,7 @@ function ReviewPage({ onBook }: { onBook: () => void }) {
     <section id="reviews" className="pb-24 min-h-screen" style={{ background: '#fff8fa' }}>
       {/* 메인 배너 */}
       <div className="w-full pt-14">
-        <img src="/reviews-banner.png" alt="굿데이마사지 고객후기" className="w-full" style={{ display: 'block' }} />
+        <img loading="lazy" decoding="async" src="/reviews-banner.webp" alt="굿데이마사지 고객후기" className="w-full" style={{ display: 'block' }} />
       </div>
       {/* 히어로 */}
       <div className="py-10 text-center" style={{ background: 'linear-gradient(160deg, #3a1828, #6b2040)' }}>
@@ -656,7 +533,7 @@ function ReviewPage({ onBook }: { onBook: () => void }) {
               className="inline-flex items-center justify-center gap-2 px-7 py-3 rounded-full text-sm font-medium hover:opacity-90"
               style={{ background: '#FEE500', color: '#3a1828' }}>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 5.92 2 10.8c0 3.07 1.73 5.77 4.35 7.43L5.5 22l4.13-2.17c.77.17 1.57.27 2.37.27 5.52 0 10-3.92 10-8.8S17.52 2 12 2z"/></svg>
-              카카오톡 예약
+              실시간 예약 상담
             </button>
             <a href="https://t.me/sy2267" target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 px-7 py-3 rounded-full text-sm font-medium text-white hover:opacity-90"
@@ -671,7 +548,9 @@ function ReviewPage({ onBook }: { onBook: () => void }) {
 }
 
 function BlogPage() {
-  const [selected, setSelected] = useState<typeof BLOG_POSTS[0] | null>(null)
+  const { slug } = useParams<{ slug: string }>()
+  const selected = BLOG_POSTS.find(post => post.slug === slug)
+  const navigate = useNavigate()
   const [activeCat, setActiveCat] = useState<string>('전체')
   const cats = ['전체', ...Array.from(new Set(BLOG_POSTS.map(p => p.cat)))]
   const filtered = activeCat === '전체' ? BLOG_POSTS : BLOG_POSTS.filter(p => p.cat === activeCat)
@@ -681,15 +560,15 @@ function BlogPage() {
       <article className="min-h-screen pb-24" style={{ background: 'white' }}>
         <div className="pt-20 pb-10" style={{ background: 'linear-gradient(160deg, #3a1828, #6b2040)' }}>
           <div className="max-w-3xl mx-auto px-6">
-            <button onClick={() => setSelected(null)} className="flex items-center gap-1.5 text-xs mb-6 hover:opacity-80" style={{ color: '#fda4b2' }}>
+            <button onClick={() => navigate('/blog')} className="flex items-center gap-1.5 text-xs mb-6 hover:opacity-80" style={{ color: '#fda4b2' }}>
               ← 블로그 목록
             </button>
             <span className="text-xs px-3 py-1 rounded-full mb-4 inline-block" style={{ background: 'rgba(255,164,178,0.2)', color: '#fda4b2' }}>{selected.cat}</span>
             <h1 className="mt-3 leading-snug font-medium" style={{ color: 'white', fontSize: 'clamp(1.3rem, 3vw, 2rem)' }}>{selected.title}</h1>
             <div className="flex items-center gap-3 mt-4 text-xs" style={{ color: 'rgba(255,210,225,0.6)' }}>
-              <span>{selected.date}</span>
+              <span>{selected.updated ? `수정 ${selected.updated}` : selected.date}</span>
               <span>·</span>
-              <span>읽기 {selected.read}</span>
+              <span>{selected.body?.length ? '이용 안내' : '지역 안내 요약'}</span>
             </div>
           </div>
         </div>
@@ -706,7 +585,7 @@ function BlogPage() {
             <button type="button" onClick={openCrispChat}
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium hover:opacity-90"
               style={{ background: '#FEE500', color: '#3a1828' }}>
-              카카오톡으로 예약하기
+              실시간 예약 상담
             </button>
           </div>
         </div>
@@ -718,7 +597,7 @@ function BlogPage() {
     <section id="blog" className="min-h-screen pb-24" style={{ background: '#fff8fa' }}>
       {/* 메인 배너 */}
       <div className="w-full pt-14">
-        <img src="/blog-banner.png" alt="굿데이마사지 블로그" className="w-full" style={{ display: 'block' }} />
+        <img loading="lazy" decoding="async" src="/blog-banner.webp" alt="굿데이마사지 블로그" className="w-full" style={{ display: 'block' }} />
       </div>
 
       {/* 히어로 */}
@@ -747,14 +626,14 @@ function BlogPage() {
           {filtered.map((post, i) => (
             <article key={i} className="group cursor-pointer bg-white rounded-2xl overflow-hidden border hover:shadow-lg transition-shadow"
               style={{ borderColor: '#fce8ef' }}
-              onClick={() => setSelected(post)}>
+              onClick={() => navigate(`/blog/${post.slug}`)}>
               <div className="p-5">
                 <span className="text-[10px] px-2.5 py-0.5 rounded-full" style={{ background: '#fce8ef', color: '#c0406a' }}>{post.cat}</span>
-                <h3 className="mt-3 text-sm font-medium leading-snug mb-2" style={{ color: '#3a1828' }}>{post.title}</h3>
+                <h3 className="mt-3 text-sm font-medium leading-snug mb-2" style={{ color: '#3a1828' }}><Link to={`/blog/${post.slug}`}>{post.title}</Link></h3>
                 <p className="text-xs leading-relaxed line-clamp-2 mb-3" style={{ color: '#9a607a' }}>{post.desc}</p>
                 <div className="flex items-center justify-between">
                   <span className="text-xs" style={{ color: '#c0a0a8' }}>{post.date}</span>
-                  <span className="text-xs" style={{ color: '#c0406a' }}>읽기 {post.read} →</span>
+                  <span className="text-xs" style={{ color: '#c0406a' }}>{post.body?.length ? '이용 안내' : '지역 안내 요약'} →</span>
                 </div>
               </div>
             </article>
@@ -852,7 +731,7 @@ function FaqPage() {
 function VipPage({ onClose, onGoTherapists }: { onClose: () => void; onGoTherapists: () => void }) {
   const [openFaq, setOpenFaq] = useState<number | null>(null)
   return (
-    <div className="fixed inset-0 z-[150] overflow-y-auto" style={{ background: '#fdf8f9', fontFamily: "'NexonLv1Gothic', sans-serif" }}>
+    <div className="min-h-screen pb-24" style={{ background: '#fdf8f9', fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" }}>
 
       {/* 상단 네비 */}
       <div className="sticky top-0 z-10 flex items-center gap-3 px-5 py-4 bg-white/95 backdrop-blur border-b" style={{ borderColor: '#fce8ef' }}>
@@ -866,7 +745,7 @@ function VipPage({ onClose, onGoTherapists }: { onClose: () => void; onGoTherapi
 
       {/* VIP 배너 이미지 */}
       <div className="w-full overflow-hidden" style={{ maxHeight: 340 }}>
-        <img src="/vip-banner.png" alt="굿데이마사지 VIP" className="w-full object-cover object-top" style={{ maxHeight: 340 }} />
+        <img loading="lazy" decoding="async" src="/vip-banner.webp" alt="굿데이마사지 VIP" className="w-full object-cover object-top" style={{ maxHeight: 340 }} />
       </div>
 
       {/* 히어로 */}
@@ -874,8 +753,8 @@ function VipPage({ onClose, onGoTherapists }: { onClose: () => void; onGoTherapi
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 60% 40%, #fda4b2, transparent 60%)' }} />
         <div className="relative z-10 max-w-2xl mx-auto px-6">
           <div className="text-xs tracking-widest uppercase mb-4" style={{ color: '#fda4b2' }}>PREMIUM · VIP</div>
-          <h1 style={{ fontFamily: "'NexonLv1Gothic', sans-serif", fontSize: 'clamp(2rem, 6vw, 3.5rem)', color: 'white', fontWeight: 400 }}>
-            VIP 프리미엄 힐링 코스<br /><span style={{ fontFamily: "'NexonLv1Gothic', sans-serif", fontWeight: 700, letterSpacing: '-0.02em' }}>(90분~)</span>
+          <h1 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(2rem, 6vw, 3.5rem)', color: 'white', fontWeight: 400 }}>
+            VIP 프리미엄 힐링 코스<br /><span style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontWeight: 700, letterSpacing: '-0.02em' }}>(90분~)</span>
           </h1>
           <p className="mt-4 text-sm leading-relaxed" style={{ color: 'rgba(255,210,225,0.85)' }}>
             과로·야근·출장·여행 후 완전한 회복을 위한<br />단 1%를 위한 프리미엄 케어
@@ -907,7 +786,7 @@ function VipPage({ onClose, onGoTherapists }: { onClose: () => void; onGoTherapi
 
       {/* 코스 핵심 안내 배너 */}
       <div className="w-full overflow-hidden" style={{ maxHeight: 340 }}>
-        <img src="/course-banner.png" alt="굿데이마사지 코스안내" className="w-full object-cover object-top" style={{ maxHeight: 340 }} />
+        <img loading="lazy" decoding="async" src="/course-banner.webp" alt="굿데이마사지 코스안내" className="w-full object-cover object-top" style={{ maxHeight: 340 }} />
       </div>
 
       {/* 코스 핵심 안내 */}
@@ -915,7 +794,7 @@ function VipPage({ onClose, onGoTherapists }: { onClose: () => void; onGoTherapi
         <div className="max-w-3xl mx-auto px-6">
           <div className="text-center mb-8">
             <div className="text-xs tracking-widest uppercase mb-2" style={{ color: '#c0406a' }}>Core Info</div>
-            <h2 style={{ fontFamily: "'NexonLv1Gothic', sans-serif", fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', color: '#3a1828', fontWeight: 400 }}>코스 핵심 안내</h2>
+            <h2 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', color: '#3a1828', fontWeight: 400 }}>코스 핵심 안내</h2>
           </div>
           <p className="text-sm leading-relaxed mb-8 text-center" style={{ color: '#5a3040' }}>
             단순히 "강하게만"이 아닌, 밀도와 회복을 중심으로 설계된 루틴입니다.<br />컨디션 체크 후 그날의 상태에 맞게 루틴을 조정합니다.
@@ -948,7 +827,7 @@ function VipPage({ onClose, onGoTherapists }: { onClose: () => void; onGoTherapi
         <div className="max-w-3xl mx-auto px-6">
           <div className="text-center mb-8">
             <div className="text-xs tracking-widest uppercase mb-2" style={{ color: '#c0406a' }}>Pricing</div>
-            <h2 style={{ fontFamily: "'NexonLv1Gothic', sans-serif", fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', color: '#3a1828', fontWeight: 400 }}>시간 & 가격 구성</h2>
+            <h2 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', color: '#3a1828', fontWeight: 400 }}>시간 & 가격 구성</h2>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
             {[
@@ -958,7 +837,7 @@ function VipPage({ onClose, onGoTherapists }: { onClose: () => void; onGoTherapi
             ].map(t => (
               <div key={t.time} className="rounded-2xl p-6 text-center border bg-white" style={{ borderColor: '#fce8ef' }}>
                 <div className="text-3xl mb-3">{t.icon}</div>
-                <div className="text-lg font-medium mb-1" style={{ fontFamily: "'NexonLv1Gothic', sans-serif", color: '#3a1828' }}>{t.time}</div>
+                <div className="text-lg font-medium mb-1" style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", color: '#3a1828' }}>{t.time}</div>
                 <div className="text-xl font-semibold mb-2" style={{ color: '#c0406a' }}>{t.price}</div>
                 <div className="text-xs" style={{ color: '#9a607a' }}>{t.desc}</div>
               </div>
@@ -982,7 +861,7 @@ function VipPage({ onClose, onGoTherapists }: { onClose: () => void; onGoTherapi
         <div className="max-w-3xl mx-auto px-6">
           <div className="text-center mb-8">
             <div className="text-xs tracking-widest uppercase mb-2" style={{ color: '#c0406a' }}>Reviews</div>
-            <h2 style={{ fontFamily: "'NexonLv1Gothic', sans-serif", fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', color: '#3a1828', fontWeight: 400 }}>VIP 코스 실제 이용 후기</h2>
+            <h2 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', color: '#3a1828', fontWeight: 400 }}>VIP 코스 실제 이용 후기</h2>
             <p className="mt-2 text-sm" style={{ color: '#fda4b2' }}>★★★★★ 4.9/5.0 · 인증 후기 포함</p>
           </div>
           <p className="text-xs leading-relaxed mb-6 text-center" style={{ color: '#7a4055' }}>
@@ -1014,7 +893,7 @@ function VipPage({ onClose, onGoTherapists }: { onClose: () => void; onGoTherapi
         <div className="max-w-3xl mx-auto px-6">
           <div className="text-center mb-8">
             <div className="text-xs tracking-widest uppercase mb-2" style={{ color: '#c0406a' }}>FAQ</div>
-            <h2 style={{ fontFamily: "'NexonLv1Gothic', sans-serif", fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', color: '#3a1828', fontWeight: 400 }}>자주 묻는 질문</h2>
+            <h2 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', color: '#3a1828', fontWeight: 400 }}>자주 묻는 질문</h2>
           </div>
           <div className="rounded-2xl overflow-hidden border" style={{ borderColor: '#fce8ef' }}>
             {[
@@ -1043,7 +922,7 @@ function VipPage({ onClose, onGoTherapists }: { onClose: () => void; onGoTherapi
 
       {/* 하단 CTA */}
       <div className="py-14 text-center px-6" style={{ background: 'linear-gradient(160deg, #3a1828, #6b2040)' }}>
-        <h2 style={{ fontFamily: "'NexonLv1Gothic', sans-serif", fontSize: 'clamp(1.6rem, 4vw, 2.5rem)', color: 'white', fontWeight: 400, marginBottom: '1rem' }}>
+        <h2 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(1.6rem, 4vw, 2.5rem)', color: 'white', fontWeight: 400, marginBottom: '1rem' }}>
           지금 VIP 코스를 예약하세요
         </h2>
         <p className="text-sm mb-8" style={{ color: 'rgba(255,210,225,0.8)' }}>24시간 연중무휴 · 전국 방문</p>
@@ -1052,7 +931,7 @@ function VipPage({ onClose, onGoTherapists }: { onClose: () => void; onGoTherapi
             className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-medium hover:opacity-90 transition-opacity"
             style={{ background: '#FEE500', color: '#3a1828' }}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 5.92 2 10.8c0 3.07 1.73 5.77 4.35 7.43L5.5 22l4.13-2.17c.77.17 1.57.27 2.37.27 5.52 0 10-3.92 10-8.8S17.52 2 12 2z"/></svg>
-            카카오톡 상담
+            실시간 상담
           </button>
           <a href="https://t.me/sy2267" target="_blank" rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-medium text-white hover:opacity-90 transition-opacity"
@@ -1068,9 +947,9 @@ function VipPage({ onClose, onGoTherapists }: { onClose: () => void; onGoTherapi
 function CityPage({ city, regionName, onClose }: { city: string; regionName: string; onClose: () => void }) {
   const [openFaqIdx, setOpenFaqIdx] = useState<number | null>(null)
 
-  const cityBlogs = BLOG_POSTS.filter(p => p.cat.includes(city) || p.title.includes(city) || p.desc.includes(city)).slice(0, 3)
-  const fallbackBlogs = BLOG_POSTS.slice(0, 3)
-  const displayBlogs = cityBlogs.length >= 2 ? cityBlogs : fallbackBlogs
+  const ambiguousCity = REGIONS.filter(region => region.cities.includes(city)).length > 1
+  const cityBlogs = BLOG_POSTS.filter(post => (post.cat.includes(city) || post.title.includes(city) || post.desc.includes(city)) && (!ambiguousCity || post.cat.includes(regionName) || post.title.includes(regionName))).slice(0, 3)
+  const displayBlogs = cityBlogs
 
   const routineItems = [
     {
@@ -1137,140 +1016,25 @@ function CityPage({ city, regionName, onClose }: { city: string; regionName: str
     { q: `영업시간은 어떻게 되나요?`, a: `365일 24시간 연중무휴로 운영됩니다. 새벽·이른 아침·심야에도 문의 가능합니다.` },
   ]
 
-  useEffect(() => {
-    const prev = document.title
-    document.title = `${city} 출장마사지 | 굿데이출장마사지`
-
-    let metaDesc = document.querySelector('meta[name="description"]')
-    const prevDesc = metaDesc?.getAttribute('content') ?? ''
-    if (!metaDesc) {
-      metaDesc = document.createElement('meta')
-      metaDesc.setAttribute('name', 'description')
-      document.head.appendChild(metaDesc)
-    }
-    metaDesc.setAttribute('content', `${city} 전 지역 24시간 출장마사지·출장안마·스웨디시. 호텔·오피스텔·자택 방문. 100% 실사 테라피스트 즉시 배정. 365일 연중무휴.`)
-
-    let canonical = document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null
-    const prevCanonical = canonical?.href ?? ''
-    if (!canonical) {
-      canonical = document.createElement('link')
-      canonical.rel = 'canonical'
-      document.head.appendChild(canonical)
-    }
-    canonical.href = `${window.location.origin}/cities/${encodeURIComponent(city)}`
-
-    // ① LocalBusiness JSON-LD
-    const pageUrl = `${window.location.origin}/cities/${encodeURIComponent(city)}`
-    const localBusiness = {
-      '@context': 'https://schema.org',
-      '@type': 'LocalBusiness',
-      '@id': `${pageUrl}#business`,
-      name: `굿데이출장마사지 ${city}`,
-      description: `${city} 전 지역 24시간 출장마사지·출장안마·스웨디시 서비스`,
-      url: pageUrl,
-      openingHours: 'Mo-Su 00:00-24:00',
-      areaServed: { '@type': 'City', name: city },
-      serviceType: ['출장마사지', '출장안마', '스웨디시', '홈케어'],
-      priceRange: '₩₩',
-      inLanguage: 'ko-KR',
-    }
-
-    // ② FAQ 리치스니펫 JSON-LD
-    const faqSchema = {
-      '@context': 'https://schema.org',
-      '@type': 'FAQPage',
-      mainEntity: faqs.map(f => ({
-        '@type': 'Question',
-        name: f.q,
-        acceptedAnswer: { '@type': 'Answer', text: f.a },
-      })),
-    }
-
-    // ③ BreadcrumbList JSON-LD
-    const breadcrumb = {
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        { '@type': 'ListItem', position: 1, name: '홈', item: window.location.origin },
-        { '@type': 'ListItem', position: 2, name: '지역 선택', item: `${window.location.origin}/#regions` },
-        { '@type': 'ListItem', position: 3, name: `${regionName}`, item: `${window.location.origin}/#regions` },
-        { '@type': 'ListItem', position: 4, name: `${city} 출장마사지`, item: pageUrl },
-      ],
-    }
-
-    const addJsonLd = (id: string, data: object) => {
-      const s = document.createElement('script')
-      s.type = 'application/ld+json'
-      s.id = id
-      s.textContent = JSON.stringify(data)
-      document.head.appendChild(s)
-    }
-    addJsonLd('city-jsonld-business', localBusiness)
-    addJsonLd('city-jsonld-faq', faqSchema)
-    addJsonLd('city-jsonld-breadcrumb', breadcrumb)
-
-    // ③ OpenGraph 태그
-    const ogTags: Record<string, string> = {
-      'og:type': 'website',
-      'og:url': pageUrl,
-      'og:title': `${city} 출장마사지 | 굿데이출장마사지`,
-      'og:description': `${city} 전 지역 24시간 출장마사지·출장안마·스웨디시. 호텔·오피스텔·자택 방문. 365일 연중무휴.`,
-      'og:locale': 'ko_KR',
-      'og:site_name': '굿데이출장마사지',
-      'twitter:card': 'summary_large_image',
-      'twitter:title': `${city} 출장마사지 | 굿데이출장마사지`,
-      'twitter:description': `${city} 전 지역 24시간 출장마사지·출장안마·스웨디시. 365일 연중무휴.`,
-    }
-    const prevOg: Record<string, string> = {}
-    Object.entries(ogTags).forEach(([prop, content]) => {
-      const attr = prop.startsWith('twitter:') ? 'name' : 'property'
-      let el = document.querySelector(`meta[${attr}="${prop}"]`) as HTMLMetaElement | null
-      prevOg[prop] = el?.content ?? ''
-      if (!el) {
-        el = document.createElement('meta')
-        el.setAttribute(attr, prop)
-        el.dataset.cityOg = '1'
-        document.head.appendChild(el)
-      }
-      el.content = content
-    })
-
-    return () => {
-      document.title = prev
-      document.querySelector('meta[name="description"]')?.setAttribute('content', prevDesc)
-      if (prevCanonical) {
-        (document.querySelector('link[rel="canonical"]') as HTMLLinkElement | null)?.setAttribute('href', prevCanonical)
-      }
-      document.getElementById('city-jsonld-business')?.remove()
-      document.getElementById('city-jsonld-faq')?.remove()
-      document.getElementById('city-jsonld-breadcrumb')?.remove()
-      Object.entries(ogTags).forEach(([prop]) => {
-        const attr = prop.startsWith('twitter:') ? 'name' : 'property'
-        const el = document.querySelector(`meta[${attr}="${prop}"]`) as HTMLMetaElement | null
-        if (el?.dataset.cityOg) el.remove()
-        else if (el) el.content = prevOg[prop] ?? ''
-      })
-    }
-  }, [city, regionName])
 
   return (
     <div
-      className="fixed inset-0 z-[150] overflow-y-auto"
-      style={{ background: '#fdf8f9', fontFamily: "'NexonLv1Gothic', sans-serif" }}
+      className="min-h-screen pb-24"
+      style={{ background: '#fdf8f9', fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" }}
     >
       {/* 상단 네비 */}
       <div className="sticky top-0 z-10 flex items-center gap-3 px-5 py-4 bg-white/95 backdrop-blur border-b" style={{ borderColor: '#fce8ef' }}>
-        <button onClick={onClose} className="flex items-center gap-1.5 text-sm" style={{ color: '#c0406a' }}>
+        <Link to="/cities" className="flex items-center gap-1.5 text-sm" style={{ color: '#c0406a' }}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
           지역 목록
-        </button>
+        </Link>
         <span style={{ color: '#fce8ef' }}>|</span>
         <span className="text-sm" style={{ color: '#7a4055' }}>{regionName} · {city}</span>
       </div>
 
       {/* 브랜드 배너 이미지 */}
       <div className="w-full" style={{ background: 'white' }}>
-        <img src="/city-banner.png" alt="굿데이마사지 브랜드 배너" className="w-full object-cover" style={{ maxHeight: '340px', objectPosition: 'center' }} />
+        <img loading="lazy" decoding="async" src="/city-banner.webp" alt="굿데이마사지 브랜드 배너" className="w-full object-cover" style={{ maxHeight: '340px', objectPosition: 'center' }} />
       </div>
 
       {/* ① 히어로 */}
@@ -1278,8 +1042,8 @@ function CityPage({ city, regionName, onClose }: { city: string; regionName: str
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 70% 40%, #fda4b2, transparent 60%)' }} />
         <div className="relative z-10 max-w-3xl mx-auto px-6">
           <div className="text-xs tracking-widest uppercase mb-4" style={{ color: '#fda4b2' }}>출장마사지 · 홈케어</div>
-          <h1 style={{ fontFamily: "'NexonLv1Gothic', sans-serif", fontSize: 'clamp(1.5rem, 4vw, 2.6rem)', color: 'white', fontWeight: 400, lineHeight: 1.3 }}>
-            {city} 출장마사지 | 그대에게로<br />찾아가는 프리미엄 홈케어
+          <h1 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(1.5rem, 4vw, 2.6rem)', color: 'white', fontWeight: 400, lineHeight: 1.3 }}>
+            {regionName} {city} 출장마사지 | 그대에게로<br />찾아가는 프리미엄 홈케어
           </h1>
           <p className="mt-5 text-sm leading-relaxed" style={{ color: 'rgba(255,210,225,0.85)' }}>
             {city} 전 지역 자택·호텔·오피스텔로 전문 테라피스트가 직접 방문합니다.<br />
@@ -1312,7 +1076,7 @@ function CityPage({ city, regionName, onClose }: { city: string; regionName: str
           </div>
 
           <div className="flex flex-wrap gap-2 mt-6">
-            {['365일 24시간', '100% 실사 프로필', '후불 결제', '번호 공개 없음'].map(b => (
+            {['365일 24시간', '100% 실사 프로필', '신규 선불·기존 후불', '번호 공개 없음'].map(b => (
               <span key={b} className="text-xs px-3 py-1 rounded-full" style={{ background: 'rgba(255,164,178,0.15)', color: '#fda4b2', border: '1px solid rgba(255,164,178,0.25)' }}>✓ {b}</span>
             ))}
           </div>
@@ -1324,7 +1088,7 @@ function CityPage({ city, regionName, onClose }: { city: string; regionName: str
         <div className="max-w-3xl mx-auto px-6">
           <div className="text-center mb-8">
             <div className="text-xs tracking-widest uppercase mb-2" style={{ color: '#c0406a' }}>Response Time</div>
-            <h2 style={{ fontFamily: "'NexonLv1Gothic', sans-serif", fontSize: 'clamp(1.4rem, 3vw, 2rem)', color: '#3a1828', fontWeight: 400 }}>
+            <h2 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(1.4rem, 3vw, 2rem)', color: '#3a1828', fontWeight: 400 }}>
               {city} 권역별 예상 배정 시간
             </h2>
           </div>
@@ -1353,14 +1117,14 @@ function CityPage({ city, regionName, onClose }: { city: string; regionName: str
         <div className="max-w-3xl mx-auto px-6">
           <div className="mb-5">
             <div className="text-xs tracking-widest uppercase mb-1" style={{ color: '#c0406a' }}>Service Area</div>
-            <h2 style={{ fontFamily: "'NexonLv1Gothic', sans-serif", fontSize: 'clamp(1.2rem, 2.5vw, 1.6rem)', color: '#3a1828', fontWeight: 400 }}>
+            <h2 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(1.2rem, 2.5vw, 1.6rem)', color: '#3a1828', fontWeight: 400 }}>
               {city} 서비스 권역
             </h2>
           </div>
           <div className="rounded-2xl overflow-hidden border" style={{ borderColor: '#fce8ef' }}>
             <iframe
               title={`${city} 지도`}
-              src={`https://maps.google.com/maps?q=${encodeURIComponent(city)}&output=embed&z=12&hl=ko`}
+              src={`https://maps.google.com/maps?q=${encodeURIComponent(`${regionName} ${city}`)}&output=embed&z=12&hl=ko`}
               width="100%"
               height="360"
               style={{ border: 0, display: 'block' }}
@@ -1378,7 +1142,7 @@ function CityPage({ city, regionName, onClose }: { city: string; regionName: str
         <div className="max-w-3xl mx-auto px-6">
           <div className="mb-10">
             <div className="text-xs tracking-widest uppercase mb-2" style={{ color: '#c0406a' }}>Recovery Routine</div>
-            <h2 style={{ fontFamily: "'NexonLv1Gothic', sans-serif", fontSize: 'clamp(1.4rem, 3vw, 2rem)', color: '#3a1828', fontWeight: 400 }}>
+            <h2 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(1.4rem, 3vw, 2rem)', color: '#3a1828', fontWeight: 400 }}>
               {city} 동선 & 회복 루틴
             </h2>
             <p className="mt-2 text-sm" style={{ color: '#9a607a' }}>
@@ -1411,7 +1175,7 @@ function CityPage({ city, regionName, onClose }: { city: string; regionName: str
         <div className="max-w-3xl mx-auto px-6">
           <div className="mb-8">
             <div className="text-xs tracking-widest uppercase mb-2" style={{ color: '#c0406a' }}>Blog</div>
-            <h2 style={{ fontFamily: "'NexonLv1Gothic', sans-serif", fontSize: 'clamp(1.4rem, 3vw, 2rem)', color: '#3a1828', fontWeight: 400 }}>
+            <h2 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(1.4rem, 3vw, 2rem)', color: '#3a1828', fontWeight: 400 }}>
               {city} 출장마사지 블로그
             </h2>
             <p className="text-xs mt-2" style={{ color: '#9a607a' }}>{city} 동선에 맞춘 회복 인사이트</p>
@@ -1423,7 +1187,7 @@ function CityPage({ city, regionName, onClose }: { city: string; regionName: str
                   {i + 1}
                 </div>
                 <div>
-                  <h3 className="text-sm font-medium leading-snug mb-1" style={{ color: '#3a1828' }}>{post.title}</h3>
+                  <h3 className="text-sm font-medium leading-snug mb-1" style={{ color: '#3a1828' }}><Link to={`/blog/${post.slug}`}>{post.title}</Link></h3>
                   <p className="text-xs leading-relaxed line-clamp-2" style={{ color: '#9a607a' }}>{post.desc}</p>
                   <div className="flex items-center gap-2 mt-2">
                     <span className="text-[10px] px-2 py-0.5 rounded-full" style={{ background: '#fce8ef', color: '#c0406a' }}>{post.cat}</span>
@@ -1441,7 +1205,7 @@ function CityPage({ city, regionName, onClose }: { city: string; regionName: str
         <div className="max-w-3xl mx-auto px-6">
           <div className="mb-8">
             <div className="text-xs tracking-widest uppercase mb-2" style={{ color: '#c0406a' }}>Reviews</div>
-            <h2 style={{ fontFamily: "'NexonLv1Gothic', sans-serif", fontSize: 'clamp(1.4rem, 3vw, 2rem)', color: '#3a1828', fontWeight: 400 }}>
+            <h2 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(1.4rem, 3vw, 2rem)', color: '#3a1828', fontWeight: 400 }}>
               {city} 출장마사지 고객 후기
             </h2>
             <p className="text-xs mt-2" style={{ color: '#9a607a' }}>{city} 일대 실제 이용 사례</p>
@@ -1468,7 +1232,7 @@ function CityPage({ city, regionName, onClose }: { city: string; regionName: str
         <div className="max-w-3xl mx-auto px-6">
           <div className="text-center mb-8">
             <div className="text-xs tracking-widest uppercase mb-2" style={{ color: '#c0406a' }}>FAQ</div>
-            <h2 style={{ fontFamily: "'NexonLv1Gothic', sans-serif", fontSize: 'clamp(1.4rem, 3vw, 2rem)', color: '#3a1828', fontWeight: 400 }}>
+            <h2 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(1.4rem, 3vw, 2rem)', color: '#3a1828', fontWeight: 400 }}>
               {city} FAQ / 자주 묻는 질문
             </h2>
           </div>
@@ -1504,7 +1268,7 @@ function CityPage({ city, regionName, onClose }: { city: string; regionName: str
 
       {/* ⑨ 하단 CTA */}
       <div className="py-14 text-center px-6" style={{ background: 'linear-gradient(160deg, #3a1828, #6b2040)' }}>
-        <h2 style={{ fontFamily: "'NexonLv1Gothic', sans-serif", fontSize: 'clamp(1.6rem, 4vw, 2.5rem)', color: 'white', fontWeight: 400, marginBottom: '1rem' }}>
+        <h2 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(1.6rem, 4vw, 2.5rem)', color: 'white', fontWeight: 400, marginBottom: '1rem' }}>
           지금 바로 예약하세요
         </h2>
         <p className="text-sm mb-8" style={{ color: 'rgba(255,210,225,0.8)' }}>24시간 연중무휴 · {city} 전 지역 방문</p>
@@ -1513,7 +1277,7 @@ function CityPage({ city, regionName, onClose }: { city: string; regionName: str
             className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-medium hover:opacity-90 transition-opacity"
             style={{ background: '#FEE500', color: '#3a1828' }}>
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 5.92 2 10.8c0 3.07 1.73 5.77 4.35 7.43L5.5 22l4.13-2.17c.77.17 1.57.27 2.37.27 5.52 0 10-3.92 10-8.8S17.52 2 12 2z"/></svg>
-            카카오톡 상담
+            실시간 상담
           </button>
           <a href="https://t.me/sy2267" target="_blank" rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 px-8 py-4 rounded-full font-medium text-white hover:opacity-90 transition-opacity"
@@ -1533,22 +1297,20 @@ function CityPage({ city, regionName, onClose }: { city: string; regionName: str
           <span>📞</span>
           <span>예약하기</span>
         </button>
-        <button
-          onClick={onClose}
+        <Link to="/therapists"
           className="flex-1 flex flex-col items-center justify-center py-3 gap-0.5 text-xs font-medium border-l border-r"
           style={{ background: 'linear-gradient(135deg, #f9a8b8, #e05080)', color: 'white', borderColor: '#fce8ef' }}
         >
           <span>🔥</span>
           <span>테라피스트 보기</span>
-        </button>
-        <button
-          onClick={onClose}
+        </Link>
+        <Link to="/services"
           className="flex-1 flex flex-col items-center justify-center py-3 gap-0.5 text-xs font-medium"
           style={{ background: 'white', color: '#c0406a' }}
         >
           <span>📋</span>
           <span>코스안내</span>
-        </button>
+        </Link>
       </div>
 
     </div>
@@ -1643,16 +1405,16 @@ function CitiesDirectory() {
                 </div>
                 <div className="flex flex-wrap gap-x-5 gap-y-2">
                   {region.cities.map(city => (
-                    <button
+                    <Link
                       key={city}
-                      onClick={() => navigate(`/cities/${encodeURIComponent(city)}`)}
+                      to={cityPath(region.name, city)}
                       className="text-sm transition-colors text-left hover:underline"
                       style={{ color: '#5a3040' }}
                       onMouseEnter={e => (e.currentTarget.style.color = '#c0406a')}
                       onMouseLeave={e => (e.currentTarget.style.color = '#5a3040')}
                     >
                       {city}
-                    </button>
+                    </Link>
                   ))}
                 </div>
               </div>
@@ -1677,7 +1439,7 @@ function CitiesPage() {
         <div className="absolute inset-0 opacity-10" style={{ backgroundImage: 'radial-gradient(circle at 70% 50%, #fda4b2, transparent 60%)' }} />
         <div className="relative z-10 max-w-2xl mx-auto px-6">
           <div className="text-xs tracking-widest uppercase mb-4" style={{ color: '#fda4b2' }}>지역 선택 · Coverage</div>
-          <h2 style={{ fontFamily: "'NexonLv1Gothic', sans-serif", fontSize: 'clamp(2rem, 5vw, 3.5rem)', color: 'white', fontWeight: 400 }}>
+          <h2 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(2rem, 5vw, 3.5rem)', color: 'white', fontWeight: 400 }}>
             굿데이 마사지 서비스 지역
           </h2>
           <p className="mt-3 mb-8 text-sm" style={{ color: 'rgba(255,220,230,0.8)' }}>
@@ -1707,7 +1469,7 @@ function CitiesPage() {
             {filtered.map(r => (
               <div key={r.name}>
                 <div className="flex items-center gap-3 mb-4">
-                  <h3 className="font-medium" style={{ fontFamily: "'NexonLv1Gothic', sans-serif", fontSize: '1.4rem', color: '#3a1828' }}>{r.name} 출장마사지</h3>
+                  <h3 className="font-medium" style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: '1.4rem', color: '#3a1828' }}>{r.name} 출장마사지</h3>
                   <div className="flex-1 h-px" style={{ background: '#fce8ef' }} />
                   <span className="text-xs" style={{ color: '#c0a0a8' }}>{r.cities.length}개 지역</span>
                 </div>
@@ -1757,7 +1519,7 @@ function RegionTabs() {
       <div className="max-w-5xl mx-auto px-6">
         <div className="text-center mb-10">
           <div className="text-xs tracking-widest uppercase mb-3" style={{ color: '#c0406a' }}>Area Guide</div>
-          <h3 style={{ fontFamily: "'NexonLv1Gothic', sans-serif", fontSize: 'clamp(1.6rem, 3vw, 2.2rem)', color: '#3a1828', fontWeight: 400 }}>권역별 케어 가이드</h3>
+          <h3 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(1.6rem, 3vw, 2.2rem)', color: '#3a1828', fontWeight: 400 }}>권역별 케어 가이드</h3>
         </div>
         {/* Tab buttons */}
         <div className="flex flex-col sm:flex-row gap-2 mb-8">
@@ -1769,7 +1531,7 @@ function RegionTabs() {
                 color: active === i ? 'white' : '#7a4055',
                 border: `1px solid ${active === i ? 'transparent' : '#fce8ef'}`,
               }}>
-              <span style={{ fontFamily: "'NexonLv1Gothic', sans-serif", fontSize: '1.1rem', fontWeight: 600 }}>{i + 1}</span>
+              <span style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: '1.1rem', fontWeight: 600 }}>{i + 1}</span>
               <span className="text-xs text-left leading-tight">{t.label}</span>
             </button>
           ))}
@@ -1896,46 +1658,44 @@ export default function App() {
   const [lightboxImg, setLightboxImg] = useState<{ src: string; name: string } | null>(null)
   const [transitioning, setTransitioning] = useState(false)
   const [showVip, setShowVip] = useState(false)
-  const [currentPage, setCurrentPage] = useState(() => {
-    const pageFromHash = window.location.hash.replace('#', '')
-    return NAV_ITEMS.some(item => item.href === `#${pageFromHash}`) ? pageFromHash : 'home'
-  })
-
+  const location = useLocation()
+  const navigate = useNavigate()
+  const pageKey = Object.keys(PAGE_PATHS).find(key => PAGE_PATHS[key] === location.pathname)
+  const currentPage = location.pathname.startsWith('/blog/') ? 'blog' : (pageKey ?? 'home')
   const navigateTo = useCallback((href: string) => {
-    setTransitioning(true)
     setMenuOpen(false)
-    setTimeout(() => {
-      const id = href.replace('#', '')
-      setCurrentPage(id)
-      const nextUrl = id === 'home'
-        ? `${window.location.pathname}${window.location.search}`
-        : href
-      window.history.replaceState(null, '', nextUrl)
-      setTransitioning(false)
-      window.scrollTo(0, 0)
-    }, 350)
-  }, [])
+    navigate(PAGE_PATHS[href.replace('#', '')] ?? '/')
+  }, [navigate])
+
+  useEffect(() => {
+    const legacyPage = location.hash.slice(1)
+    if (location.pathname === '/' && PAGE_PATHS[legacyPage]) {
+      navigate(PAGE_PATHS[legacyPage], { replace: true })
+    }
+    window.scrollTo(0, 0)
+  }, [location.pathname, location.hash, navigate])
 
   return (
     <PullToRefresh>
-      <div className="min-h-screen overflow-x-hidden" style={{ fontFamily: "'NexonLv1Gothic', sans-serif", background: '#fdf8f9' }}>
+      <div className="min-h-screen overflow-x-hidden" style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", background: '#fdf8f9' }}>
 
+      {currentPage !== 'home' && !(currentPage === 'blog' && location.pathname !== '/blog') && <h1 className="pt-20 px-6 text-xl font-semibold text-center">{NAV_ITEMS.find(item => item.href === `#${currentPage}`)?.label}</h1>}
       {showVip && <VipPage onClose={() => setShowVip(false)} onGoTherapists={() => { setShowVip(false); navigateTo('#therapists') }} />}
 
       {/* ── TOP NAV ── */}
       <header className="fixed top-0 inset-x-0 z-50 bg-white/95 backdrop-blur-md border-b border-rose-100">
         <div className="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
-          <button onClick={() => navigateTo('#home')} className="flex flex-col leading-none">
-            <span style={{ fontFamily: "'NexonLv1Gothic', sans-serif", fontSize: '1.4rem', fontWeight: 600, color: '#c0406a', letterSpacing: '0.05em' }}>굿데이</span>
+          <Link to="/" className="flex flex-col leading-none">
+            <span style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: '1.4rem', fontWeight: 600, color: '#c0406a', letterSpacing: '0.05em' }}>굿데이</span>
             <span style={{ fontSize: '0.65rem', color: '#000000', letterSpacing: '0.15em', fontWeight: 700 }}>출장마사지</span>
-          </button>
+          </Link>
           {/* Desktop */}
           <nav className="hidden lg:flex items-center gap-6">
             {NAV_ITEMS.map(item => {
               const pageId = item.href.replace('#', '')
               const active = currentPage === pageId
               return (
-                <button key={item.label} onClick={() => navigateTo(item.href)}
+                <Link key={item.label} to={PAGE_PATHS[item.href.slice(1)]} onClick={() => setMenuOpen(false)}
                   className="text-xs transition-colors tracking-wide whitespace-nowrap relative"
                   style={{ color: active ? '#c0406a' : undefined }}
                   >
@@ -1943,7 +1703,7 @@ export default function App() {
                     {item.label}
                   </span>
                   {active && <span className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full" style={{ background: '#c0406a' }} />}
-                </button>
+                </Link>
               )
             })}
           </nav>
@@ -1953,7 +1713,7 @@ export default function App() {
             📞 1:1 예약 문의
           </button>
           {/* Mobile hamburger */}
-          <button className="lg:hidden flex items-center gap-1.5 p-1" onClick={() => setMenuOpen(!menuOpen)} style={{ color: '#c0406a' }}>
+          <button aria-label={menuOpen ? '메뉴 닫기' : '더보기'} aria-expanded={menuOpen} className="lg:hidden flex items-center gap-1.5 p-1" onClick={() => setMenuOpen(!menuOpen)} style={{ color: '#c0406a' }}>
             <svg width="22" height="22" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
               {menuOpen
                 ? <path d="M6 18L18 6M6 6l12 12" strokeLinecap="round" />
@@ -1965,10 +1725,10 @@ export default function App() {
         {menuOpen && (
           <div className="lg:hidden bg-white border-t border-rose-50 px-4 py-3 flex flex-col gap-1">
             {NAV_ITEMS.map(item => (
-              <button key={item.label} onClick={() => navigateTo(item.href)}
+              <Link key={item.label} to={PAGE_PATHS[item.href.slice(1)]} onClick={() => setMenuOpen(false)}
                 className="text-sm text-rose-900/70 hover:text-rose-500 py-2 text-left border-b border-rose-50 last:border-0">
                 {item.label}
-              </button>
+              </Link>
             ))}
             <button type="button" onClick={openCrispChat}
               className="mt-2 flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-full text-sm font-medium text-white"
@@ -1983,11 +1743,20 @@ export default function App() {
       {currentPage === 'home' && <section id="home" className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-36">
         {/* Background */}
         <div className="absolute inset-0">
-          <video src="/hero-video.mp4" autoPlay muted loop playsInline className="w-full h-full object-cover" />
-          <div className="absolute inset-0" style={{ background: 'rgba(58,10,30,0.05)' }} />
+          <img src="/regions-banner.webp" width="1280" height="720" alt="굿데이 출장마사지 방문 서비스 안내" fetchPriority="high" className="w-full h-full object-cover" />
+          <div className="absolute inset-0" style={{ background: 'rgba(35,10,25,0.72)' }} />
         </div>
         {/* Content */}
-        <div className="relative z-10 max-w-5xl mx-auto px-6 py-24 text-center">
+        <div className="relative z-10 max-w-5xl mx-auto px-6 py-16 text-center text-white">
+          <h1 className="text-3xl sm:text-5xl font-bold leading-snug">굿데이 출장마사지<br />24시간 방문 서비스</h1>
+          <p className="mt-6 leading-relaxed">자택·호텔·오피스텔에서 이용하는 방문 마사지 서비스입니다.<br />방문 지역과 희망 시간, 코스를 예약 상담에서 확인해 주세요.</p>
+          <p className="mt-4 text-sm">신규 고객은 선불, 기존 고객은 후불로 이용합니다.</p>
+          <div className="flex flex-wrap justify-center gap-3 mt-8">
+            <Link to="/contact" className="rounded-full bg-yellow-300 text-rose-950 px-6 py-3 font-semibold">예약 상담</Link>
+            <Link to="/services" className="rounded-full bg-white text-rose-950 px-6 py-3 font-semibold">코스·가격 확인</Link>
+            <Link to="/cities" className="rounded-full border border-white px-6 py-3">방문 지역 확인</Link>
+          </div>
+          <details className="mt-8"><summary className="cursor-pointer text-sm">소개 영상 보기</summary><video src="/hero-video.mp4" controls muted playsInline preload="none" className="mt-4 mx-auto max-h-96" aria-label="굿데이 소개 영상" /></details>
         </div>
         {/* Scroll hint */}
         <div className="absolute bottom-8 inset-x-0 flex justify-center z-10 animate-bounce">
@@ -2003,7 +1772,7 @@ export default function App() {
           <div className="max-w-5xl mx-auto px-6">
             <div className="text-center mb-12">
               <div className="text-xs tracking-widest uppercase mb-3" style={{ color: '#c0406a' }}>Course Details</div>
-              <h2 style={{ fontFamily: "'NexonLv1Gothic', sans-serif", fontSize: 'clamp(1.8rem, 4vw, 2.8rem)', color: '#3a1828', fontWeight: 400 }}>코스 상세 안내</h2>
+              <h2 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(1.8rem, 4vw, 2.8rem)', color: '#3a1828', fontWeight: 400 }}>코스 상세 안내</h2>
             </div>
             <div className="flex flex-col gap-6">
 
@@ -2017,7 +1786,7 @@ export default function App() {
                       style={{ background: 'rgba(253,164,178,0.15)', border: '1px solid rgba(253,164,178,0.4)' }}>
                       <span className="text-[10px] tracking-widest font-semibold" style={{ color: '#fda4b2' }}>❤️ PREMIUM · VIP ONLY</span>
                     </div>
-                    <h3 style={{ fontFamily: "'NexonLv1Gothic', sans-serif", fontSize: 'clamp(1.6rem, 4vw, 2.2rem)', color: 'white', fontWeight: 400 }}>
+                    <h3 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(1.6rem, 4vw, 2.2rem)', color: 'white', fontWeight: 400 }}>
                       VIP 남성 전용
                     </h3>
                     <p className="text-xs mt-1" style={{ color: 'rgba(255,210,225,0.7)' }}>오직 당신만을 위한, 단 1%의 특권</p>
@@ -2084,7 +1853,7 @@ export default function App() {
                   <div className="px-6 py-4 flex items-center gap-3" style={{ background: '#fff0f4', borderBottom: '1px solid #fce8ef' }}>
                     <span className="text-2xl">{svc.icon}</span>
                     <div>
-                      <h3 style={{ fontFamily: "'NexonLv1Gothic', sans-serif", fontSize: '1.3rem', color: '#3a1828', fontWeight: 400 }}>{svc.name}</h3>
+                      <h3 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: '1.3rem', color: '#3a1828', fontWeight: 400 }}>{svc.name}</h3>
                       <div className="text-xs mt-0.5" style={{ color: '#c0406a' }}>{svc.tag}</div>
                     </div>
                   </div>
@@ -2118,7 +1887,7 @@ export default function App() {
           <div className="max-w-4xl mx-auto px-6">
             <div className="text-center mb-10">
               <div className="text-xs tracking-widest uppercase mb-3" style={{ color: '#c0406a' }}>Comparison</div>
-              <h2 style={{ fontFamily: "'NexonLv1Gothic', sans-serif", fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', color: '#3a1828', fontWeight: 400 }}>코스 비교표</h2>
+              <h2 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', color: '#3a1828', fontWeight: 400 }}>코스 비교표</h2>
             </div>
             <div className="rounded-2xl overflow-hidden border" style={{ borderColor: '#fce8ef' }}>
               <table className="w-full text-sm">
@@ -2160,7 +1929,7 @@ export default function App() {
           <div className="max-w-5xl mx-auto px-6">
             <div className="text-center mb-10">
               <div className="text-xs tracking-widest uppercase mb-3" style={{ color: '#c0406a' }}>Reviews</div>
-              <h2 style={{ fontFamily: "'NexonLv1Gothic', sans-serif", fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', color: '#3a1828', fontWeight: 400 }}>실제 이용 후기</h2>
+              <h2 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', color: '#3a1828', fontWeight: 400 }}>실제 이용 후기</h2>
             </div>
             <div className="grid md:grid-cols-3 gap-5">
               {[
@@ -2186,7 +1955,7 @@ export default function App() {
           <div className="max-w-4xl mx-auto px-6">
             <div className="text-center mb-10">
               <div className="text-xs tracking-widest uppercase mb-3" style={{ color: '#c0406a' }}>Guide</div>
-              <h2 style={{ fontFamily: "'NexonLv1Gothic', sans-serif", fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', color: '#3a1828', fontWeight: 400 }}>코스 선택 가이드</h2>
+              <h2 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', color: '#3a1828', fontWeight: 400 }}>코스 선택 가이드</h2>
             </div>
             <div className="grid sm:grid-cols-2 gap-4">
               {[
@@ -2212,7 +1981,7 @@ export default function App() {
           <div className="max-w-3xl mx-auto px-6">
             <div className="text-center mb-10">
               <div className="text-xs tracking-widest uppercase mb-3" style={{ color: '#c0406a' }}>Care Tips</div>
-              <h2 style={{ fontFamily: "'NexonLv1Gothic', sans-serif", fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', color: '#3a1828', fontWeight: 400 }}>마사지 효과 오래 유지하는 관리 팁</h2>
+              <h2 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', color: '#3a1828', fontWeight: 400 }}>마사지 효과 오래 유지하는 관리 팁</h2>
             </div>
             <ul className="flex flex-col gap-4">
               {[
@@ -2239,7 +2008,7 @@ export default function App() {
           <div className="max-w-3xl mx-auto px-6">
             <div className="text-center mb-10">
               <div className="text-xs tracking-widest uppercase mb-3" style={{ color: '#c0406a' }}>FAQ</div>
-              <h2 style={{ fontFamily: "'NexonLv1Gothic', sans-serif", fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', color: '#3a1828', fontWeight: 400 }}>자주 묻는 질문</h2>
+              <h2 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', color: '#3a1828', fontWeight: 400 }}>자주 묻는 질문</h2>
             </div>
             <div className="rounded-2xl overflow-hidden border" style={{ borderColor: '#fce8ef' }}>
               {[
@@ -2269,10 +2038,10 @@ export default function App() {
             <span className="text-xs font-medium tracking-widest" style={{ color: '#fda4b2' }}>LIVE 테라피스트 프로필</span>
           </div>
           <div className="flex items-center justify-center gap-3 flex-wrap">
-            <h2 style={{ fontFamily: "'NexonLv1Gothic', sans-serif", fontSize: 'clamp(1.5rem, 3.5vw, 2.4rem)', color: 'white', fontWeight: 400, margin: 0 }}>
+            <h2 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(1.5rem, 3.5vw, 2.4rem)', color: 'white', fontWeight: 400, margin: 0 }}>
               현재 매칭 가능한
             </h2>
-            <h2 style={{ fontFamily: "'NexonLv1Gothic', sans-serif", fontSize: 'clamp(1.5rem, 3.5vw, 2.4rem)', color: 'white', fontWeight: 400, margin: 0 }}>
+            <h2 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(1.5rem, 3.5vw, 2.4rem)', color: 'white', fontWeight: 400, margin: 0 }}>
               테라피스트 확인하기
             </h2>
           </div>
@@ -2284,7 +2053,7 @@ export default function App() {
         <div className="max-w-6xl mx-auto px-6 py-16">
           <div className="text-center mb-12">
             <div className="text-xs tracking-widest uppercase mb-3" style={{ color: '#c0406a' }}>Our Team</div>
-            <h2 style={{ fontFamily: "'NexonLv1Gothic', sans-serif", fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#3a1828', fontWeight: 400 }}>
+            <h2 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#3a1828', fontWeight: 400 }}>
               테라피스트 소개
             </h2>
             <p className="text-xs mt-3" style={{ color: '#9a607a' }}>검증된 여성 전문 테라피스트만 배정됩니다</p>
@@ -2299,7 +2068,7 @@ export default function App() {
                 <div className="relative overflow-hidden" style={{ aspectRatio: '3/4', background: 'linear-gradient(160deg, #fce8ef, #f9d0de)' }}>
                   {t.img ? (
                     <>
-                      <img src={t.img} alt={t.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                      <img loading="lazy" decoding="async" src={t.img} alt={t.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                       <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                         style={{ background: 'rgba(58,24,40,0.25)' }}>
                         <div className="bg-white/80 rounded-full px-3 py-1 text-xs font-medium" style={{ color: '#c0406a' }}>🔍 크게 보기</div>
@@ -2325,7 +2094,7 @@ export default function App() {
                     <span className="text-xs px-1.5 py-0.5 rounded-full font-medium whitespace-nowrap" style={{ background: '#fff0f4', color: '#c0406a', border: '1px solid #fda4b2', fontSize: '0.6rem' }}>100% 실사</span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <h3 style={{ fontFamily: "'NexonLv1Gothic', sans-serif", fontSize: '1.15rem', color: '#3a1828', fontWeight: 500 }}>{t.name}</h3>
+                    <h3 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: '1.15rem', color: '#3a1828', fontWeight: 500 }}>{t.name}</h3>
                     <span style={{ fontSize: '0.7rem', color: '#c0406a' }}>★ {t.stars}</span>
                   </div>
                   <p className="text-xs leading-relaxed mt-0.5" style={{ color: '#9a607a', fontSize: '0.68rem' }}>{t.desc}</p>
@@ -2359,7 +2128,7 @@ export default function App() {
         {/* 히어로 */}
         {/* 메인 배너 */}
         <div className="w-full pt-14">
-          <img src="/regions-banner.png" alt="굿데이마사지 지역선택" className="w-full" style={{ display: 'block' }} />
+          <img loading="lazy" decoding="async" src="/regions-banner.webp" alt="굿데이마사지 지역선택" className="w-full" style={{ display: 'block' }} />
         </div>
 
         <div className="relative pt-12 pb-14 overflow-hidden" style={{ background: 'linear-gradient(160deg, #3a1828, #6b2040)' }}>
@@ -2367,7 +2136,7 @@ export default function App() {
           <div className="relative z-10 max-w-4xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-6">
             <div>
               <div className="text-xs tracking-widest uppercase mb-3" style={{ color: '#fda4b2' }}>지역 선택 · Coverage</div>
-              <h2 style={{ fontFamily: "'NexonLv1Gothic', sans-serif", fontSize: 'clamp(1.6rem, 4vw, 2.8rem)', color: 'white', fontWeight: 400 }}>
+              <h2 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(1.6rem, 4vw, 2.8rem)', color: 'white', fontWeight: 400 }}>
                 굿데이 마사지 서비스 지역
               </h2>
               <p className="mt-3 text-sm leading-relaxed" style={{ color: 'rgba(255,220,230,0.85)' }}>
@@ -2395,7 +2164,7 @@ export default function App() {
 
         {/* 배너 이미지 */}
         <div className="w-full pt-14">
-          <img src="/contact-new-banner.png" alt="굿데이마사지 예약문의" className="w-full" style={{ display: 'block' }} />
+          <img loading="lazy" decoding="async" src="/contact-new-banner.webp" alt="굿데이마사지 예약문의" className="w-full" style={{ display: 'block' }} />
         </div>
 
         {/* 헤더 */}
@@ -2443,7 +2212,7 @@ export default function App() {
               className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-medium text-sm hover:opacity-90 transition-opacity"
               style={{ background: '#FEE500', color: '#3a1828' }}>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 5.92 2 10.8c0 3.07 1.73 5.77 4.35 7.43L5.5 22l4.13-2.17c.77.17 1.57.27 2.37.27 5.52 0 10-3.92 10-8.8S17.52 2 12 2z"/></svg>
-              카카오톡 예약
+              실시간 예약 상담
             </button>
             <a href="https://t.me/sy2267" target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-medium text-sm text-white hover:opacity-90 transition-opacity"
@@ -2483,7 +2252,7 @@ export default function App() {
               { step: '01', title: '상담', desc: '지역·코스·선호/주의 부위 확인' },
               { step: '02', title: '배정', desc: '평균 20~30분 내 테라피스트 매칭 안내' },
               { step: '03', title: '방문·진행', desc: '호텔·오피스텔·자택 방문 서비스' },
-              { step: '04', title: '결제', desc: '서비스 종료 후 현장 결제' },
+              { step: '04', title: '결제', desc: '신규 고객 선불 · 기존 고객 후불' },
               { step: '05', title: '사후 안내', desc: '케어 포인트 및 재방문 추천 안내' },
             ].map((s, i, arr) => (
               <div key={s.step} className="flex items-start gap-4">
@@ -2523,8 +2292,8 @@ export default function App() {
           <h3 className="font-medium mb-5 text-center" style={{ color: '#3a1828', fontSize: '1.1rem' }}>이용 유의사항</h3>
           <div className="grid sm:grid-cols-2 gap-4">
             {[
-              { title: '예약·변경·취소', items: ['배정 확정 전 일정·코스 변경 가능', '확정 후 취소 시 콜 이동 비용 발생 가능', '지연·부재 시 진행 시간 단축 가능', '노쇼·무단취소 증가로 신규 고객은 선불 결제 적용', '기존 고객 및 지인 추천 고객은 예외', '10년 이상 한결같이 운영된 신뢰도 높은 업체'] },
-              { title: '서비스 이용 안내', items: ['맘에 드시는 테라피스트 선택 및 출장여부 확인', '상담매니저와 스케줄 잡기 (이름 / 장소 / 시간)', '첫이용시 코스별 지정된 출장비 지불', '예약완료'] },
+              { title: '예약·변경·취소', items: ['배정 확정 전 일정·코스 변경 가능', '확정 후 취소 시 콜 이동 비용 발생 가능', '지연·부재 시 진행 시간 단축 가능', '노쇼·무단취소 증가로 신규 고객은 선불 결제 적용', '기존 고객은 후불 결제 적용', '10년 이상 한결같이 운영된 신뢰도 높은 업체'] },
+              { title: '서비스 이용 안내', items: ['맘에 드시는 테라피스트 선택 및 출장여부 확인', '상담매니저와 스케줄 잡기 (이름 / 장소 / 시간)', '신규 고객은 상담에서 안내된 비용을 선불 결제', '예약완료'] },
               { title: '위생·방역', items: ['일회용 시트/타월, 장비 현장 소독', '손 위생 및 위생 프로토콜 준수', '감염성 증상 시 예약 보류 권장'] },
               { title: '프라이버시', items: ['민감 정보 최소 보관', 'CCTV 각도 조정·가림 권장', '무단 촬영 금지'] },
             ].map(g => (
@@ -2565,7 +2334,7 @@ export default function App() {
                 className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-medium text-sm hover:opacity-90"
                 style={{ background: '#FEE500', color: '#3a1828' }}>
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 5.92 2 10.8c0 3.07 1.73 5.77 4.35 7.43L5.5 22l4.13-2.17c.77.17 1.57.27 2.37.27 5.52 0 10-3.92 10-8.8S17.52 2 12 2z"/></svg>
-                카카오톡 상담
+                실시간 상담
               </button>
               <a href="https://t.me/sy2267" target="_blank" rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-medium text-sm text-white hover:opacity-90"
@@ -2584,7 +2353,7 @@ export default function App() {
         <div className="max-w-6xl mx-auto px-6">
           <div className="flex flex-col md:flex-row gap-8 justify-between items-start mb-6">
             <div>
-              <div style={{ fontFamily: "'NexonLv1Gothic', sans-serif", fontSize: '1.4rem', color: '#fda4b2', fontWeight: 600 }}>굿데이</div>
+              <div style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: '1.4rem', color: '#fda4b2', fontWeight: 600 }}>굿데이</div>
               <div className="text-xs tracking-widest mt-0.5" style={{ color: '#9a607a' }}>프리미엄 출장마사지</div>
               <p className="text-xs mt-3 leading-relaxed" style={{ color: '#7a4055' }}>
                 (주) 굿데이출장마사지<br />
@@ -2602,24 +2371,24 @@ export default function App() {
 
       {/* ── BOTTOM STICKY BAR (krmassage.com 동일) ── */}
 <div className="fixed bottom-0 inset-x-0 z-50 flex" style={{ background: 'white', borderTop: '1px solid #fce8ef', boxShadow: '0 -4px 20px rgba(200,70,110,0.1)' }}>
-        <button onClick={() => navigateTo('#contact')}
+        <Link to={PAGE_PATHS.contact}
           className="flex-1 flex flex-col items-center justify-center py-3 gap-0.5 text-xs font-medium transition-opacity hover:opacity-90"
           style={{ background: '#FEE500', color: '#3a1828' }}>
           <span>📞</span>
           <span>예약하기</span>
-        </button>
-        <button onClick={() => navigateTo('#therapists')}
+        </Link>
+        <Link to={PAGE_PATHS.therapists}
           className="flex-1 flex flex-col items-center justify-center py-3 gap-0.5 text-xs font-medium border-l border-r transition-opacity hover:opacity-90"
           style={{ background: 'linear-gradient(135deg, #f9a8b8, #e05080)', color: 'white', borderColor: '#fce8ef' }}>
           <span>🔥</span>
           <span>테라피스트 보기</span>
-        </button>
-        <button onClick={() => navigateTo('#services')}
+        </Link>
+        <Link to={PAGE_PATHS.services}
           className="flex-1 flex flex-col items-center justify-center py-3 gap-0.5 text-xs font-medium"
           style={{ color: '#c0406a' }}>
           <span>📋</span>
           <span>코스안내</span>
-        </button>
+        </Link>
       </div>
 
       {/* ── PAGE TRANSITION OVERLAY ── */}
@@ -2639,10 +2408,10 @@ export default function App() {
             <button onClick={() => setLightboxImg(null)}
               className="absolute -top-10 right-0 text-white/70 hover:text-white text-2xl transition-colors">✕</button>
             <div className="rounded-3xl overflow-hidden shadow-2xl">
-              <img src={lightboxImg.src} alt={lightboxImg.name} className="w-full object-contain max-h-[80vh]" />
+              <img loading="lazy" decoding="async" src={lightboxImg.src} alt={lightboxImg.name} className="w-full object-contain max-h-[80vh]" />
             </div>
             <div className="text-center mt-4">
-              <span style={{ fontFamily: "'NexonLv1Gothic', sans-serif", fontSize: '1.5rem', color: 'white', fontWeight: 400 }}>{lightboxImg.name}</span>
+              <span style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: '1.5rem', color: 'white', fontWeight: 400 }}>{lightboxImg.name}</span>
             </div>
           </div>
         </div>
@@ -2652,20 +2421,9 @@ export default function App() {
   )
 }
 
-function getRegionForCity(city: string): string {
-  return REGIONS.find(r => r.cities.includes(city))?.name ?? ''
-}
-
 export function CityPageRoute() {
-  const { city } = useParams<{ city: string }>()
+  const { city, region } = useParams<{ city: string; region: string }>()
   const navigate = useNavigate()
-  const decodedCity = decodeURIComponent(city ?? '')
-  const regionName = getRegionForCity(decodedCity)
-  return (
-    <CityPage
-      city={decodedCity}
-      regionName={regionName}
-      onClose={() => navigate(-1)}
-    />
-  )
+  const regionName = region ?? REGIONS.find(r => r.cities.includes(city ?? ''))?.name ?? ''
+  return <CityPage city={city ?? ''} regionName={regionName} onClose={() => navigate('/cities')} />
 }

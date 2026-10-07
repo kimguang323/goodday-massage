@@ -1,23 +1,10 @@
 import React from 'react'
-import ReactDOM from 'react-dom/client'
-import { createBrowserRouter, RouterProvider } from 'react-router'
-import App from './App'
-import { CityPageRoute } from './App'
+import { createRoot, hydrateRoot } from 'react-dom/client'
+import { BrowserRouter } from 'react-router'
+import { SiteRoutes } from './Routes'
 import './index.css'
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <App />,
-  },
-  {
-    path: '/cities/:city',
-    element: <CityPageRoute />,
-  },
-])
-
-ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>,
-)
+const root = document.getElementById('root')!
+const app = <React.StrictMode><BrowserRouter><SiteRoutes /></BrowserRouter></React.StrictMode>
+if (root.hasChildNodes()) hydrateRoot(root, app)
+else createRoot(root).render(app)

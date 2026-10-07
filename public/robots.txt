@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://gdymassage.com/sitemap.xml
+Sitemap: https://www.gdymassage.com/sitemap_index.xml
