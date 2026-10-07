@@ -82,6 +82,15 @@ h2 {
   from { opacity: 0.2; }
   to { opacity: 1; }
 }
+.booking-shimmer[data-booking-tone="red"] {
+  background: linear-gradient(135deg, #dc2626, #b91c1c) !important;
+  color: #fff !important;
+  box-shadow: 0 0 0 4px rgb(248 113 113 / 65%), 0 0 24px 5px rgb(239 68 68 / 50%);
+}
+.booking-shimmer[data-booking-tone="red"]::after {
+  border-color: #fecaca;
+  box-shadow: inset 0 0 16px 4px rgb(255 202 202 / 70%);
+}
 @keyframes booking-shimmer-slide {
   from { transform: translateX(-110%); }
   to { transform: translateX(110%); }

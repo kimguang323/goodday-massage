@@ -1884,6 +1884,7 @@ export default function App() {
           <div className="flex flex-col sm:flex-row gap-3 justify-center mt-8">
             <button type="button" onClick={openCrispChat}
               className="booking-shimmer inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-medium text-sm hover:opacity-90 transition-opacity"
+              data-booking-tone="red"
               style={{ background: 'linear-gradient(135deg, #ef4444, #dc2626)', color: 'white', border: '1px solid rgba(255,255,255,0.25)' }}>
               번호공개❌ 익명 예약 (추천)
             </button>
