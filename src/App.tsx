@@ -36,7 +36,6 @@ function openCrispChat() {
   window.open(CRISP_CHAT_URL, '_blank', 'noopener,noreferrer')
 }
 
-const PAGE_HEADINGS: Record<string, string> = { services: '전국 출장마사지 코스·가격', regions: '전국 출장마사지 지역 안내', faq: '출장마사지 예약·이용 FAQ', contact: '24시간 전국 방문 예약 상담' }
 
 const NAV_ITEMS = [
   { label: '홈', href: '#home' },
@@ -462,7 +461,7 @@ function ReviewPage({ onBook }: { onBook: () => void }) {
       {/* 히어로 */}
       <div className="py-10 text-center" style={{ background: 'linear-gradient(160deg, #3a1828, #6b2040)' }}>
         <div className="text-xs tracking-widest uppercase mb-3" style={{ color: '#fda4b2' }}>Reviews</div>
-        <h2 style={{ color: 'white', fontWeight: 400, fontSize: 'clamp(1.8rem, 4vw, 2.8rem)' }}>고객 후기</h2>
+        <h1 style={{ color: 'white', fontWeight: 400, fontSize: 'clamp(1.8rem, 4vw, 2.8rem)' }}>고객 후기</h1>
         <p className="mt-3 text-sm" style={{ color: 'rgba(255,210,225,0.8)' }}>실제 이용 고객님들의 생생한 관리 사례입니다</p>
       </div>
 
@@ -609,7 +608,7 @@ function BlogPage() {
       {/* 히어로 */}
       <div className="py-8 text-center" style={{ background: 'linear-gradient(160deg, #3a1828, #6b2040)' }}>
         <div className="text-xs tracking-widest uppercase mb-3" style={{ color: '#fda4b2' }}>Blog</div>
-        <h2 style={{ color: 'white', fontWeight: 400, fontSize: 'clamp(1.8rem, 4vw, 2.8rem)' }}>케어 블로그</h2>
+        <h1 style={{ color: 'white', fontWeight: 400, fontSize: 'clamp(1.8rem, 4vw, 2.8rem)' }}>케어 블로그</h1>
         <p className="mt-3 text-sm" style={{ color: 'rgba(255,210,225,0.7)' }}>출장마사지 이용 가이드 · 건강 정보 · 지역별 안내</p>
       </div>
 
@@ -659,7 +658,7 @@ function FaqPage() {
       {/* 히어로 */}
       <div className="py-16 text-center" style={{ background: 'linear-gradient(160deg, #3a1828, #6b2040)' }}>
         <div className="text-xs tracking-widest uppercase mb-3" style={{ color: '#fda4b2' }}>FAQ</div>
-        <h2 style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)', color: 'white', fontWeight: 400 }}>자주 묻는 질문</h2>
+        <h1 style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)', color: 'white', fontWeight: 400 }}>자주 묻는 질문</h1>
         <p className="mt-3 text-sm" style={{ color: 'rgba(255,210,225,0.8)' }}>궁금하신 점을 빠르게 확인하세요</p>
       </div>
 
@@ -1338,9 +1337,8 @@ export default function App() {
 
   return (
     <PullToRefresh>
-      <div className="min-h-screen overflow-x-hidden" style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", background: '#fdf8f9' }}>
+      <div className={`min-h-screen overflow-x-hidden ${currentPage !== 'home' ? 'pt-14' : ''}`} style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", background: '#fdf8f9' }}>
 
-      {currentPage !== 'home' && !(currentPage === 'blog' && location.pathname !== '/blog') && <h1 className="pt-20 px-6 text-xl font-semibold text-center">{PAGE_HEADINGS[currentPage] ?? NAV_ITEMS.find(item => item.href === `#${currentPage}`)?.label}</h1>}
       {showVip && <VipPage onClose={() => setShowVip(false)} onGoTherapists={() => { setShowVip(false); navigateTo('#therapists') }} />}
 
       {/* ── TOP NAV ── */}
@@ -1448,7 +1446,7 @@ export default function App() {
           <div className="max-w-5xl mx-auto px-6">
             <div className="text-center mb-12">
               <div className="text-xs tracking-widest uppercase mb-3" style={{ color: '#c0406a' }}>Course Details</div>
-              <h2 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(1.8rem, 4vw, 2.8rem)', color: '#3a1828', fontWeight: 400 }}>코스 상세 안내</h2>
+              <h1 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(1.8rem, 4vw, 2.8rem)', color: '#3a1828', fontWeight: 400 }}>코스 상세 안내</h1>
             </div>
             <div className="flex flex-col gap-6">
 
@@ -1714,12 +1712,7 @@ export default function App() {
             <span className="text-xs font-medium tracking-widest" style={{ color: '#fda4b2' }}>LIVE 테라피스트 프로필</span>
           </div>
           <div className="flex items-center justify-center gap-3 flex-wrap">
-            <h2 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(1.5rem, 3.5vw, 2.4rem)', color: 'white', fontWeight: 400, margin: 0 }}>
-              현재 매칭 가능한
-            </h2>
-            <h2 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(1.5rem, 3.5vw, 2.4rem)', color: 'white', fontWeight: 400, margin: 0 }}>
-              테라피스트 확인하기
-            </h2>
+            <h1 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(1.5rem, 3.5vw, 2.4rem)', color: 'white', fontWeight: 400, margin: 0 }}>현재 매칭 가능한 테라피스트 확인하기</h1>
           </div>
           <p className="mt-3 text-sm" style={{ color: 'rgba(255,210,225,0.8)' }}>
             고객님 인근에서 상담 가능한 테라피스트 프로필을 한눈에 확인하세요.
@@ -1812,9 +1805,9 @@ export default function App() {
           <div className="relative z-10 max-w-4xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-6">
             <div>
               <div className="text-xs tracking-widest uppercase mb-3" style={{ color: '#fda4b2' }}>지역 선택 · Coverage</div>
-              <h2 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(1.6rem, 4vw, 2.8rem)', color: 'white', fontWeight: 400 }}>
+              <h1 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(1.6rem, 4vw, 2.8rem)', color: 'white', fontWeight: 400 }}>
                 굿데이 마사지 서비스 지역
-              </h2>
+              </h1>
               <p className="mt-3 text-sm leading-relaxed" style={{ color: 'rgba(255,220,230,0.85)' }}>
                 서울 전 구역부터 전국 광역시·도까지<br />24시간 언제 어디서든 방문합니다
               </p>
@@ -1847,9 +1840,7 @@ export default function App() {
         {/* 헤더 */}
         <div className="py-14 text-center px-6" style={{ background: 'linear-gradient(160deg, #3a1828, #6b2040)' }}>
           <div className="flex items-center justify-center gap-4 flex-wrap">
-            <h2 style={{ color: 'white', fontWeight: 400, fontSize: 'clamp(1.5rem, 3.5vw, 2.5rem)', margin: 0 }}>1:1 문의</h2>
-            <span style={{ color: '#fda4b2', fontSize: 'clamp(1.2rem, 2.5vw, 2rem)' }}>|</span>
-            <h2 style={{ color: 'white', fontWeight: 400, fontSize: 'clamp(1.5rem, 3.5vw, 2.5rem)', margin: 0 }}>프리미엄 출장마사지</h2>
+            <h1 style={{ color: 'white', fontWeight: 400, fontSize: 'clamp(1.5rem, 3.5vw, 2.5rem)', margin: 0 }}>24시간 전국 방문 예약 상담</h1>
           </div>
           <p className="mt-3 text-sm max-w-xl mx-auto" style={{ color: 'rgba(255,210,225,0.85)' }}>
             서울 포함 전국 서비스 · 홈타이·스웨디시 등 다양한 코스<br />24시간 실시간 상담 제공
