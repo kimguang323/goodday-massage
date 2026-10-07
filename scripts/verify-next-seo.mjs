@@ -7,10 +7,10 @@ function walk(directory) {
 }
 const directory = '.next/server/app'
 const pages = walk(directory).filter(file => file.endsWith('.html') && !file.endsWith('_global-error.html'))
-assert.equal(pages.length, 286, 'All site pages and the custom 404 must be prerendered')
+assert.equal(pages.length, 285, 'All site pages and the custom 404 must be prerendered')
 const sitemap = readFileSync(join(directory, 'sitemap.xml.body'), 'utf8')
 const urls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => match[1])
-assert.equal(urls.length, 187, 'Only complete, indexable pages belong in the sitemap')
+assert.equal(urls.length, 186, 'Only complete, indexable pages belong in the sitemap')
 assert.equal(new Set(urls).size, urls.length, 'Sitemap URLs must be unique')
 let noindex = 0
 for (const file of pages) {
@@ -38,5 +38,20 @@ assert.ok(home.includes('굿데이 출장마사지') && home.includes('신규 �
 assert.ok(home.includes('/_next/image'), 'Hero must use the Next.js image optimizer')
 assert.ok(!/<video[^>]*autoPlay/i.test(home), 'Large video must not autoplay on first load')
 assert.ok(!home.includes('client.crisp.chat/l.js'), 'Chat loader must wait for a user action')
+assert.ok(home.includes('전국 모든 지역') && home.includes('전국 17개 시·도'), 'Nationwide coverage must be readable without JavaScript')
+const homeSchema = JSON.parse(home.match(/<script id="page-schema" type="application\/ld\+json">([\s\S]*?)<\/script>/)[1])
+const service = homeSchema['@graph'].find(item => item['@type'] === 'Service')
+assert.equal(service.areaServed.name, '대한민국', 'National service must identify Korea as its service area')
+assert.equal(service.hasOfferCatalog.itemListElement.length, 6, 'Published course catalogue must match the visible course list')
+const directoryHtml = readFileSync(join(directory, 'cities.html'), 'utf8')
+for (const match of home.matchAll(/href="\/cities#(region-[^"]+)"/g)) {
+  assert.ok(directoryHtml.includes(`id="${decodeURIComponent(match[1])}"`), 'Every nationwide link must target a real region section')
+}
+for (const file of pages.filter(path => path.includes(join('app', 'cities') + '\\') || path.includes('/app/cities/'))) {
+  const html = readFileSync(file, 'utf8')
+  assert.ok(!html.includes('일대 실제 이용 사례'), 'Region templates must not create fabricated local reviews')
+  assert.ok(html.includes('예상 이동 시간') && html.includes('방문 상담하기'), 'Regional pages must explain how to confirm an actual visit')
+}
+assert.ok(!readFileSync('src/index.css', 'utf8').includes('fonts.googleapis.com'), 'No blocking remote font import')
 assert.ok(readFileSync(join(directory, 'robots.txt.body'), 'utf8').includes('https://www.gdymassage.com/sitemap_index.xml'))
 console.log(`Passed: ${pages.length} Next.js HTML pages, ${urls.length} sitemap URLs, ${noindex} summaries, metadata, images and structured data.`)
