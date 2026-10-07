@@ -12,7 +12,8 @@ export default function LocalMassageGuide({ region, city }: { region: string; ci
     <section className={sectionClass} aria-labelledby="local-massage-guide">
       <p className="mb-2 text-xs font-semibold tracking-widest text-rose-700">출장마사지 이용 가이드</p>
       <h2 id="local-massage-guide" className="text-2xl font-semibold leading-snug">{place} 출장마사지, 처음이라면 이렇게 준비하세요</h2>
-      <p className="mt-4 leading-relaxed">출장마사지는 고객님이 머무는 장소로 방문하는 서비스입니다. {city}에서 이용할 장소와 시간을 정한 뒤, 원하는 마사지 종류와 관리 강도를 선택하세요. 굿데이는 자택·호텔·오피스텔 방문을 상담하며, 실제 배정과 일정은 주소와 요청 내용을 확인해 안내합니다.</p>
+      <p className="mt-4 leading-relaxed">{city}에서 이용할 장소와 시간을 정하고, 원하는 마사지 종류와 관리 강도를 선택하세요.</p>
+      <p className="mt-3 leading-relaxed">출장마사지는 고객님이 머무는 장소로 방문하는 서비스입니다. 굿데이는 자택·호텔·오피스텔 방문을 상담하며, 실제 배정과 일정은 주소와 요청 내용을 확인해 안내합니다.</p>
       <div className="mt-6 grid gap-4 sm:grid-cols-3">
         {[
           ['01 · 장소와 일정', `${place}의 방문 주소, 장소 유형과 희망 날짜·시간을 준비하세요. 호텔은 체크인 이후 이용 가능한 시간을 확인해 주세요.`],
