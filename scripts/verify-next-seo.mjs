@@ -15,6 +15,7 @@ assert.equal(new Set(urls).size, urls.length, 'Sitemap URLs must be unique')
 let noindex = 0
 for (const file of pages) {
   const html = readFileSync(file, 'utf8')
+  assert.ok(!html.includes('선불'), file + ': no obsolete prepaid policy')
   assert.equal((html.match(/<h1(?:\s|>)/g) ?? []).length, 1, file + ': one main heading')
   if (file.endsWith('_not-found.html')) { assert.ok(html.includes('noindex')); continue }
   assert.equal((html.match(/<title>/g) ?? []).length, 1, file + ': one title')
@@ -34,7 +35,7 @@ for (const file of pages) {
 }
 assert.equal(noindex, 98, 'Summary-only articles must not be submitted as complete articles')
 const home = readFileSync(join(directory, 'index.html'), 'utf8')
-assert.ok(home.includes('굿데이 출장마사지') && home.includes('신규 고객은 선불'))
+assert.ok(home.includes('굿데이 출장마사지') && home.includes('100% 후불제로 운영합니다.'))
 assert.ok(home.includes('/_next/image'), 'Hero must use the Next.js image optimizer')
 assert.ok(!/<video[^>]*autoPlay/i.test(home), 'Large video must not autoplay on first load')
 assert.ok(!home.includes('client.crisp.chat/l.js'), 'Chat loader must wait for a user action')

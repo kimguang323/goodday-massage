@@ -31,7 +31,7 @@ export default function NationwideOverview({ compact = false, region, city }: { 
           <li>{city ? `${region} ${city}의` : '방문할 시·도와 시·군·구의'} 주소, 자택·호텔·오피스텔 등 장소 유형을 알려주세요.</li>
           <li>희망 날짜·시간, 원하는 마사지 코스와 이용 시간을 선택해 주세요.</li>
           <li>배정 가능 여부, 예상 이동 시간, 출장비를 포함한 총 비용을 확인해 주세요.</li>
-          <li>신규 고객 선불·기존 고객 후불 기준과 변경·취소 조건을 확인한 뒤 예약을 확정해 주세요.</li>
+          <li>100% 후불제와 변경·취소 조건을 확인해 주세요. 신규 회원님은 예약하기로 문의한 뒤 예약을 확정해 주세요.</li>
         </ol>
         <div className="mt-8 space-y-3">{NATIONWIDE_FAQS.map(faq => <details key={faq.q} className="rounded-xl bg-white p-5">
           <summary className="cursor-pointer font-semibold">{faq.q}</summary><p className="mt-3 leading-relaxed">{faq.a}</p>

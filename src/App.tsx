@@ -361,18 +361,18 @@ function ContactFaqItem({ faq }: { faq: { q: string; a: string } }) {
 
 const REVIEW_REGIONS = [
   { region: '서울특별시', cases: [
-    { area: '강남', course: '스웨디시', badges: ['Verified', '고객방문형', '기존 고객 후불', '야간'], text: '압 조절이 정확하고 마무리 스트레칭까지 꼼꼼하게 해주셨어요. 최고였습니다.' },
+    { area: '강남', course: '스웨디시', badges: ['Verified', '고객방문형', '후불제', '야간'], text: '압 조절이 정확하고 마무리 스트레칭까지 꼼꼼하게 해주셨어요. 최고였습니다.' },
     { area: '마포', course: '아로마', badges: ['Verified', '호텔', '심야'], text: '향이 은은하고 림프 케어가 섬세해요. 심야인데도 빠른 배정 감사합니다.' },
     { area: '용산', course: '딥티슈', badges: ['자택'], text: '뭉친 어깨가 단번에 풀렸습니다. 딥티슈가 이렇게 시원한지 몰랐어요.' },
   ]},
   { region: '경기도', cases: [
-    { area: '수원', course: '스포츠', badges: ['Verified', '자택', '기존 고객 후불'], text: '딥티슈가 시원하고 회복이 빨랐어요. 다음에도 꼭 이용하겠습니다.' },
+    { area: '수원', course: '스포츠', badges: ['Verified', '자택', '후불제'], text: '딥티슈가 시원하고 회복이 빨랐어요. 다음에도 꼭 이용하겠습니다.' },
     { area: '성남', course: '림프', badges: ['Verified', '호텔'], text: '부종이 가볍게 빠졌습니다. 다리가 눈에 띄게 가벼워졌어요.' },
     { area: '부천', course: '스웨디시', badges: ['야간'], text: '편안해서 금방 잠들었어요. 야간 배정도 빠르고 친절했습니다.' },
   ]},
   { region: '인천광역시', cases: [
     { area: '송도', course: '아로마', badges: ['Verified', '호텔'], text: '향과 터치가 완벽했습니다. 호텔에서 받으니 더욱 특별했어요.' },
-    { area: '부평', course: '림프', badges: ['기존 고객 후불', '자택'], text: '부종이 바로 가벼워졌어요. 후불제라 믿고 이용할 수 있었습니다.' },
+    { area: '부평', course: '림프', badges: ['후불제', '자택'], text: '부종이 바로 가벼워졌어요. 후불제라 믿고 이용할 수 있었습니다.' },
     { area: '계양', course: '스포츠', badges: ['Verified'], text: '핵심만 정확히 풀어줍니다. 운동 후 피로 회복에 딱이었어요.' },
   ]},
   { region: '부산광역시', cases: [
@@ -382,27 +382,27 @@ const REVIEW_REGIONS = [
   ]},
   { region: '대구광역시', cases: [
     { area: '수성', course: '딥티슈', badges: ['Verified', '자택'], text: '핵심을 정확히 눌러줘요. 자택 방문이라 이동 없이 편하게 받았습니다.' },
-    { area: '동성로', course: '아로마', badges: ['Verified', '기존 고객 후불'], text: '은은한 향과 섬세한 케어가 인상적. 후불제라 신뢰가 갔어요.' },
+    { area: '동성로', course: '아로마', badges: ['Verified', '후불제'], text: '은은한 향과 섬세한 케어가 인상적. 후불제라 신뢰가 갔어요.' },
     { area: '달서', course: '스포츠', badges: ['야간'], text: '뭉친 부위만 시원하게 공략합니다. 심야 배정도 빠르게 해주셨어요.' },
   ]},
   { region: '광주광역시', cases: [
     { area: '상무지구', course: '스포츠', badges: ['Verified', '호텔'], text: '강약 조절이 완벽합니다. 호텔에서 프로 케어를 받은 느낌이었어요.' },
-    { area: '첨단', course: '림프', badges: ['Verified', '기존 고객 후불'], text: '부종 관리에 효과적이었어요. 다음날 몸이 확실히 달랐습니다.' },
+    { area: '첨단', course: '림프', badges: ['Verified', '후불제'], text: '부종 관리에 효과적이었어요. 다음날 몸이 확실히 달랐습니다.' },
     { area: '동구', course: '스웨디시', badges: ['자택'], text: '편안해서 푹 잤습니다. 자택 방문이라 더 편안하게 받을 수 있었어요.' },
   ]},
   { region: '대전광역시', cases: [
     { area: '유성', course: '스웨디시', badges: ['Verified', '자택'], text: '호흡 맞춤 힐링이 좋았어요. 편안하게 릴랙스할 수 있었습니다.' },
-    { area: '둔산', course: '스포츠', badges: ['Verified', '기존 고객 후불'], text: '뭉친 부위만 시원하게 공략. 전문적인 케어에 만족했습니다.' },
+    { area: '둔산', course: '스포츠', badges: ['Verified', '후불제'], text: '뭉친 부위만 시원하게 공략. 전문적인 케어에 만족했습니다.' },
     { area: '정부청사', course: '림프', badges: ['오피스텔'], text: '붓기 감소 체감했어요. 오피스텔에서도 완벽한 서비스였습니다.' },
   ]},
   { region: '울산광역시', cases: [
     { area: '남구', course: '스포츠', badges: ['Verified', '자택'], text: '등·어깨가 가벼워졌습니다. 정확한 포인트 케어가 인상적이었어요.' },
-    { area: '중구', course: '림프', badges: ['Verified', '기존 고객 후불'], text: '붓기가 눈에 띄게 줄었어요. 전문적인 림프 드레나쥐였습니다.' },
+    { area: '중구', course: '림프', badges: ['Verified', '후불제'], text: '붓기가 눈에 띄게 줄었어요. 전문적인 림프 드레나쥐였습니다.' },
     { area: '동구', course: '스웨디시', badges: ['야간'], text: '편안해서 금방 잠들었어요. 야간 서비스도 퀄리티가 동일해요.' },
   ]},
   { region: '세종특별자치시', cases: [
     { area: '행정중심', course: '스웨디시', badges: ['Verified', '오피스텔'], text: '업무 피로가 싹 풀렸습니다. 오피스텔에서도 완벽한 준비물이었어요.' },
-    { area: '정부세종', course: '아로마', badges: ['Verified', '기존 고객 후불'], text: '향이 은은해 숙면했어요. 다음날 컨디션이 완전히 달랐습니다.' },
+    { area: '정부세종', course: '아로마', badges: ['Verified', '후불제'], text: '향이 은은해 숙면했어요. 다음날 컨디션이 완전히 달랐습니다.' },
     { area: '새롬동', course: '림프', badges: ['자택'], text: '붓기 완화가 확실했어요. 자택 방문으로 편하게 받았습니다.' },
   ]},
   { region: '강원특별자치도', cases: [
@@ -412,12 +412,12 @@ const REVIEW_REGIONS = [
   ]},
   { region: '충청북도', cases: [
     { area: '청주', course: '스웨디시', badges: ['Verified', '오피스텔'], text: '부드럽고 촘촘한 케어가 좋았어요. 숙면 유도 효과가 확실했습니다.' },
-    { area: '충주', course: '스포츠', badges: ['Verified', '기존 고객 후불'], text: '핵심만 정확히 풀어줍니다. 후불제라 더 믿음이 갔어요.' },
+    { area: '충주', course: '스포츠', badges: ['Verified', '후불제'], text: '핵심만 정확히 풀어줍니다. 후불제라 더 믿음이 갔어요.' },
     { area: '제천', course: '림프', badges: ['자택'], text: '붓기 관리에 효과적이었습니다. 다음날 다리가 확실히 달랐어요.' },
   ]},
   { region: '충청남도', cases: [
     { area: '천안', course: '림프', badges: ['Verified', '자택'], text: '부종이 빠르게 가벼워졌어요. 전문적인 케어에 만족했습니다.' },
-    { area: '아산', course: '스포츠', badges: ['Verified', '기존 고객 후불'], text: '등·어깨 집중 케어가 만족스러워요. 재방문 의사 100%입니다.' },
+    { area: '아산', course: '스포츠', badges: ['Verified', '후불제'], text: '등·어깨 집중 케어가 만족스러워요. 재방문 의사 100%입니다.' },
     { area: '당진', course: '스웨디시', badges: ['자택'], text: '편안해서 깊게 잤습니다. 자택 방문 서비스 강력 추천해요.' },
   ]},
   { region: '전라북도', cases: [
@@ -427,22 +427,22 @@ const REVIEW_REGIONS = [
   ]},
   { region: '전라남도', cases: [
     { area: '여수', course: '림프', badges: ['Verified', '호텔'], text: '여행 피로가 빠르게 풀렸습니다. 여수 야경과 함께 최고의 힐링이었어요.' },
-    { area: '순천', course: '스웨디시', badges: ['Verified', '기존 고객 후불'], text: '편안해서 금방 잠들었어요. 후불제로 부담 없이 이용했습니다.' },
+    { area: '순천', course: '스웨디시', badges: ['Verified', '후불제'], text: '편안해서 금방 잠들었어요. 후불제로 부담 없이 이용했습니다.' },
     { area: '목포', course: '스포츠', badges: ['자택'], text: '딥티슈가 제대로 들어갑니다. 자택 방문이라 더 편안했어요.' },
   ]},
   { region: '경상북도', cases: [
     { area: '포항', course: '스포츠', badges: ['Verified', '자택'], text: '딥티슈가 시원합니다. 운동 후 회복이 확실히 빨랐어요.' },
     { area: '경주', course: '스웨디시', badges: ['Verified', '호텔'], text: '편안한 수면을 도와줬어요. 경주 여행의 완벽한 마무리였습니다.' },
-    { area: '구미', course: '림프', badges: ['기존 고객 후불'], text: '붓기 완화가 확실해요. 후불제 덕분에 믿고 첫 이용 했습니다.' },
+    { area: '구미', course: '림프', badges: ['후불제'], text: '붓기 완화가 확실해요. 후불제 덕분에 믿고 첫 이용 했습니다.' },
   ]},
   { region: '경상남도', cases: [
     { area: '창원', course: '림프', badges: ['Verified', '자택'], text: '붓기 관리에 큰 도움이 됐어요. 전문 케어 퀄리티가 놀라웠습니다.' },
-    { area: '김해', course: '스포츠', badges: ['Verified', '기존 고객 후불'], text: '핵심 근육을 정확히 풀어줍니다. 재이용 의사 100%입니다.' },
+    { area: '김해', course: '스포츠', badges: ['Verified', '후불제'], text: '핵심 근육을 정확히 풀어줍니다. 재이용 의사 100%입니다.' },
     { area: '통영', course: '스웨디시', badges: ['호텔'], text: '편안하고 개운합니다. 통영 여행의 완벽한 힐링이었어요.' },
   ]},
   { region: '제주특별자치도', cases: [
     { area: '제주시', course: '스웨디시', badges: ['Verified', '호텔'], text: '여행 피로가 싹 풀리고 개운해요. 제주 여행 필수 코스로 추천합니다.' },
-    { area: '서귀포', course: '아로마', badges: ['Verified', '기존 고객 후불'], text: '향과 터치가 편안해 금방 잠들었어요. 풀빌라에서 받으니 완벽했습니다.' },
+    { area: '서귀포', course: '아로마', badges: ['Verified', '후불제'], text: '향과 터치가 편안해 금방 잠들었어요. 풀빌라에서 받으니 완벽했습니다.' },
     { area: '애월', course: '림프', badges: ['호텔'], text: '부종 케어 효과가 확실했습니다. 애월 감성에 최고의 힐링이었어요.' },
   ]},
 ]
@@ -959,7 +959,7 @@ function CityPage({ city, regionName }: { city: string; regionName: string; onCl
       <div className="mx-auto max-w-5xl">
         <h1 className="text-3xl font-semibold leading-snug">{regionName} {city} 출장마사지 · 24시간 방문 서비스</h1>
         <p className="mt-5 leading-relaxed">전국 출장마사지 굿데이는 {regionName} {city}의 고객님이 요청하신 자택·호텔·오피스텔로 방문하는 마사지 서비스를 안내합니다. 스웨디시·아로마·스포츠·림프순환·VIP 등 원하는 코스와 시간을 상담해 주세요.</p>
-        <p className="mt-3 leading-relaxed">{regionName} {city}의 상세 주소와 희망 시간을 알려주시면 배정 가능 여부, 예상 이동 시간과 이용 비용을 확인해 드립니다. 신규 고객은 선불, 기존 고객은 후불입니다.</p>
+        <p className="mt-3 leading-relaxed">{regionName} {city}의 상세 주소와 희망 시간을 알려주시면 배정 가능 여부, 예상 이동 시간과 이용 비용을 확인해 드립니다. 100% 후불제이며, 신규 회원님은 예약하기로 문의해 주세요.</p>
       </div>
     </header>
     <NationwideOverview region={regionName} city={city} />
@@ -1411,6 +1411,7 @@ export default function App() {
         <div className="relative z-10 max-w-5xl mx-auto px-6 py-16 text-center text-white">
           <h1 className="text-3xl sm:text-5xl font-bold leading-snug">전국 출장마사지<br />굿데이 24시간 방문 서비스</h1>
           <p className="mt-6 leading-relaxed">전국 모든 지역의 자택·호텔·오피스텔로 찾아갑니다.<br />홈타이·스웨디시·아로마·스포츠·림프순환·VIP 등 원하는 마사지 종류와 방문 시간을 상담해 주세요.</p>
+          <p className="mt-4 text-sm">100% 후불제로 운영합니다. 신규 회원님은 예약하기로 문의해 주세요.</p>
           <div className="flex flex-wrap justify-center gap-3 mt-8">
             <Link to="/contact" className="rounded-full bg-yellow-300 text-rose-950 px-6 py-3 font-semibold">예약 상담</Link>
             <Link to="/services" className="rounded-full bg-white text-rose-950 px-6 py-3 font-semibold">코스·가격 확인</Link>
@@ -1917,7 +1918,7 @@ export default function App() {
               { step: '01', title: '상담', desc: '지역·코스·선호/주의 부위 확인' },
               { step: '02', title: '배정', desc: '평균 20~30분 내 테라피스트 매칭 안내' },
               { step: '03', title: '방문·진행', desc: '호텔·오피스텔·자택 방문 서비스' },
-              { step: '04', title: '결제', desc: '신규 고객 선불 · 기존 고객 후불' },
+              { step: '04', title: '결제', desc: '100% 후불제 · 신규 회원은 예약하기로 문의' },
               { step: '05', title: '사후 안내', desc: '케어 포인트 및 재방문 추천 안내' },
             ].map((s, i, arr) => (
               <div key={s.step} className="flex items-start gap-4">
@@ -1957,8 +1958,8 @@ export default function App() {
           <h3 className="font-medium mb-5 text-center" style={{ color: '#3a1828', fontSize: '1.1rem' }}>이용 유의사항</h3>
           <div className="grid sm:grid-cols-2 gap-4">
             {[
-              { title: '예약·변경·취소', items: ['배정 확정 전 일정·코스 변경 가능', '확정 후 취소 시 콜 이동 비용 발생 가능', '지연·부재 시 진행 시간 단축 가능', '노쇼·무단취소 증가로 신규 고객은 선불 결제 적용', '기존 고객은 후불 결제 적용', '10년 이상 한결같이 운영된 신뢰도 높은 업체'] },
-              { title: '서비스 이용 안내', items: ['맘에 드시는 테라피스트 선택 및 출장여부 확인', '상담매니저와 스케줄 잡기 (이름 / 장소 / 시간)', '신규 고객은 상담에서 안내된 비용을 선불 결제', '예약완료'] },
+              { title: '예약·변경·취소', items: ['배정 확정 전 일정·코스 변경 가능', '확정 후 취소 시 콜 이동 비용 발생 가능', '지연·부재 시 진행 시간 단축 가능', '100% 후불제로 운영', '신규 회원님은 예약하기로 문의', '10년 이상 한결같이 운영된 신뢰도 높은 업체'] },
+              { title: '서비스 이용 안내', items: ['맘에 드시는 테라피스트 선택 및 출장여부 확인', '상담매니저와 스케줄 잡기 (이름 / 장소 / 시간)', '신규 회원님은 예약하기로 문의', '예약완료'] },
               { title: '위생·방역', items: ['일회용 시트/타월, 장비 현장 소독', '손 위생 및 위생 프로토콜 준수', '감염성 증상 시 예약 보류 권장'] },
               { title: '프라이버시', items: ['민감 정보 최소 보관', 'CCTV 각도 조정·가림 권장', '무단 촬영 금지'] },
             ].map(g => (
@@ -1983,7 +1984,7 @@ export default function App() {
             {[
               { q: '심야에도 가능한가요?', a: '연중무휴 24시간 운영합니다. 심야·우천·행사 시즌은 배정 소요 시간이 변동될 수 있습니다.' },
               { q: '테라피스트 지정이 가능한가요?', a: '가능 시 우선 배정해드립니다. 선호 압·스타일·이전 이용 이력을 제공하시면 매칭 정확도가 높아집니다.' },
-              { q: '디파짓이란 무엇인가요?', a: '고객 정보 보호 및 안전한 서비스 환경 조성을 위한 제도입니다. 디파짓은 디파짓 명의로 입금하시며, 50만원을 예치 후 서비스 정상 완료·테라피스트 퇴실 후 즉시 전액 환불됩니다.' },
+              { q: '신규 회원은 어떻게 예약하나요?', a: '100% 후불제로 운영합니다. 신규 회원님은 예약하기에서 이용 방법과 예약 조건을 문의해 주세요.' },
             ].map((faq, i, arr) => (
               <ContactFaqItem key={i} faq={faq} />
             ))}
