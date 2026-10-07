@@ -46,10 +46,10 @@ h2 {
 ::-webkit-scrollbar-thumb { background: #fda4b2; border-radius: 2px; }
 
 /* Keep a readable fallback when text clipping or animation is unavailable. */
-.nationwide-color-slide { color: #fda4b2; }
+.nationwide-color-slide { color: #fff36a; }
 @supports ((background-clip: text) or (-webkit-background-clip: text)) {
   .nationwide-color-slide {
-    background-image: linear-gradient(90deg, #fda4b2, #fff0f5, #ffd88a, #fda4b2);
+    background-image: linear-gradient(90deg, #fff36a, #69ffe0, #ff92de, #fff36a);
     background-size: 250% 100%;
     background-clip: text;
     -webkit-background-clip: text;
@@ -62,7 +62,7 @@ h2 {
   to { background-position: 100% 50%; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .nationwide-color-slide { animation: none; background-image: none; color: #fda4b2; }
+  .nationwide-color-slide { animation: none; background-image: none; color: #fff36a; }
 }
 @media (forced-colors: active) {
   .nationwide-color-slide { animation: none; background-image: none; color: CanvasText; }
