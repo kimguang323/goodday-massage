@@ -632,35 +632,6 @@ function VipPage({ onClose, onGoTherapists }: { onClose: () => void; onGoTherapi
   )
 }
 
-function CityPage({ city, regionName }: { city: string; regionName: string; onClose: () => void }) {
-  return <main className="min-h-screen bg-white pb-12 text-rose-950">
-    <nav aria-label="현재 위치" className="mx-auto flex max-w-5xl flex-wrap gap-3 px-6 py-5 text-sm">
-      <Link to="/" className="underline">굿데이 홈</Link><span>/</span><Link to="/cities" className="underline">전국 지역 안내</Link><span>/</span><span>{regionName} {city}</span>
-    </nav>
-    <header className="bg-rose-950 px-6 py-12 text-white">
-      <div className="mx-auto max-w-5xl">
-        <h1 className="text-3xl font-semibold leading-snug">{regionName} {city} 출장마사지 · 24시간 방문 서비스</h1>
-        <p className="mt-5 leading-relaxed">전국 출장마사지 굿데이는 {regionName} {city}의 고객님이 요청하신 자택·호텔·오피스텔로 방문하는 마사지 서비스를 안내합니다. 스웨디시·아로마·스포츠·림프순환·VIP 등 원하는 코스와 시간을 상담해 주세요.</p>
-        <p className="mt-3 leading-relaxed">{regionName} {city}의 상세 주소와 희망 시간을 알려주시면 배정 가능 여부, 예상 이동 시간과 이용 비용을 확인해 드립니다. 100% 후불제이며, 신규 회원님은 예약하기로 문의해 주세요.</p>
-      </div>
-    </header>
-    <NationwideOverview region={regionName} city={city} />
-    <section className="mx-auto max-w-5xl px-6 py-10">
-      <h2 className="text-2xl font-semibold">{regionName} {city} 방문 장소를 안내할 때</h2>
-      <p className="mt-4 leading-relaxed">같은 이름의 구·군이 다른 시·도에 있을 수 있으므로 ‘{regionName} {city}’처럼 시·도와 지역명을 함께 알려주세요. 호텔이나 오피스텔은 방문객 출입 방법과 주차 가능 여부를 확인해 주세요. 상세 주소와 필요한 출입 안내는 예약 상담에서 전달하시면 됩니다.</p>
-      <p className="mt-4 leading-relaxed">지역명만으로 정확한 도착 시간이나 추가 비용을 확정할 수 없습니다. 도로·이동 여건과 당일 배정 상황을 확인한 뒤 확정된 안내를 받으세요.</p>
-      <Link to="/blog/business-trip-massage-booking-guide" className="mt-5 inline-block underline">예약 방법과 결제 안내 자세히 보기</Link>
-    </section>
-    <div className="mx-auto flex max-w-5xl flex-col items-start gap-3 px-6">
-      <button type="button" onClick={openCrispChat} className="booking-shimmer min-h-12 w-full rounded-full bg-rose-800 px-6 py-4 font-semibold text-white sm:w-80">{regionName} {city} 방문 상담하기</button>
-      <a href="https://t.me/sy2267" target="_blank" rel="noopener noreferrer" className="booking-shimmer inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-[#087eaf] px-6 py-4 font-semibold text-white hover:opacity-90 sm:w-80">
-        <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5"><path d="M21.7 3.3a1 1 0 0 0-1.1-.2L2.7 10a1 1 0 0 0 .1 1.9l4.6 1.4 1.8 5.5a1 1 0 0 0 1.7.4l2.6-2.7 4.6 3.4a1 1 0 0 0 1.6-.6l2.3-15a1 1 0 0 0-.3-1ZM9.1 12.7l9-6.1-6.9 7.6-.9 2.9-1.2-4.4Z" /></svg>
-        텔레그램 상담하기
-      </a>
-    </div>
-  </main>
-}
-
 function ServiceFaqItem({ faq, last }: { faq: { q: string; a: string }; last: boolean }) {
   const [open, setOpen] = useState(false)
   return (
@@ -1700,9 +1671,3 @@ export default function App() {
   )
 }
 
-export function CityPageRoute() {
-  const { city, region } = useParams<{ city: string; region: string }>()
-  const navigate = useNavigate()
-  const regionName = region ?? REGIONS.find(r => r.cities.includes(city ?? ''))?.name ?? ''
-  return <CityPage city={city ?? ''} regionName={regionName} onClose={() => navigate('/cities')} />
-}
