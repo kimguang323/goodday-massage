@@ -1401,15 +1401,15 @@ export default function App() {
       </header>
 
       {/* ── HERO ── */}
-      {currentPage === 'home' && <section id="home" className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-36">
+      {currentPage === 'home' && <section id="home" className="relative flex flex-col justify-start overflow-hidden pt-14 sm:min-h-[80vh] sm:justify-center sm:pt-20">
         {/* Background */}
         <div className="absolute inset-0">
           <Image src="/regions-banner.webp" fill sizes="100vw" priority alt="굿데이 출장마사지 방문 서비스 안내" className="object-cover" />
           <div className="absolute inset-0" style={{ background: 'rgba(35,10,25,0.72)' }} />
         </div>
         {/* Content */}
-        <div className="relative z-10 max-w-5xl mx-auto px-6 py-16 text-center text-white">
-          <h1 className="text-3xl sm:text-5xl font-bold leading-snug">전국 출장마사지<br />굿데이 24시간 방문 서비스</h1>
+        <div className="relative z-10 max-w-5xl mx-auto px-6 py-8 sm:py-16 text-center text-white">
+          <h1 className="text-3xl sm:text-5xl font-bold leading-snug"><span className="text-[#fda4b2]">전국 출장마사지</span><br />굿데이 24시간 방문 서비스</h1>
           <p className="mt-6 leading-relaxed">전국 모든 지역의 자택·호텔·오피스텔로 찾아갑니다.<br />홈타이·스웨디시·아로마·스포츠·림프순환·VIP 등 원하는 마사지 종류와 방문 시간을 상담해 주세요.</p>
           <ul aria-label="서비스 핵심 포인트" className="mt-6 flex flex-wrap justify-center gap-2 sm:gap-3">
             {[
@@ -1431,7 +1431,7 @@ export default function App() {
           <details className="mt-8"><summary className="cursor-pointer text-sm">소개 영상 보기</summary><video src="/hero-video.mp4" controls muted playsInline preload="none" className="mt-4 mx-auto max-h-96" aria-label="굿데이 소개 영상" /></details>
         </div>
         {/* Scroll hint */}
-        <div className="absolute bottom-8 inset-x-0 flex justify-center z-10 animate-bounce">
+        <div className="absolute bottom-8 inset-x-0 hidden sm:flex justify-center z-10 animate-bounce">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="rgba(255,200,220,0.6)" strokeWidth="2"><path d="M12 5v14M5 12l7 7 7-7" strokeLinecap="round"/></svg>
         </div>
       </section>}
