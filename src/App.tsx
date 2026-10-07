@@ -1412,8 +1412,15 @@ export default function App() {
           <h1 className="text-3xl sm:text-5xl font-bold leading-snug">전국 출장마사지<br />굿데이 24시간 방문 서비스</h1>
           <p className="mt-6 leading-relaxed">전국 모든 지역의 자택·호텔·오피스텔로 찾아갑니다.<br />홈타이·스웨디시·아로마·스포츠·림프순환·VIP 등 원하는 마사지 종류와 방문 시간을 상담해 주세요.</p>
           <ul aria-label="서비스 핵심 포인트" className="mt-6 flex flex-wrap justify-center gap-2 sm:gap-3">
-            {['100% 후불제', '30분 내 도착', '철저한 프라이버시'].map(point => (
-              <li key={point} className="rounded-full border border-white/40 bg-white/10 px-4 py-2 text-sm font-semibold">{point}</li>
+            {[
+              { label: '100% 후불제', icon: <><rect x="3" y="5" width="18" height="14" rx="3" /><path d="M3 10h18m-12 5 2 2 4-4" /></> },
+              { label: '30분 내 도착', icon: <><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></> },
+              { label: '철저한 프라이버시', icon: <><path d="M12 3 4 6v6c0 5 8 9 8 9s8-4 8-9V6l-8-3Z" /><path d="m8 12 3 3 5-5" /></> },
+            ].map(point => (
+              <li key={point.label} className="flex items-center gap-2 rounded-full border border-rose-300/40 bg-[#3a1828] px-4 py-2 text-sm font-semibold text-white">
+                <svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fda4b2" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">{point.icon}</svg>
+                <span>{point.label}</span>
+              </li>
             ))}
           </ul>
           <div className="flex flex-wrap justify-center gap-3 mt-8">
