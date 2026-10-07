@@ -588,10 +588,16 @@ function BlogPage() {
           <div className="mt-12 rounded-2xl p-8 text-center" style={{ background: 'linear-gradient(160deg, #3a1828, #6b2040)' }}>
             <p className="text-sm font-medium mb-4" style={{ color: 'white' }}>지금 바로 예약하고 경험하세요</p>
             <button type="button" onClick={openCrispChat}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full text-sm font-medium hover:opacity-90"
+              className="inline-flex min-h-12 w-full items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-medium hover:opacity-90 sm:w-64"
               style={{ background: '#FEE500', color: '#3a1828' }}>
               실시간 예약 상담
             </button>
+            {selected.slug === 'nationwide-massage-service-guide' && <div className="mt-3">
+              <a href="https://t.me/sy2267" target="_blank" rel="noopener noreferrer" className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-full bg-[#087eaf] px-6 py-3 text-sm font-medium text-white hover:opacity-90 sm:w-64">
+                <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" className="h-5 w-5"><path d="M21.7 3.3a1 1 0 0 0-1.1-.2L2.7 10a1 1 0 0 0 .1 1.9l4.6 1.4 1.8 5.5a1 1 0 0 0 1.7.4l2.6-2.7 4.6 3.4a1 1 0 0 0 1.6-.6l2.3-15a1 1 0 0 0-.3-1ZM9.1 12.7l9-6.1-6.9 7.6-.9 2.9-1.2-4.4Z" /></svg>
+                텔레그램 상담하기
+              </a>
+            </div>}
           </div>
         </div>
       </article>
