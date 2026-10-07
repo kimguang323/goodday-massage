@@ -5,7 +5,7 @@ import { MASSAGE_COURSES, NATIONWIDE_FAQS } from '../data/service-content'
 
 export default function NationwideOverview({ compact = false, region, city }: { compact?: boolean; region?: string; city?: string }) {
   const selectedRegion = REGIONS.find(item => item.name === region)
-  return <section className="bg-rose-50 px-6 py-12 text-rose-950" aria-label="전국 출장마사지 이용 안내">
+  return <section className={`bg-rose-50 px-6 ${compact ? 'py-6' : 'py-12'} text-rose-950`} aria-label="전국 출장마사지 이용 안내">
     <div className="mx-auto max-w-5xl">
       <h2 className="text-2xl font-semibold leading-snug">{city ? `${region} ${city}에서 이용하는 출장마사지` : '전국 모든 지역으로 찾아가는 마사지 서비스'}</h2>
       <p className="mt-4 leading-relaxed">굿데이는 전국 모든 지역의 고객을 대상으로 자택·호텔·오피스텔에 방문하는 출장마사지 서비스를 제공합니다. 홈타이·스웨디시·아로마·스포츠·림프순환·VIP 등 원하시는 마사지 종류를 선택해 주세요. 24시간 상담과 방문 서비스를 운영하며, 실제 배정과 일정은 요청하신 지역·시간·코스에 따라 확인합니다.</p>

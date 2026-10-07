@@ -455,7 +455,7 @@ function ReviewPage({ onBook }: { onBook: () => void }) {
   return (
     <section id="reviews" className="pb-24 min-h-screen" style={{ background: '#fff8fa' }}>
       {/* 메인 배너 */}
-      <div className="w-full pt-14">
+      <div className="w-full">
         <img loading="lazy" decoding="async" src="/reviews-banner.webp" alt="굿데이마사지 고객후기" className="w-full" style={{ display: 'block' }} />
       </div>
       {/* 히어로 */}
@@ -601,7 +601,7 @@ function BlogPage() {
   return (
     <section id="blog" className="min-h-screen pb-24" style={{ background: '#fff8fa' }}>
       {/* 메인 배너 */}
-      <div className="w-full pt-14">
+      <div className="w-full">
         <img loading="lazy" decoding="async" src="/blog-banner.webp" alt="굿데이마사지 블로그" className="w-full" style={{ display: 'block' }} />
       </div>
 
@@ -656,7 +656,7 @@ function FaqPage() {
   return (
     <section id="faq" className="min-h-screen pb-24" style={{ background: '#fff8fa' }}>
       {/* 히어로 */}
-      <div className="py-16 text-center" style={{ background: 'linear-gradient(160deg, #3a1828, #6b2040)' }}>
+      <div className="py-8 sm:py-12 text-center" style={{ background: 'linear-gradient(160deg, #3a1828, #6b2040)' }}>
         <div className="text-xs tracking-widest uppercase mb-3" style={{ color: '#fda4b2' }}>FAQ</div>
         <h1 style={{ fontSize: 'clamp(1.8rem, 4vw, 3rem)', color: 'white', fontWeight: 400 }}>자주 묻는 질문</h1>
         <p className="mt-3 text-sm" style={{ color: 'rgba(255,210,225,0.8)' }}>궁금하신 점을 빠르게 확인하세요</p>
@@ -1435,7 +1435,6 @@ export default function App() {
       </section>}
 
       {currentPage === 'home' && <NationwideOverview />}
-      {currentPage === 'faq' && <NationwideOverview compact />}
 
       {/* ── SERVICES ── */}
       {currentPage === 'services' && <section id="services" className="py-0 min-h-screen" style={{ background: 'white' }}>
@@ -1789,14 +1788,14 @@ export default function App() {
       {currentPage === 'blog' && <BlogPage />}
 
       {/* ── FAQ ── */}
-      {currentPage === 'faq' && <FaqPage />}
+      {currentPage === 'faq' && <><FaqPage /><NationwideOverview compact /></>}
 
       {/* ── REGIONS ── */}
       {currentPage === 'regions' && <section id="regions" className="py-0 min-h-screen" style={{ background: 'white' }}>
 
         {/* 히어로 */}
         {/* 메인 배너 */}
-        <div className="w-full pt-14">
+        <div className="w-full">
           <img loading="lazy" decoding="async" src="/regions-banner.webp" alt="굿데이마사지 지역선택" className="w-full" style={{ display: 'block' }} />
         </div>
 
@@ -1833,7 +1832,7 @@ export default function App() {
       {currentPage === 'contact' && <section id="contact" className="pb-24 min-h-screen" style={{ background: '#fff8fa' }}>
 
         {/* 배너 이미지 */}
-        <div className="w-full pt-14">
+        <div className="w-full">
           <img loading="lazy" decoding="async" src="/contact-new-banner.webp" alt="굿데이마사지 예약문의" className="w-full" style={{ display: 'block' }} />
         </div>
 
