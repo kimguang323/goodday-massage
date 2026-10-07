@@ -1860,7 +1860,7 @@ export default function App() {
           <button
             type="button"
             onClick={openCrispChat}
-            className="booking-shimmer mt-7 flex flex-col items-center gap-2 mx-auto"
+            className="mt-7 flex flex-col items-center gap-2 mx-auto"
             style={{ background: 'none', border: 'none', cursor: 'pointer' }}
           >
             <span
@@ -1875,7 +1875,7 @@ export default function App() {
             >
               터치시 상담연결
             </span>
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" className="animate-bounce">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
               <path d="M12 5v14M5 12l7 7 7-7" stroke="#fda4b2" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
           </button>

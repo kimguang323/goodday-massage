@@ -91,6 +91,19 @@ h2 {
   border-color: #fecaca;
   box-shadow: inset 0 0 16px 4px rgb(255 202 202 / 70%);
 }
+.booking-shimmer[href="https://t.me/sy2267"] {
+  box-shadow: 0 0 0 4px rgb(125 211 252 / 70%), 0 0 24px 5px rgb(56 189 248 / 45%);
+}
+.booking-shimmer[href="https://t.me/sy2267"]::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  border: 4px solid #bae6fd;
+  box-shadow: inset 0 0 16px 4px rgb(186 230 253 / 65%);
+  pointer-events: none;
+  animation: booking-glow-pulse 1.6s ease-in-out infinite alternate;
+}
 @keyframes booking-shimmer-slide {
   from { transform: translateX(-110%); }
   to { transform: translateX(110%); }
