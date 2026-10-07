@@ -1,5 +1,8 @@
+'use client'
+
+import Image from 'next/image'
 import { useState, useCallback, useEffect, useRef, type ReactNode } from 'react'
-import { Link, useLocation, useNavigate, useParams } from 'react-router'
+import { Link, useLocation, useNavigate, useParams } from './router'
 import { REGIONS } from './data/regions'
 import { cityPath, PAGE_PATHS } from './data/site'
 import { BLOG_POSTS } from './data/blog'
@@ -1743,7 +1746,7 @@ export default function App() {
       {currentPage === 'home' && <section id="home" className="relative min-h-screen flex flex-col justify-center overflow-hidden pt-36">
         {/* Background */}
         <div className="absolute inset-0">
-          <img src="/regions-banner.webp" width="1280" height="720" alt="굿데이 출장마사지 방문 서비스 안내" fetchPriority="high" className="w-full h-full object-cover" />
+          <Image src="/regions-banner.webp" fill sizes="100vw" priority alt="굿데이 출장마사지 방문 서비스 안내" className="object-cover" />
           <div className="absolute inset-0" style={{ background: 'rgba(35,10,25,0.72)' }} />
         </div>
         {/* Content */}

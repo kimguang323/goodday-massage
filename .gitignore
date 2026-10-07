@@ -21,3 +21,6 @@ logs/
 /.opencode-skills/
 
 .prerender/
+
+.next/
+out/
