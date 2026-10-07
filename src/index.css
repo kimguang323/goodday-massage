@@ -46,6 +46,29 @@ h2 {
 ::-webkit-scrollbar-thumb { background: #fda4b2; border-radius: 2px; }
 
 /* Keep a readable fallback when text clipping or animation is unavailable. */
+.booking-shimmer {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.booking-shimmer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: linear-gradient(110deg, transparent 15%, #fff8aa 40%, #fff 50%, #fff8aa 60%, transparent 85%);
+  transform: translateX(-110%);
+  animation: booking-shimmer-slide 3s ease-in-out infinite alternate;
+}
+.booking-shimmer:focus-visible { outline: 3px solid #fff; outline-offset: 4px; }
+@keyframes booking-shimmer-slide {
+  from { transform: translateX(-110%); }
+  to { transform: translateX(110%); }
+}
+@media (prefers-reduced-motion: reduce), (forced-colors: active) {
+  .booking-shimmer::before { display: none; animation: none; }
+}
 .nationwide-color-slide { color: #fff36a; }
 @supports ((background-clip: text) or (-webkit-background-clip: text)) {
   .nationwide-color-slide {

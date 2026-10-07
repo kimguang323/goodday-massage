@@ -588,7 +588,7 @@ function BlogPage() {
           <div className="mt-12 rounded-2xl p-8 text-center" style={{ background: 'linear-gradient(160deg, #3a1828, #6b2040)' }}>
             <p className="text-sm font-medium mb-4" style={{ color: 'white' }}>지금 바로 예약하고 경험하세요</p>
             <button type="button" onClick={openCrispChat}
-              className="inline-flex min-h-12 w-full items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-medium hover:opacity-90 sm:w-64"
+              className="booking-shimmer inline-flex min-h-12 w-full items-center justify-center gap-2 px-6 py-3 rounded-full text-sm font-medium hover:opacity-90 sm:w-64"
               style={{ background: '#FEE500', color: '#3a1828' }}>
               실시간 예약 상담
             </button>
