@@ -1,56 +1,64 @@
-import { REGIONS } from './regions'
+import { REGIONAL_PROFILE_ROWS } from './regional-profiles'
 
-type LocalFact = { description: string; serviceIntro?: string; highlights?: string[]; tip: string; source?: string; sourceLabel?: string }
-const LOCAL_FACTS: Record<string, LocalFact> = {
-  '전남/나주': {
+type LocalFact = { description: string; serviceIntro: string; highlights: string[]; tip: string; source: string; sourceLabel: string }
+const PROFILES = new Map<string, (typeof REGIONAL_PROFILE_ROWS)[number]>(REGIONAL_PROFILE_ROWS.map(row => [row[0], row]))
+
+function localActivity(landmark: string): string {
+  if (/테헤란로|디지털단지|G밸리|동탄|평택항|여의도|송정역|서대구역|광명역/.test(landmark)) return '업무와 이동 일정을 마친 뒤'
+  if (/해수욕장|해변|광안리|장호항|삼천포|호미곶|간절곶|이기대|백령도|대부도|오동도|당항포/.test(landmark)) return '바닷가 나들이를 마치고 숙소로 돌아온 뒤'
+  if (/산$|산·|계곡|출렁다리|회룡사|범어사|수타사|대왕암/.test(landmark)) return '산길과 자연을 둘러본 날'
+  if (/공원|호수|생태원|저수지|수목원|한강|소양강|탄금대|농다리|순천만|우포늪|반곡지|경천섬/.test(landmark)) return '물가와 공원에서 산책을 즐긴 뒤'
+  if (/미술관|문화전당|만화박물관|예술의전당|아트빌리지|문화예술촌|김광석|헤이리/.test(landmark)) return '공연·전시와 문화 나들이를 즐긴 날'
+  if (/한옥|성|왕릉|릉|불국사|직지사|통도사|서원|고분|고인돌|조문국|기념관|고택|광한루|벽골제/.test(landmark)) return '역사와 문화 공간을 둘러본 뒤'
+  return '지역 나들이와 하루 일정을 마친 뒤'
+}
+
+export function getLocalGuide(region: string, city: string): LocalFact {
+  const key = `${region}/${city}`
+  const profile = PROFILES.get(key)
+  if (!profile) throw new Error(`Missing researched regional introduction: ${key}`)
+  const [, landmark, character, source] = profile
+  const brand = `굿데이 ${region} ${city} 출장마사지·출장안마`
+  const activity = localActivity(landmark)
+  const variant = REGIONAL_PROFILE_ROWS.findIndex(row => row[0] === key) % 6
+  const serviceLines = [
+    `${activity}, 이제 휴식은 머무는 공간에서 준비하세요. ${brand}는 자택·호텔·오피스텔 방문 상담으로 이동을 줄이고 원하는 관리 시간을 함께 정합니다.`,
+    `${activity} 따로 매장을 찾지 않고 쉬고 싶다면 ${brand}를 만나보세요. 자택이나 머무는 숙소에서 선호하는 관리 방식과 시간에 맞춰 방문 서비스를 상담할 수 있습니다.`,
+    `${activity} 이어지는 나만의 휴식. ${brand}는 고객님이 머무는 자택·호텔·오피스텔을 기준으로 방문 일정과 원하는 코스를 안내합니다.`,
+    `${activity}, 편안한 공간에서 하루를 마무리해 보세요. ${brand}는 자택과 숙소 방문을 상담하며, 이용 장소를 옮기지 않는 휴식을 준비합니다.`,
+    `${activity} 필요한 것은 분주한 이동보다 편안한 휴식 시간. ${brand}는 자택·호텔·오피스텔에서 이용할 코스와 일정을 함께 확인합니다.`,
+    `${activity} 쉬고 싶은 고객님을 위한 ${brand}. 머무는 자택이나 숙소에서 원하는 마사지 종류와 압을 선택해 방문 서비스를 준비하세요.`,
+  ]
+  const courseLines = [
+    '부드러운 오일 관리를 원한다면 스웨디시·아로마, 압의 선호를 세밀하게 상담하고 싶다면 스포츠 마사지를 비교해 보세요.',
+    '스웨디시·아로마·스포츠 마사지 중 원하는 관리 방식과 압을 알려주세요. 홈타이·림프순환·VIP의 구성과 이용 시간도 코스 안내에서 비교할 수 있습니다.',
+    '오일 사용 여부와 원하는 압에 따라 스웨디시·아로마·스포츠 마사지를 상담하세요. 내 취향에 맞는 코스를 고르는 것부터 휴식을 시작합니다.',
+    '부드러운 스웨디시와 아로마부터 스포츠 마사지까지, 선호하는 관리 방식으로 나만의 휴식 시간을 준비하세요.',
+    '관리 방식은 스웨디시·아로마·스포츠 등 코스별로 비교하고, 원하는 압과 집중 관리 부위를 상담에서 알려주세요.',
+    '홈타이 방문과 스웨디시·아로마·스포츠·림프순환·VIP를 안내합니다. 이용 시간과 가격을 비교해 편안하게 받을 수 있는 코스를 선택하세요.',
+  ]
+  const tip = key === '인천/옹진군'
+    ? '섬 지역은 선박 운항과 이동 여건에 따라 방문 가능 일정이 달라질 수 있습니다. 머무는 섬과 희망 날짜를 알려주고 실제 배정 가능 여부를 먼저 확인하세요.'
+    : key === '경기/광주'
+      ? '광주광역시와 구분되도록 “경기도 광주시”와 머무는 장소를 알려주세요. 숙소의 외부 방문객 출입 규정과 주차 안내도 함께 확인하세요.'
+      : /군$|군위/.test(city)
+        ? `${city} 안에서도 방문 지점에 따라 이동 조건이 달라질 수 있습니다. 희망 시간과 머무는 장소를 알려주고 예상 이동 시간과 총 비용을 확인하세요.`
+        : `${landmark} 나들이와 방문 상담을 함께 계획한다면 귀가·체크인 이후 여유 있는 시간을 정하세요. 자택이나 숙소의 방문객 출입 규정과 주차 안내를 먼저 확인해 주세요.`
+  const result: LocalFact = {
+    description: `${character}. ${landmark}에서 만나는 지역의 매력에 편안한 하루의 마무리를 더해보세요. ${serviceLines[variant]}`,
+    serviceIntro: `${courseLines[variant]} 굿데이는 24시간 상담과 방문 서비스, 100% 후불제로 운영합니다. 실제 방문 일정과 코스 구성은 예약 상담에서 확인하며, 신규 회원님은 예약하기로 문의해 주세요.`,
+    highlights: [...new Set([landmark, ...landmark.split('·'), brand, '스웨디시', '아로마', '스포츠 마사지', '24시간 상담', '100% 후불제'])],
+    tip, source, sourceLabel: `${city} 지역 특성 참고 · 공식 안내`,
+  }
+  if (key === '전남/나주') return {
+    ...result,
     description: '빛가람혁신도시의 활기찬 비즈니스 일상과 영산강을 품은 나주 원도심의 전통이 만나는 도시, 나주. 굿데이 나주 출장마사지·출장안마는 빛가람동 자택·오피스텔부터 나주역·영산포 인근 숙소까지, 고객님이 머무는 공간에서 편안한 휴식을 준비합니다.',
     serviceIntro: '업무를 마친 저녁에도, 빛가람호수공원 산책 뒤에도 원하는 시간에 상담하세요. 스웨디시·아로마·스포츠 마사지 중 선호하는 관리 방식과 압을 선택하고, 24시간 상담과 100% 후불제로 굿데이의 방문 서비스를 이용하세요. 실제 방문 일정과 코스 구성은 예약 상담에서 확인합니다.',
     highlights: ['빛가람혁신도시', '영산강', '나주 원도심', '굿데이 나주 출장마사지·출장안마', '빛가람호수공원', '스웨디시·아로마·스포츠 마사지', '24시간 상담', '100% 후불제'],
     tip: '빛가람동 공동주택·오피스텔은 방문객 출입 절차를, 나주역·영산포 인근 숙소는 체크인 시간과 주차 안내를 먼저 확인하세요. 신규 회원님은 예약하기로 문의해 주세요.',
     source: 'https://naju.go.kr/tour', sourceLabel: '나주시 공식 문화관광 안내',
-  },
-  '서울/강남구': {
-    description: '강남구에는 테헤란로와 코엑스 일대가 있습니다. 업무나 전시 일정을 마친 뒤 출장마사지를 계획한다면, 머무는 호텔·오피스텔의 주소와 실제 귀가 시간을 기준으로 상담하세요.',
-    tip: '업무·전시 일정이 길어질 수 있다면 종료 예정 시간과 예약 가능한 시간 범위를 함께 전달하세요. 행사장 이름만으로 방문 장소를 확정하지 마세요.',
-    source: 'https://www.gangnam.go.kr/contents/manifesto_map/1/view.do', sourceLabel: '강남구 공식 지역 안내',
-  },
-  '경기/광주': {
-    description: '이 페이지는 광주광역시가 아닌 경기도 광주시 안내입니다. 광주시에는 남한산성면과 경안동 등 여러 생활권이 있으므로, 출장마사지 상담 시 읍·면·동과 건물 주소까지 함께 알려주세요.',
-    tip: '예약 메시지의 첫 줄을 “경기도 광주시 + 읍·면·동”으로 작성하면 광주광역시와 혼동하는 일을 줄일 수 있습니다.',
-    source: 'https://www.gjcity.go.kr/portal/contents.do?mId=0801010000', sourceLabel: '광주시청 공식 행정 안내',
-  },
-  '경북/경주': {
-    description: '경주는 불국사 등 역사·문화 관광지를 안내하는 도시입니다. 관광 일정을 마친 뒤 숙소에서 출장마사지를 이용하려면 관광지 이름이 아니라 머무는 숙소의 정확한 주소와 체크인 시간을 전달하세요.',
-    tip: '관광 일정과 숙소 입실 시간이 겹치지 않도록 희망 상담 시간을 정하고, 호텔의 외부 방문객 출입 규정을 먼저 확인하세요.',
-    source: 'https://www.gyeongju.go.kr/tour/index.do', sourceLabel: '경주시 공식 문화관광 안내',
-  },
-  '전북/전주': {
-    description: '전주는 한옥마을 등 도보로 살펴볼 수 있는 문화·관광 공간이 있는 도시입니다. 한옥 숙소에서 출장마사지를 요청한다면 객실 위치와 관리에 사용할 공간, 출입 방법을 예약 전에 확인하세요.',
-    tip: '한옥이나 소규모 숙소에서는 객실 면적과 출입 동선을 먼저 확인하세요. 관리 장소와 준비사항은 숙소 규정 및 상담 안내에 맞춰 정하세요.',
-    source: 'https://hanok.jeonju.go.kr/tour/info', sourceLabel: '전주시 공식 한옥마을 안내',
-  },
-}
-
-export function getLocalGuide(region: string, city: string): LocalFact {
-  const known = LOCAL_FACTS[`${region}/${city}`]
-  if (known) return known
-  const sameNames = REGIONS.filter(item => item.name !== region && item.cities.includes(city)).map(item => item.name)
-  if (sameNames.length) return {
-    description: `${city}라는 지역명은 ${sameNames.join('·')}의 안내 목록에도 있습니다. 이 페이지는 ${region} ${city} 출장마사지 안내이며, 다른 시·도의 같은 이름 지역과 구분해 예약하는 것이 중요합니다.`,
-    tip: `“${region} ${city}”를 먼저 적고 동·도로명 주소와 건물명을 덧붙여 주세요. 같은 지역명이어도 방문 주소가 다르면 배정과 이동 조건이 달라집니다.`,
   }
-  if (city.endsWith('군') || city === '군위') return {
-    description: `${region} ${city} 출장마사지 예약은 군 이름에 더해 실제 방문할 읍·면과 도로명 주소를 확인하는 것이 출발점입니다. 같은 군 안에서도 방문 지점이 다르므로 이동 시간과 비용은 주소를 기준으로 상담하세요.`,
-    tip: '읍·면, 숙소나 건물명, 차량 진입 방법을 함께 전달하세요. 지역 중심지와 떨어진 주소라면 이동 조건과 최종 비용을 예약 전에 확인하세요.',
-  }
-  if (city.endsWith('구')) return {
-    description: `${region} ${city}는 구 단위로 안내하는 지역입니다. 출장마사지 방문 위치를 구 이름이나 가까운 역만으로 정하기보다 동·도로명 주소와 건물명으로 구체화하면 상담 내용을 명확히 전달할 수 있습니다.`,
-    tip: '공동현관·엘리베이터·방문객 출입 절차와 주차 안내를 준비하세요. 외부 방문객 등록이 필요한 건물은 관리실이나 숙소에 먼저 확인하세요.',
-  }
-  return {
-    description: `${region} ${city} 출장마사지 이용을 준비할 때는 시·도와 지역명에 실제 머무는 동·읍·면 또는 도로명 주소를 더해 안내하세요. 지역명은 같아도 자택·호텔·오피스텔의 위치와 출입 조건에 따라 준비할 사항이 달라집니다.`,
-    tip: `이동 일정이 있다면 방문 시점에 실제로 머무는 ${city}의 주소를 알려주세요. 체크인·귀가 이후 이용할 수 있는 시간과 건물 출입 방법을 함께 확인하세요.`,
-  }
+  return result
 }
 
 export const COURSE_COMBINATIONS = [

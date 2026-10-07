@@ -55,4 +55,14 @@ for (const file of pages.filter(path => path.includes(join('app', 'cities') + '\
 }
 assert.ok(!readFileSync('src/index.css', 'utf8').includes('fonts.googleapis.com'), 'No blocking remote font import')
 assert.ok(readFileSync(join(directory, 'robots.txt.body'), 'utf8').includes('https://www.gdymassage.com/sitemap_index.xml'))
+const profiles = readFileSync('src/data/regional-profiles.ts', 'utf8').split('\n').filter(line => /^\s*\[/.test(line)).map(line => JSON.parse(line.trim().replace(/,$/, '').replaceAll("'", '"')))
+assert.equal(profiles.length, 174, 'Every detailed region must have researched local content')
+assert.equal(new Set(profiles.map(row => row[0])).size, 174, 'Regional introductions must not duplicate keys')
+for (const [key, landmark, , source] of profiles) {
+  const html = readFileSync(join(directory, 'cities', key + '.html'), 'utf8')
+  const local = html.split('id="local-characteristics"')[1].split('</section>')[0].replace(/<[^>]+>/g, '')
+  assert.ok(local.includes(landmark.split('·')[0]), key + ': local landmark must be rendered')
+  assert.ok(local.includes('출장마사지·출장안마') && local.includes('24시간 상담'), key + ': service introduction')
+  assert.ok(source.startsWith('https://') && new URL(source).hostname.endsWith('.go.kr'), key + ': official research source')
+}
 console.log(`Passed: ${pages.length} Next.js HTML pages, ${urls.length} sitemap URLs, ${noindex} summaries, metadata, images and structured data.`)
