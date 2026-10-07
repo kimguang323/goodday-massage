@@ -1424,8 +1424,8 @@ export default function App() {
             ))}
           </ul>
           <div className="flex flex-wrap justify-center gap-3 mt-8">
-            <Link to="/contact" className="rounded-full bg-yellow-300 text-rose-950 px-6 py-3 font-semibold">예약 상담</Link>
-            <Link to="/services" className="rounded-full bg-white text-rose-950 px-6 py-3 font-semibold">코스·가격 확인</Link>
+            <Link to="/contact" className="inline-flex h-12 w-40 items-center justify-center rounded-full bg-yellow-300 text-rose-950 px-3 font-semibold">예약 상담</Link>
+            <Link to="/services" className="inline-flex h-12 w-40 items-center justify-center rounded-full bg-white text-rose-950 px-3 font-semibold">코스·가격 확인</Link>
             <Link to="/cities" className="rounded-full border border-white px-6 py-3">방문 지역 확인</Link>
           </div>
           <details className="mt-8"><summary className="cursor-pointer text-sm">소개 영상 보기</summary><video src="/hero-video.mp4" controls muted playsInline preload="none" className="mt-4 mx-auto max-h-96" aria-label="굿데이 소개 영상" /></details>
