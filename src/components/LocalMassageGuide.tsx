@@ -4,6 +4,12 @@ import { REGIONS } from '../data/regions'
 import { cityPath } from '../data/site'
 import { COURSE_COMBINATIONS, getLocalGuide } from '../data/local-guide'
 
+function LocalIntroText({ text, highlights = [] }: { text: string; highlights?: string[] }) {
+  if (!highlights.length) return <>{text}</>
+  const parts = text.split(new RegExp(`(${highlights.join('|')})`, 'g'))
+  return <>{parts.map((part, index) => highlights.includes(part) ? <strong key={index} className="font-semibold text-rose-900">{part}</strong> : part)}</>
+}
+
 export default function LocalMassageGuide({ region, city }: { region: string; city: string }) {
   const place = `${region} ${city}`
   const local = getLocalGuide(region, city)
@@ -31,8 +37,9 @@ export default function LocalMassageGuide({ region, city }: { region: string; ci
     </figure>
 
     <section className="bg-rose-50" aria-labelledby="local-characteristics"><div className={sectionClass}>
-      <h2 id="local-characteristics" className="text-2xl font-semibold leading-snug">{city} 지역 특성과 방문 체크포인트</h2>
-      <p className="mt-4 leading-relaxed">{local.description}</p>
+      <h2 id="local-characteristics" className="text-2xl font-semibold leading-snug">{city} 지역 특성과 굿데이 방문 서비스</h2>
+      <p className="mt-4 leading-relaxed"><LocalIntroText text={local.description} highlights={local.highlights} /></p>
+      {local.serviceIntro && <p className="mt-4 leading-relaxed"><LocalIntroText text={local.serviceIntro} highlights={local.highlights} /></p>}
       <div className="mt-5 rounded-2xl bg-white p-5"><h3 className="font-semibold">{place} 예약 메모</h3><p className="mt-3 leading-relaxed">{local.tip}</p></div>
       {local.source && <a href={local.source} target="_blank" rel="noopener noreferrer" className="mt-4 inline-block text-sm underline">{local.sourceLabel}</a>}
     </div></section>

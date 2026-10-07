@@ -1,7 +1,14 @@
 import { REGIONS } from './regions'
 
-type LocalFact = { description: string; tip: string; source?: string; sourceLabel?: string }
+type LocalFact = { description: string; serviceIntro?: string; highlights?: string[]; tip: string; source?: string; sourceLabel?: string }
 const LOCAL_FACTS: Record<string, LocalFact> = {
+  '전남/나주': {
+    description: '빛가람혁신도시의 활기찬 비즈니스 일상과 영산강을 품은 나주 원도심의 전통이 만나는 도시, 나주. 굿데이 나주 출장마사지·출장안마는 빛가람동 자택·오피스텔부터 나주역·영산포 인근 숙소까지, 고객님이 머무는 공간에서 편안한 휴식을 준비합니다.',
+    serviceIntro: '업무를 마친 저녁에도, 빛가람호수공원 산책 뒤에도 원하는 시간에 상담하세요. 스웨디시·아로마·스포츠 마사지 중 선호하는 관리 방식과 압을 선택하고, 24시간 상담과 100% 후불제로 굿데이의 방문 서비스를 이용하세요. 실제 방문 일정과 코스 구성은 예약 상담에서 확인합니다.',
+    highlights: ['빛가람혁신도시', '영산강', '나주 원도심', '굿데이 나주 출장마사지·출장안마', '빛가람호수공원', '스웨디시·아로마·스포츠 마사지', '24시간 상담', '100% 후불제'],
+    tip: '빛가람동 공동주택·오피스텔은 방문객 출입 절차를, 나주역·영산포 인근 숙소는 체크인 시간과 주차 안내를 먼저 확인하세요. 신규 회원님은 예약하기로 문의해 주세요.',
+    source: 'https://naju.go.kr/tour', sourceLabel: '나주시 공식 문화관광 안내',
+  },
   '서울/강남구': {
     description: '강남구에는 테헤란로와 코엑스 일대가 있습니다. 업무나 전시 일정을 마친 뒤 출장마사지를 계획한다면, 머무는 호텔·오피스텔의 주소와 실제 귀가 시간을 기준으로 상담하세요.',
     tip: '업무·전시 일정이 길어질 수 있다면 종료 예정 시간과 예약 가능한 시간 범위를 함께 전달하세요. 행사장 이름만으로 방문 장소를 확정하지 마세요.',
