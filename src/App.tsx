@@ -23,6 +23,12 @@ function prepareCrispChat() {
   window.$crisp = []
   ;(window as Window & { CRISP_WEBSITE_ID?: string }).CRISP_WEBSITE_ID = '8228327c-a1a7-4ba2-b41e-657b36b5105f'
   window.$crisp.push(['do', 'chat:hide'])
+  window.$crisp.push(['on', 'session:loaded', () => {
+    if (crispRequested) {
+      window.$crisp?.push(['do', 'chat:show'])
+      window.$crisp?.push(['do', 'chat:open'])
+    }
+  }])
   window.$crisp.push(['on', 'chat:closed', () => window.$crisp?.push(['do', 'chat:hide'])])
   const script = document.createElement('script')
   script.src = 'https://client.crisp.chat/l.js'
