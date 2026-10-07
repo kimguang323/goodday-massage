@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import { REGIONS } from '../data/regions'
 import { cityPath } from '../data/site'
 import { COURSE_COMBINATIONS, getLocalGuide } from '../data/local-guide'
@@ -13,7 +14,6 @@ export default function LocalMassageGuide({ region, city }: { region: string; ci
       <p className="mb-2 text-xs font-semibold tracking-widest text-rose-700">출장마사지 이용 가이드</p>
       <h2 id="local-massage-guide" className="text-2xl font-semibold leading-snug">{place} 출장마사지, 처음이라면 이렇게 준비하세요</h2>
       <p className="mt-4 leading-relaxed">{city}에서 이용할 장소와 시간을 정하고, 원하는 마사지 종류와 관리 강도를 선택하세요.</p>
-      <p className="mt-3 leading-relaxed">출장마사지는 고객님이 머무는 장소로 방문하는 서비스입니다. 굿데이는 자택·호텔·오피스텔 방문을 상담하며, 실제 배정과 일정은 주소와 요청 내용을 확인해 안내합니다.</p>
       <div className="mt-6 grid gap-4 sm:grid-cols-3">
         {[
           ['01 · 장소와 일정', `${place}의 방문 주소, 장소 유형과 희망 날짜·시간을 준비하세요. 호텔은 체크인 이후 이용 가능한 시간을 확인해 주세요.`],
@@ -21,8 +21,14 @@ export default function LocalMassageGuide({ region, city }: { region: string; ci
           ['03 · 조건 확인', '배정 가능 여부와 예상 이동 시간, 출장비를 포함한 총 금액을 확인하세요. 신규 회원님은 예약하기로 문의해 주세요.'],
         ].map(([title, text]) => <article key={title} className="rounded-2xl border border-rose-100 bg-rose-50 p-5"><h3 className="font-semibold text-rose-800">{title}</h3><p className="mt-3 leading-relaxed">{text}</p></article>)}
       </div>
+      <p className="mt-3 leading-relaxed">출장마사지는 고객님이 머무는 장소로 방문하는 서비스입니다. 굿데이는 자택·호텔·오피스텔 방문을 상담하며, 실제 배정과 일정은 주소와 요청 내용을 확인해 안내합니다.</p>
       <Link href="/services" prefetch={false} className="mt-5 inline-block font-semibold underline">마사지 코스·이용 시간·가격 비교하기</Link>
     </section>
+
+    <figure className="mx-auto max-w-5xl px-6 pb-10">
+      <Image src="/contact-new-banner.webp" width={1280} height={720} sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 1024px) calc(100vw - 48px), 976px" loading="lazy" alt="굿데이 출장마사지 방문 상담 서비스 소개 이미지" className="h-auto w-full rounded-2xl" />
+      <figcaption className="mt-3 text-sm text-rose-800">{place} 방문 상담 · 굿데이 서비스 소개 이미지</figcaption>
+    </figure>
 
     <section className="bg-rose-50" aria-labelledby="local-characteristics"><div className={sectionClass}>
       <h2 id="local-characteristics" className="text-2xl font-semibold leading-snug">{city} 지역 특성과 방문 체크포인트</h2>
@@ -37,6 +43,13 @@ export default function LocalMassageGuide({ region, city }: { region: string; ci
       <div className="mt-6 grid gap-4 sm:grid-cols-2">{COURSE_COMBINATIONS.map(item => <article key={item.title} className="overflow-hidden rounded-2xl border border-rose-100"><div className="bg-rose-950 p-5 text-white"><h3 className="font-semibold">{item.title}</h3><p className="mt-2 text-rose-200">{item.courses}</p></div><p className="p-5 leading-relaxed">{item.description}</p></article>)}</div>
       {related.length > 0 && <div className="mt-6 rounded-2xl bg-rose-50 p-5"><h3 className="font-semibold">주변 지역을 찾고 계신가요?</h3><p className="mt-2 leading-relaxed">방문 장소가 {city} 밖에 있다면 같은 시·도의 다른 지역 안내도 살펴보세요. 아래 링크는 거리순 추천이 아닌 관련 지역 안내입니다.</p><nav aria-label={`${city} 관련 지역`} className="mt-4 flex flex-wrap gap-3">{related.map(name => <Link key={name} href={cityPath(region, name)} prefetch={false} className="rounded-lg bg-white px-4 py-3 underline">{region} {name} 출장마사지</Link>)}</nav></div>}
     </section>
+
+    <figure className="mx-auto max-w-5xl px-6 pb-10">
+      <div className="mx-auto max-w-xl">
+        <Image src="/reviews-banner.webp" width={1280} height={1280} sizes="(max-width: 640px) calc(100vw - 48px), 576px" loading="lazy" alt="굿데이 마사지 관리 분위기를 보여주는 서비스 소개 이미지" className="h-auto w-full rounded-2xl" />
+        <figcaption className="mt-3 text-sm text-rose-800">머무는 공간에서 준비하는 방문 마사지 · 서비스 소개 이미지</figcaption>
+      </div>
+    </figure>
 
     <section className="bg-rose-950 text-white" aria-labelledby="why-goodday"><div className={sectionClass}>
       <h2 id="why-goodday" className="text-2xl font-semibold leading-snug">{city}에서 왜 굿데이 출장마사지를 선택할까요?</h2>
