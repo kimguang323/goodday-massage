@@ -1,7 +1,7 @@
 import { notFound } from 'next/navigation'
-import SitePage from '../../../../src/SitePage'
+import RegionalPage from '../../../../src/components/CityPage'
 import { pageMetadata } from '../../../../src/metadata'
-import { cityEntries } from '../../../../src/data/site'
+import { cityEntries, getPageInfo } from '../../../../src/data/site'
 
 export const dynamicParams = false
 export function generateStaticParams() { return cityEntries.map(({ region, city }) => ({ region, city })) }
@@ -15,4 +15,11 @@ async function getEntry(params: Props['params']) {
   return entry
 }
 export async function generateMetadata({ params }: Props) { return pageMetadata((await getEntry(params)).path) }
-export default async function CityPage({ params }: Props) { return <SitePage path={(await getEntry(params)).path} city /> }
+export default async function CityPage({ params }: Props) {
+  const entry = await getEntry(params)
+  const info = getPageInfo(entry.path)
+  return <>
+    <script id="page-schema" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(info.schema).replace(/</g, '\\u003c') }} />
+    <RegionalPage city={entry.city} regionName={entry.region} />
+  </>
+}
