@@ -16,26 +16,31 @@ declare global {
 
 const CRISP_CHAT_URL = 'https://go.crisp.chat/chat/embed/?website_id=8228327c-a1a7-4ba2-b41e-657b36b5105f'
 
-function openCrispChat() {
-  if (!window.$crisp) {
-    window.$crisp = []
-    ;(window as Window & { CRISP_WEBSITE_ID?: string }).CRISP_WEBSITE_ID = '8228327c-a1a7-4ba2-b41e-657b36b5105f'
-    const script = document.createElement('script')
-    script.src = 'https://client.crisp.chat/l.js'
-    script.async = true
-    script.onerror = () => window.open(CRISP_CHAT_URL, '_blank', 'noopener,noreferrer')
-    document.head.appendChild(script)
-    window.$crisp.push(['on', 'chat:closed', () => window.$crisp?.push(['do', 'chat:hide'])])
-  }
-  if (window.$crisp) {
-    window.$crisp.push(['do', 'chat:show'])
-    window.$crisp.push(['do', 'chat:open'])
-    return
-  }
+let crispRequested = false
 
-  window.open(CRISP_CHAT_URL, '_blank', 'noopener,noreferrer')
+function prepareCrispChat() {
+  if (window.$crisp) return
+  window.$crisp = []
+  ;(window as Window & { CRISP_WEBSITE_ID?: string }).CRISP_WEBSITE_ID = '8228327c-a1a7-4ba2-b41e-657b36b5105f'
+  window.$crisp.push(['do', 'chat:hide'])
+  window.$crisp.push(['on', 'chat:closed', () => window.$crisp?.push(['do', 'chat:hide'])])
+  const script = document.createElement('script')
+  script.src = 'https://client.crisp.chat/l.js'
+  script.async = true
+  script.onerror = () => {
+    window.$crisp = undefined
+    script.remove()
+    if (crispRequested) window.open(CRISP_CHAT_URL, '_blank', 'noopener,noreferrer')
+  }
+  document.head.appendChild(script)
 }
 
+function openCrispChat() {
+  crispRequested = true
+  prepareCrispChat()
+  window.$crisp?.push(['do', 'chat:show'])
+  window.$crisp?.push(['do', 'chat:open'])
+}
 
 const NAV_ITEMS = [
   { label: '홈', href: '#home' },
@@ -1235,6 +1240,34 @@ export default function App() {
   const navigate = useNavigate()
   const pageKey = Object.keys(PAGE_PATHS).find(key => PAGE_PATHS[key] === location.pathname)
   const currentPage = location.pathname.startsWith('/blog/') ? 'blog' : (pageKey ?? 'home')
+  useEffect(() => {
+    const prepareOnIntent = (event: Event) => {
+      const target = event.target instanceof Element ? event.target.closest('button, a') : null
+      if (!target || target.getAttribute('href')?.startsWith('https://t.me/')) return
+      if (/예약|상담|문의/.test(target.textContent ?? '')) prepareCrispChat()
+    }
+    document.addEventListener('pointerover', prepareOnIntent, { passive: true })
+    document.addEventListener('pointerdown', prepareOnIntent, { passive: true })
+    document.addEventListener('focusin', prepareOnIntent)
+    return () => {
+      document.removeEventListener('pointerover', prepareOnIntent)
+      document.removeEventListener('pointerdown', prepareOnIntent)
+      document.removeEventListener('focusin', prepareOnIntent)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (location.pathname !== '/contact') return
+    let timer: ReturnType<typeof setTimeout> | undefined
+    const schedule = () => { timer = setTimeout(prepareCrispChat, 2000) }
+    if (document.readyState === 'complete') schedule()
+    else window.addEventListener('load', schedule, { once: true })
+    return () => {
+      if (timer) clearTimeout(timer)
+      window.removeEventListener('load', schedule)
+    }
+  }, [location.pathname])
+
   const navigateTo = useCallback((href: string) => {
     setMenuOpen(false)
     navigate(PAGE_PATHS[href.replace('#', '')] ?? '/')
