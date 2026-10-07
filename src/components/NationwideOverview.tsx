@@ -11,7 +11,7 @@ export default function NationwideOverview({ compact = false, region, city }: { 
       <p className="mt-4 leading-relaxed">굿데이는 전국 모든 지역의 고객을 대상으로 자택·호텔·오피스텔에 방문하는 출장마사지 서비스를 제공합니다. 홈타이·스웨디시·아로마·스포츠·림프순환·VIP 등 원하시는 마사지 종류를 선택해 주세요. 24시간 상담과 방문 서비스를 운영하며, 실제 배정과 일정은 요청하신 지역·시간·코스에 따라 확인합니다.</p>
       <div className="mt-6 flex flex-wrap gap-3">
         <Link href="/services" prefetch={false} className="rounded-full bg-white px-5 py-3 underline">마사지 코스·가격 비교</Link>
-        <Link href="/contact" prefetch={false} className="booking-shimmer rounded-full bg-rose-800 px-5 py-3 font-semibold text-white">전국 방문 예약 상담</Link>
+        <Link href="/contact" prefetch={false} className="rounded-full bg-rose-800 px-5 py-3 font-semibold text-white">전국 방문 예약 상담</Link>
         <Link href="/cities" prefetch={false} className="rounded-full bg-white px-5 py-3 underline">지역별 안내</Link>
       </div>
       {!compact && <>
