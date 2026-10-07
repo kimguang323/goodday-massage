@@ -1958,7 +1958,7 @@ export default function App() {
       {/* ── BOTTOM STICKY BAR (krmassage.com 동일) ── */}
 <div className="fixed bottom-0 inset-x-0 z-50 flex" style={{ background: 'white', borderTop: '1px solid #fce8ef', boxShadow: '0 -4px 20px rgba(200,70,110,0.1)' }}>
         <Link to={PAGE_PATHS.contact}
-          className="booking-shimmer flex-1 flex flex-col items-center justify-center py-3 gap-0.5 text-xs font-medium transition-opacity hover:opacity-90"
+          className="flex-1 flex flex-col items-center justify-center py-3 gap-0.5 text-xs font-medium transition-opacity hover:opacity-90"
           style={{ background: '#FEE500', color: '#3a1828' }}>
           <span>📞</span>
           <span>예약하기</span>
