@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import NationwideOverview from './NationwideOverview'
 import CityBookingActions from './CityBookingActions'
+import LocalMassageGuide from './LocalMassageGuide'
 export default function CityPage({ city, regionName }: { city: string; regionName: string }) {
   return <main className="min-h-screen bg-white pb-12 text-rose-950">
     <nav aria-label="현재 위치" className="mx-auto flex max-w-5xl flex-wrap gap-3 px-6 py-5 text-sm">
@@ -13,7 +14,8 @@ export default function CityPage({ city, regionName }: { city: string; regionNam
         <p className="mt-3 leading-relaxed">{regionName} {city}의 상세 주소와 희망 시간을 알려주시면 배정 가능 여부, 예상 이동 시간과 이용 비용을 확인해 드립니다. 100% 후불제이며, 신규 회원님은 예약하기로 문의해 주세요.</p>
       </div>
     </header>
-    <NationwideOverview region={regionName} city={city} />
+    <LocalMassageGuide region={regionName} city={city} />
+    <NationwideOverview region={regionName} city={city} compact />
     <section className="mx-auto max-w-5xl px-6 py-10">
       <h2 className="text-2xl font-semibold">{regionName} {city} 방문 장소를 안내할 때</h2>
       <p className="mt-4 leading-relaxed">같은 이름의 구·군이 다른 시·도에 있을 수 있으므로 ‘{regionName} {city}’처럼 시·도와 지역명을 함께 알려주세요. 호텔이나 오피스텔은 방문객 출입 방법과 주차 가능 여부를 확인해 주세요. 상세 주소와 필요한 출입 안내는 예약 상담에서 전달하시면 됩니다.</p>
