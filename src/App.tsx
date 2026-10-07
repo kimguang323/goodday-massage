@@ -2,7 +2,7 @@
 
 import Image from 'next/image'
 import NationwideOverview from './components/NationwideOverview'
-import { useState, useCallback, useEffect, useRef, type ReactNode } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { Link, useLocation, useNavigate, useParams } from './router'
 import { REGIONS } from './data/regions'
 import { cityPath, PAGE_PATHS } from './data/site'
@@ -1225,100 +1225,6 @@ function RegionTabs() {
   )
 }
 
-function PullToRefresh({ children }: { children: ReactNode }) {
-  const [pullDistance, setPullDistance] = useState(0)
-  const [refreshing, setRefreshing] = useState(false)
-  const startY = useRef(0)
-  const distanceRef = useRef(0)
-  const pulling = useRef(false)
-  const lastScrollTime = useRef(0)
-
-  useEffect(() => {
-    const onScroll = () => { lastScrollTime.current = Date.now() }
-    window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
-  }, [])
-
-  useEffect(() => {
-    const updateDistance = (distance: number) => {
-      distanceRef.current = distance
-      setPullDistance(distance)
-    }
-
-    const handleTouchStart = (event: TouchEvent) => {
-      if (window.scrollY !== 0 || event.touches.length !== 1 || refreshing) return
-      if (Date.now() - lastScrollTime.current < 800) return
-      startY.current = event.touches[0].clientY
-      pulling.current = true
-    }
-
-    const handleTouchMove = (event: TouchEvent) => {
-      if (!pulling.current || window.scrollY !== 0 || event.touches.length !== 1) return
-
-      const movement = event.touches[0].clientY - startY.current
-      if (movement <= 0) {
-        updateDistance(0)
-        return
-      }
-
-      event.preventDefault()
-      updateDistance(Math.min(112, movement * 0.48))
-    }
-
-    const handleTouchEnd = () => {
-      if (!pulling.current) return
-      pulling.current = false
-
-      if (distanceRef.current >= 72) {
-        setRefreshing(true)
-        updateDistance(56)
-        window.setTimeout(() => window.location.reload(), 250)
-        return
-      }
-
-      updateDistance(0)
-    }
-
-    window.addEventListener('touchstart', handleTouchStart, { passive: true })
-    window.addEventListener('touchmove', handleTouchMove, { passive: false })
-    window.addEventListener('touchend', handleTouchEnd, { passive: true })
-    window.addEventListener('touchcancel', handleTouchEnd, { passive: true })
-
-    return () => {
-      window.removeEventListener('touchstart', handleTouchStart)
-      window.removeEventListener('touchmove', handleTouchMove)
-      window.removeEventListener('touchend', handleTouchEnd)
-      window.removeEventListener('touchcancel', handleTouchEnd)
-    }
-  }, [refreshing])
-
-  const ready = pullDistance >= 72
-
-  return (
-    <>
-      <div
-        role="status"
-        aria-live="polite"
-        className="pointer-events-none fixed left-1/2 z-[70] flex -translate-x-1/2 items-center gap-2 rounded-full border bg-white/95 px-4 py-2 text-xs shadow-lg backdrop-blur-md transition-[transform,opacity] duration-150"
-        style={{
-          top: 'max(10px, env(safe-area-inset-top))',
-          borderColor: '#fce8ef',
-          color: '#7a4055',
-          opacity: pullDistance > 4 ? 1 : 0,
-          transform: `translate(-50%, ${Math.max(-48, pullDistance - 48)}px)`,
-        }}
-      >
-        <span
-          className={`block h-4 w-4 rounded-full border-2 border-rose-200 border-t-rose-500 ${refreshing ? 'animate-spin' : ''}`}
-          style={!refreshing ? { transform: `rotate(${pullDistance * 3}deg)` } : undefined}
-        />
-        <span>{refreshing ? '새로고침 중' : ready ? '놓아서 새로고침' : '아래로 당겨 새로고침'}</span>
-      </div>
-      {children}
-    </>
-  )
-}
-
 export default function App() {
   const [openFaq, setOpenFaq] = useState<number | null>(null)
   const [menuOpen, setMenuOpen] = useState(false)
@@ -1348,7 +1254,7 @@ export default function App() {
   }, [location.pathname, location.hash, navigate])
 
   return (
-    <PullToRefresh>
+    <>
       <div className={`min-h-screen overflow-x-hidden ${currentPage !== 'home' ? 'pt-14' : ''}`} style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", background: '#fdf8f9' }}>
 
       {showVip && <VipPage onClose={() => setShowVip(false)} onGoTherapists={() => { setShowVip(false); navigateTo('#therapists') }} />}
@@ -2097,7 +2003,7 @@ export default function App() {
         </div>
       )}
       </div>
-    </PullToRefresh>
+    </>
   )
 }
 
