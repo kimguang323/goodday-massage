@@ -3,7 +3,7 @@ import NationwideOverview from './NationwideOverview'
 import CityBookingActions from './CityBookingActions'
 import LocalMassageGuide from './LocalMassageGuide'
 export default function CityPage({ city, regionName }: { city: string; regionName: string }) {
-  return <main className="min-h-screen bg-white pb-12 text-rose-950">
+  return <main className="min-h-screen bg-white pb-32 text-rose-950">
     <nav aria-label="현재 위치" className="mx-auto flex max-w-5xl flex-wrap gap-3 px-6 py-5 text-sm">
       <Link prefetch={false} href="/" className="underline">굿데이 홈</Link><span>/</span><Link prefetch={false} href="/cities" className="underline">전국 지역 안내</Link><span>/</span><span>{regionName} {city}</span>
     </nav>
