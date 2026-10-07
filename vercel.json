@@ -1,26 +1,5 @@
 {
-  "buildCommand": "SITE_URL=https://gdymassage.com node scripts/generate-sitemap.mjs && vite build && SITE_URL=https://gdymassage.com node scripts/prerender-cities.mjs",
-  "outputDirectory": "dist",
-  "routes": [
-    { "src": "/sitemap.xml", "dest": "/sitemap.xml" },
-    { "src": "/sitemap_index.xml", "dest": "/sitemap_index.xml" },
-    { "src": "/robots.txt", "dest": "/robots.txt" },
-    { "src": "/favicon.svg", "dest": "/favicon.svg" },
-    { "src": "/(.*\\..*)", "dest": "/$1" },
-    { "src": "/(.*)", "dest": "/index.html" }
-  ],
-  "headers": [
-    {
-      "source": "/sitemap.xml",
-      "headers": [{ "key": "Content-Type", "value": "application/xml; charset=utf-8" }]
-    },
-    {
-      "source": "/sitemap_index.xml",
-      "headers": [{ "key": "Content-Type", "value": "application/xml; charset=utf-8" }]
-    },
-    {
-      "source": "/robots.txt",
-      "headers": [{ "key": "Content-Type", "value": "text/plain; charset=utf-8" }]
-    }
-  ]
+  "framework": "nextjs",
+  "buildCommand": "pnpm run build",
+  "outputDirectory": ".next"
 }
