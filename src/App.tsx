@@ -418,6 +418,9 @@ function FaqPage() {
 
 function VipPage({ onClose, onGoTherapists }: { onClose: () => void; onGoTherapists: () => void }) {
   const [openFaq, setOpenFaq] = useState<number | null>(null)
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' })
+  }, [])
   return (
     <div className="min-h-screen pb-24" style={{ background: '#fdf8f9', fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif" }}>
 
