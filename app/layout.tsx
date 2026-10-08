@@ -5,7 +5,7 @@ import '../src/index.css'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.gdymassage.com'),
-  verification: { google: 'JWJC6zNgbqpoZgMXv-ozVTY3b_TtVl4rf7-aq8OlL04' },
+  verification: { google: ['JWJC6zNgbqpoZgMXv-ozVTY3b_TtVl4rf7-aq8OlL04', 'qPSpYLSoJRsDyHIKLjiC1KeZW9QVZFYxhqfITrAA_8s'] },
   icons: {
     icon: { url: '/favicon-burgundy.png', type: 'image/png', sizes: '96x96' },
     apple: { url: '/apple-touch-icon.png', sizes: '180x180' },
@@ -20,3 +20,4 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <Script id="google-analytics" strategy="lazyOnload">{`window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-GYJQ38MVCQ');`}</Script>
   </body></html>
 }
+
