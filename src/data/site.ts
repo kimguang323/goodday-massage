@@ -1,6 +1,7 @@
 import { REGIONS } from './regions'
 import { BLOG_POSTS } from './blog'
-import { MASSAGE_COURSES } from './service-content'
+import { MASSAGE_COURSES, NATIONWIDE_FAQS } from './service-content'
+import { getLocalBookingFaqs } from './booking-faq'
 
 export const SITE_URL = 'https://www.gdymassage.com'
 export const PAGE_PATHS: Record<string, string> = {
@@ -31,7 +32,11 @@ export function getPageInfo(pathname: string) {
   const noindex = !copy || !!(post && !post.body?.length)
   const [title, description] = copy ?? ['페이지를 찾을 수 없습니다 | 굿데이', '요청한 페이지가 없습니다. 홈 또는 지역 안내에서 원하는 정보를 확인하세요.']
   const canonical = SITE_URL + (city?.path ?? path)
-  const organization = { '@type': 'Organization', '@id': SITE_URL + '/#organization', name: '굿데이출장마사지', url: SITE_URL }
+  const organization = {
+    '@type': 'Organization', '@id': SITE_URL + '/#organization', name: '굿데이출장마사지', url: SITE_URL,
+    logo: { '@type': 'ImageObject', url: SITE_URL + '/apple-touch-icon.png', width: 180, height: 180 },
+    contactPoint: { '@type': 'ContactPoint', contactType: '예약 상담', url: SITE_URL + '/contact', availableLanguage: 'ko', hoursAvailable: { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], opens: '00:00', closes: '23:59' } },
+  }
   const graph: Record<string, unknown>[] = [organization, { '@type': 'WebSite', '@id': SITE_URL + '/#website', name: '굿데이출장마사지', url: SITE_URL, publisher: { '@id': organization['@id'] } },
     { '@type': 'WebPage', '@id': canonical + '#webpage', name: title, description, url: canonical, inLanguage: 'ko-KR', isPartOf: { '@id': SITE_URL + '/#website' } }]
   if (city || ['/', '/services', '/cities'].includes(path)) graph.push({
@@ -43,6 +48,12 @@ export function getPageInfo(pathname: string) {
     hasOfferCatalog: { '@type': 'OfferCatalog', name: '마사지 코스 안내', itemListElement: MASSAGE_COURSES.map(course => ({ '@type': 'Offer', itemOffered: { '@type': 'Service', name: course.name, description: course.description, url: SITE_URL + '/services' } })) },
   })
   if (post?.body?.length) graph.push({ '@type': 'Article', '@id': canonical + '#article', headline: post.title, description: post.desc, mainEntityOfPage: { '@id': canonical + '#webpage' }, author: { '@id': organization['@id'] }, publisher: { '@id': organization['@id'] }, inLanguage: 'ko-KR', ...(post.updated ? { dateModified: post.updated.replace(/\./g, '-') } : {}) })
+  const faqs = city ? getLocalBookingFaqs(city.region, city.city) : ['/', '/cities', '/faq'].includes(path) ? NATIONWIDE_FAQS : []
+  if (faqs.length) {
+    const webPage = graph.find(item => item['@type'] === 'WebPage')!
+    webPage['@type'] = ['WebPage', 'FAQPage']
+    webPage.mainEntity = faqs.map(faq => ({ '@type': 'Question', name: faq.q, acceptedAnswer: { '@type': 'Answer', text: faq.a } }))
+  }
   graph.push({ '@type': 'BreadcrumbList', itemListElement: [
     { '@type': 'ListItem', position: 1, name: '홈', item: SITE_URL + '/' },
     ...(path !== '/' ? [{ '@type': 'ListItem', position: 2, name: city ? '방문 지역' : post ? '블로그' : title.split(' | ')[0], item: city ? SITE_URL + '/cities' : post ? SITE_URL + '/blog' : canonical }] : []),

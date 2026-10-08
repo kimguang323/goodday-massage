@@ -3,12 +3,20 @@ import { REGIONS } from '../data/regions'
 import { cityPath } from '../data/site'
 import { MASSAGE_COURSES, NATIONWIDE_FAQS } from '../data/service-content'
 
-export default function NationwideOverview({ compact = false, region, city }: { compact?: boolean; region?: string; city?: string }) {
+export default function NationwideOverview({ compact = false, showFaq = false, region, city }: { compact?: boolean; showFaq?: boolean; region?: string; city?: string }) {
   const selectedRegion = REGIONS.find(item => item.name === region)
   return <section className={`bg-rose-50 px-6 ${compact ? 'py-6' : 'py-12'} text-rose-950`} aria-label="전국 출장마사지 이용 안내">
     <div className="mx-auto max-w-5xl">
       <h2 className="text-2xl font-semibold leading-snug">{city ? `${region} ${city}에서 이용하는 출장마사지` : '전국 모든 지역으로 찾아가는 마사지 서비스'}</h2>
       <p className="mt-4 leading-relaxed">굿데이는 전국 모든 지역의 고객을 대상으로 자택·호텔·오피스텔에 방문하는 출장마사지 서비스를 제공합니다. 홈타이·스웨디시·아로마·스포츠·림프순환·VIP 등 원하시는 마사지 종류를 선택해 주세요. 24시간 상담과 방문 서비스를 운영하며, 실제 배정과 일정은 요청하신 지역·시간·코스에 따라 확인합니다.</p>
+      <dl className="mt-6 grid gap-3 sm:grid-cols-2" aria-label="굿데이 서비스 핵심 정보">
+        {[
+          ['운영 시간', '24시간 예약 상담·방문 운영. 실제 일정은 주소와 배정 상황을 확인한 후 확정합니다.'],
+          ['방문 장소', '자택·호텔·오피스텔. 호텔과 건물의 방문객 출입 규정을 먼저 확인해 주세요.'],
+          ['예약 방법', '사이트 예약상담 또는 텔레그램으로 지역·날짜·시간·코스를 알려주세요.'],
+          ['결제와 비용', '100% 후불제. 신규 회원님은 예약하기로 문의하고, 출장비를 포함한 총 비용은 예약 전에 확인하세요.'],
+        ].map(([label, value]) => <div key={label} className="rounded-xl bg-white p-4"><dt className="font-semibold">{label}</dt><dd className="mt-2 text-sm leading-relaxed">{value}</dd></div>)}
+      </dl>
       <div className="mt-6 flex flex-wrap gap-3">
         <Link href="/services" prefetch={false} className="rounded-full bg-white px-5 py-3 underline">마사지 코스·가격 비교</Link>
         <Link href="/contact" prefetch={false} className="rounded-full bg-rose-800 px-5 py-3 font-semibold text-white">전국 방문 예약 상담</Link>
@@ -33,11 +41,11 @@ export default function NationwideOverview({ compact = false, region, city }: { 
           <li>배정 가능 여부, 예상 이동 시간, 출장비를 포함한 총 비용을 확인해 주세요.</li>
           <li>100% 후불제와 변경·취소 조건을 확인해 주세요. 신규 회원님은 예약하기로 문의한 뒤 예약을 확정해 주세요.</li>
         </ol>
-        <div className="mt-8 space-y-3">{NATIONWIDE_FAQS.map(faq => <details key={faq.q} className="rounded-xl bg-white p-5">
-          <summary className="cursor-pointer font-semibold">{faq.q}</summary><p className="mt-3 leading-relaxed">{faq.a}</p>
-        </details>)}</div>
         <Link href="/blog/nationwide-massage-service-guide" prefetch={false} className="mt-6 inline-block underline">전국 출장마사지 이용 가이드 읽기</Link>
       </>}
+      {(!compact || showFaq) && <div className="mt-8 space-y-3">{NATIONWIDE_FAQS.map(faq => <details key={faq.q} className="rounded-xl bg-white p-5">
+        <summary className="cursor-pointer font-semibold">{faq.q}</summary><p className="mt-3 leading-relaxed">{faq.a}</p>
+      </details>)}</div>}
     </div>
   </section>
 }

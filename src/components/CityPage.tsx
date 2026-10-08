@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import CityBookingActions from './CityBookingActions'
 import LocalMassageGuide from './LocalMassageGuide'
+import { getLocalBookingFaqs } from '../data/booking-faq'
 export default function CityPage({ city, regionName }: { city: string; regionName: string }) {
   return <main className="min-h-screen bg-white pb-32 text-rose-950">
     <nav aria-label="현재 위치" className="mx-auto flex max-w-5xl flex-wrap gap-3 px-6 py-5 text-sm">
@@ -19,6 +20,12 @@ export default function CityPage({ city, regionName }: { city: string; regionNam
       <p className="mt-4 leading-relaxed">{regionName} {city}에서 머무는 자택이나 숙소를 기준으로 방문을 상담합니다. 호텔이나 오피스텔은 방문객 출입 방법과 주차 가능 여부를 확인해 주세요. 상세 주소와 필요한 출입 안내는 예약 상담에서 전달하시면 됩니다.</p>
       <p className="mt-4 leading-relaxed">지역명만으로 정확한 도착 시간이나 추가 비용을 확정할 수 없습니다. 도로·이동 여건과 당일 배정 상황을 확인한 뒤 확정된 안내를 받으세요.</p>
       <Link prefetch={false} href="/blog/business-trip-massage-booking-guide" className="mt-5 inline-block underline">예약 방법과 결제 안내 자세히 보기</Link>
+    </section>
+    <section className="mx-auto max-w-5xl px-6 py-10" aria-labelledby="local-booking-faq">
+      <h2 id="local-booking-faq" className="text-2xl font-semibold">{regionName} {city} 예약 질문과 답변</h2>
+      <div className="mt-6 space-y-3">{getLocalBookingFaqs(regionName, city).map(faq => <details key={faq.q} className="rounded-2xl border border-rose-100 bg-rose-50 p-5">
+        <summary className="cursor-pointer font-semibold">{faq.q}</summary><p className="mt-3 leading-relaxed">{faq.a}</p>
+      </details>)}</div>
     </section>
     <CityBookingActions regionName={regionName} city={city} />
   </main>

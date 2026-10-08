@@ -13,6 +13,7 @@ const urls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => match[1])
 assert.equal(urls.length, 186, 'Only complete, indexable pages belong in the sitemap')
 assert.equal(new Set(urls).size, urls.length, 'Sitemap URLs must be unique')
 let noindex = 0
+let faqPages = 0
 for (const file of pages) {
   const html = readFileSync(file, 'utf8')
   assert.ok(!html.includes('선불'), file + ': no obsolete prepaid policy')
@@ -30,10 +31,20 @@ for (const file of pages) {
   const json = html.match(/<script id="page-schema" type="application\/ld\+json">([\s\S]*?)<\/script>/)
   assert.ok(json, file + ': structured data')
   const schema = JSON.parse(json[1])
-  assert.ok(schema['@graph'].some(item => item['@type'] === 'WebPage' && item.url === canonical))
+  assert.ok(schema['@graph'].some(item => [item['@type']].flat().includes('WebPage') && item.url === canonical))
+  const faqPage = schema['@graph'].find(item => [item['@type']].flat().includes('FAQPage'))
+  if (faqPage) {
+    faqPages++
+    const visibleHtml = html.replace(/<script[\s\S]*?<\/script>/g, '').replace(/<[^>]+>/g, '').replace(/<!--.*?-->/g, '')
+    for (const question of faqPage.mainEntity) {
+      assert.ok(visibleHtml.includes(question.name), file + ': schema question must be visible')
+      assert.ok(visibleHtml.includes(question.acceptedAnswer.text), file + ': schema answer must match visible text')
+    }
+  }
   for (const match of html.matchAll(/src="(\/[^"?#]+\.(?:webp|png|svg|mp4))"/g)) assert.ok(existsSync('public' + match[1]), file + ': local asset ' + match[1])
 }
 assert.equal(noindex, 98, 'Summary-only articles must not be submitted as complete articles')
+assert.equal(faqPages, 177, '174 local pages plus home, region directory and FAQ must expose matching answers')
 const home = readFileSync(join(directory, 'index.html'), 'utf8')
 assert.ok(home.includes('굿데이 출장마사지') && home.includes('100% 후불제'))
 assert.ok(home.includes('/_next/image'), 'Hero must use the Next.js image optimizer')

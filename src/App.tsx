@@ -271,10 +271,10 @@ const FAQ_DATA = [
   {
     cat: '예약',
     items: [
-      { q: '예약은 어떻게 하나요?', a: '카카오톡 채널 또는 텔레그램으로 문의하시면 됩니다. 24시간 상담이 가능하며, 원하시는 코스·시간·장소를 말씀해주시면 빠르게 안내해드립니다.' },
+      { q: '예약은 어떻게 하나요?', a: '사이트의 예약상담 또는 텔레그램 상담하기로 문의해 주세요. 24시간 상담하며, 방문 지역과 장소 유형, 희망 날짜·시간, 원하는 코스를 확인한 뒤 배정 가능 여부와 총 비용을 안내합니다.' },
       { q: '예약 후 취소나 변경이 가능한가요?', a: '테라피스트 배정 전에는 자유롭게 변경·취소가 가능합니다. 배정 이후에는 취소 정책이 적용될 수 있으니 가급적 빠르게 연락해주세요.' },
       { q: '당일 예약도 가능한가요?', a: '네, 가능합니다. 24시간 운영하며 당일 즉시 예약도 지원합니다. 다만 시간대와 지역에 따라 배정 상황이 다를 수 있습니다.' },
-      { q: '예약 후 대기 시간은 얼마나 되나요?', a: '전 지역 평균 30~60분 내 배정을 목표로 합니다. 지역·시간대에 따라 다소 차이가 있을 수 있으며, 배정 즉시 안내해드립니다.' },
+      { q: '예약 후 대기 시간은 얼마나 되나요?', a: '예상 도착 시간은 방문 주소, 교통 여건과 당일 배정 상황에 따라 달라집니다. 예약 상담에서 예상 이동 시간을 확인한 뒤 방문 일정을 확정해 주세요.' },
       { q: '장소는 어디서 받을 수 있나요?', a: '호텔, 오피스텔, 자택 등 고객님이 계신 곳으로 방문합니다. 주소를 알려주시면 됩니다.' },
     ],
   },
@@ -1002,6 +1002,7 @@ export default function App() {
               </li>
             ))}
           </ul>
+          <p className="mt-3 text-xs leading-relaxed text-rose-100">도착 시간은 방문 주소·교통·배정 상황에 따라 달라지며, 예약 상담에서 확인합니다.</p>
           <div className="flex flex-wrap justify-center gap-3 mt-8">
             <Link to="/contact" className="booking-shimmer inline-flex h-12 w-40 items-center justify-center rounded-full bg-yellow-300 text-rose-950 px-3 font-semibold">예약 상담</Link>
             <Link to="/services" className="inline-flex h-12 w-40 items-center justify-center rounded-full bg-white text-rose-950 px-3 font-semibold">코스·가격 확인</Link>
@@ -1369,7 +1370,7 @@ export default function App() {
       {currentPage === 'blog' && <BlogPage />}
 
       {/* ── FAQ ── */}
-      {currentPage === 'faq' && <><FaqPage /><NationwideOverview compact /></>}
+      {currentPage === 'faq' && <><FaqPage /><NationwideOverview compact showFaq /></>}
 
       {/* ── REGIONS ── */}
       {currentPage === 'regions' && <section id="regions" className="py-0 min-h-screen" style={{ background: 'white' }}>
