@@ -983,7 +983,7 @@ export default function App() {
       {currentPage === 'home' && <section id="home" className="relative flex flex-col justify-start overflow-hidden pt-14 sm:min-h-[80vh] sm:justify-center sm:pt-20">
         {/* Background */}
         <div className="absolute inset-0">
-          <Image src="/regions-banner.webp" fill sizes="100vw" priority alt="굿데이 출장마사지 방문 서비스 안내" className="object-cover" />
+          <Image src="/regions-banner.webp" fill sizes="100vw" priority fetchPriority="high" decoding="sync" alt="굿데이 출장마사지 방문 서비스 안내" className="object-cover" />
           <div className="absolute inset-0" style={{ background: 'rgba(35,10,25,0.72)' }} />
         </div>
         {/* Content */}
