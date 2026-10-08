@@ -29,8 +29,10 @@ export default function LocalMassageGuide({ region, city }: { region: string; ci
     </section>
 
     <figure className="mx-auto max-w-5xl px-6 pb-10">
-      <Image src="/contact-new-banner.webp" width={1280} height={720} sizes="(max-width: 640px) calc(100vw - 48px), (max-width: 1024px) calc(100vw - 48px), 976px" loading="lazy" alt="굿데이 출장마사지 방문 상담 서비스 소개 이미지" className="h-auto w-full rounded-2xl" />
-      <figcaption className="mt-3 text-sm text-rose-800">{place} 방문 상담 · 굿데이 서비스 소개 이미지</figcaption>
+      <div className="mx-auto max-w-xl">
+        <Image src="/local-homecare-banner.webp" width={960} height={960} sizes="(max-width: 640px) calc(100vw - 48px), 576px" loading="lazy" alt={`${place} 홈타이 방문 서비스 소개 이미지`} className="h-auto w-full rounded-2xl" />
+        <figcaption className="mt-3 text-sm text-rose-800">{place} 홈케어 서비스 소개 이미지 · 실제 배정은 상담으로 확인합니다.</figcaption>
+      </div>
     </figure>
 
     <section className="bg-rose-50" aria-labelledby="local-characteristics"><div className={sectionClass}>
@@ -49,22 +51,34 @@ export default function LocalMassageGuide({ region, city }: { region: string; ci
 
     <figure className="mx-auto max-w-5xl px-6 pb-10">
       <div className="mx-auto max-w-xl">
-        <Image src="/reviews-banner.webp" width={1280} height={1280} sizes="(max-width: 640px) calc(100vw - 48px), 576px" loading="lazy" alt="굿데이 마사지 관리 분위기를 보여주는 서비스 소개 이미지" className="h-auto w-full rounded-2xl" />
-        <figcaption className="mt-3 text-sm text-rose-800">머무는 공간에서 준비하는 방문 마사지 · 서비스 소개 이미지</figcaption>
+        <Image src="/local-swedish-banner.webp" width={960} height={800} sizes="(max-width: 640px) calc(100vw - 48px), 576px" loading="lazy" alt="굿데이 스웨디시와 편안한 관리 공간을 소개하는 홍보 이미지" className="h-auto w-full rounded-2xl" />
+        <figcaption className="mt-3 text-sm text-rose-800">스웨디시 서비스 분위기 소개 이미지 · 사진 속 공간은 {city}의 실제 방문 장소를 뜻하지 않습니다.</figcaption>
       </div>
     </figure>
 
     <section className="bg-rose-950 text-white" aria-labelledby="why-goodday"><div className={sectionClass}>
       <h2 id="why-goodday" className="text-2xl font-semibold leading-snug">{city}에서 왜 굿데이 출장마사지를 선택할까요?</h2>
-      <p className="mt-4 leading-relaxed">{place}에서 원하는 장소와 시간에 맞춰 방문 마사지를 준비할 수 있도록, 코스 선택부터 예약 조건 확인까지 한곳에서 안내합니다.</p>
+      <p className="mt-4 text-xl font-semibold leading-relaxed text-rose-100">내 일정에 맞추고, 내 공간에서 쉬고, 내 취향으로 선택하세요.</p>
+      <p className="mt-4 leading-relaxed">{place} 출장마사지를 고를 때 중요한 것은 화려한 문구보다 나에게 맞는 이용 조건입니다. 굿데이출장마사지는 머무는 장소로 방문하는 편의, 24시간 상담, 100% 후불제와 코스별 비교 안내를 함께 제공합니다. 원하는 압과 관리 방식부터 총 비용까지 확인하고, 나만의 휴식 시간을 준비하세요.</p>
       <div className="mt-6 grid gap-4 sm:grid-cols-2">{[
-        ['24시간 상담과 방문 운영', '일정이 늦게 끝나거나 심야 이용을 원할 때도 희망 시간을 상담할 수 있습니다. 실제 방문 일정은 배정 상황을 확인해 확정합니다.'],
-        ['다양한 마사지 종류 비교', '홈타이 방문과 스웨디시·아로마·스포츠·림프순환·VIP를 안내합니다. 관리 방식과 시간을 비교해 원하는 코스를 상담하세요.'],
-        ['100% 후불제 운영', '100% 후불제로 운영합니다. 신규 회원님은 예약하기로 문의해 이용 방법과 예약 조건을 확인하세요.'],
-        ['머무는 장소로 방문', '별도로 매장을 찾아가기보다 자택·호텔·오피스텔에서 방문 서비스를 준비할 수 있습니다. 장소별 출입 규정과 이용 공간은 사전에 확인합니다.'],
-        ['예약 전 조건을 확인하는 상담', '방문 주소와 코스에 따른 배정 가능 여부, 예상 이동 시간과 총 비용을 먼저 확인하고 예약을 결정할 수 있도록 안내합니다.'],
-        ['상담창과 텔레그램으로 문의', '페이지의 방문 상담하기 또는 텔레그램 상담하기에서 문의하세요. 주소 등 필요한 예약 정보는 공개 글 대신 상담으로 전달해 주세요.'],
+        ['늦게 끝난 하루에도, 24시간 상담', `${city}에서 업무나 나들이를 마친 뒤에도 원하는 시간을 문의하세요. 심야를 포함한 방문 서비스를 운영하며 실제 일정은 당일 배정 상황을 확인해 정합니다.`],
+        ['취향에 맞춰 고르는 여섯 가지 코스', '홈타이·스웨디시·아로마·스포츠·림프순환·VIP의 관리 방식과 시간을 비교하세요. 부드러운 압, 오일 선호, 집중 관리 부위를 알려주시면 원하는 코스를 상담할 수 있습니다.'],
+        ['결제 기준은 분명하게, 100% 후불제', '굿데이는 100% 후불제로 운영합니다. 신규 회원님은 예약하기로 문의해 이용 방법과 예약 조건을 먼저 확인해 주세요.'],
+        ['이동 시간을 줄이는 자택·숙소 방문', `${place}의 자택·호텔·오피스텔에서 편안하게 준비하세요. 머무는 공간을 기준으로 상담하므로 따로 매장을 찾아 이동할 부담을 줄일 수 있습니다.`],
+        ['예약 결정 전에 총 비용 확인', '코스만 고르고 끝내지 않습니다. 방문 주소와 이용 시간, 출장비를 포함한 총 비용, 예상 도착 시간과 변경·취소 조건을 확인한 뒤 예약을 결정하세요.'],
+        ['공개 글 대신 상담으로 예약 정보 전달', '방문 상담하기와 텔레그램 상담하기를 고정으로 제공합니다. 상세 주소와 출입 안내는 공개 게시글에 남기지 않고 상담 채널로 전달할 수 있습니다.'],
       ].map(([title, text]) => <article key={title} className="rounded-2xl border border-rose-700 bg-rose-900 p-5"><h3 className="font-semibold text-rose-100">{title}</h3><p className="mt-3 leading-relaxed">{text}</p></article>)}</div>
+      <div className="mt-8 rounded-2xl bg-white p-5 text-rose-950">
+        <h3 className="text-lg font-semibold">마사지샵을 비교할 때, 이 네 가지를 확인하세요</h3>
+        <dl className="mt-4 space-y-4">
+          {[
+            ['장소와 일정', `${city}의 내 주소에서 원하는 시간에 이용할 수 있는지 확인하세요. 굿데이는 자택·숙소 방문과 24시간 상담을 안내합니다.`],
+            ['관리 방식', '이름만 보고 고르기보다 압과 오일 사용 여부를 비교하세요. 굿데이는 코스별 설명과 선택 예시를 제공합니다.'],
+            ['최종 비용', '표시 가격뿐 아니라 출장비와 추가 비용 유무까지 확인하세요. 굿데이 예약 상담에서 총 금액을 확인하고 결정할 수 있습니다.'],
+            ['문의 동선', '일정이나 요청사항을 전달하기 쉬운지 살펴보세요. 굿데이는 페이지 하단의 방문 상담과 텔레그램으로 바로 문의할 수 있습니다.'],
+          ].map(([label, text]) => <div key={label}><dt className="font-semibold text-rose-800">{label}</dt><dd className="mt-1 leading-relaxed">{text}</dd></div>)}
+        </dl>
+      </div>
     </div></section>
 
     <section className={sectionClass} aria-labelledby="local-booking-tips">

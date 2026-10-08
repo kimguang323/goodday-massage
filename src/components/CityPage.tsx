@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 import CityBookingActions from './CityBookingActions'
 import LocalMassageGuide from './LocalMassageGuide'
 import { getLocalBookingFaqs } from '../data/booking-faq'
@@ -10,6 +11,10 @@ export default function CityPage({ city, regionName }: { city: string; regionNam
     <header className="bg-rose-950 px-6 py-12 text-white">
       <div className="mx-auto max-w-5xl">
         <h1 className="text-3xl font-semibold leading-snug">{regionName} {city} 출장마사지 · 24시간 방문 서비스</h1>
+        <figure className="mt-6">
+          <Image src="/local-brand-banner.webp" width={1280} height={670} sizes="(max-width: 1024px) calc(100vw - 48px), 976px" preload alt={`${regionName} ${city} 방문 상담을 안내하는 굿데이출장마사지 브랜드 이미지`} className="h-auto w-full rounded-2xl" />
+          <figcaption className="mt-2 text-xs leading-relaxed text-rose-200">굿데이 브랜드 소개 이미지 · {city}의 방문 가능 일정은 예약 상담에서 확인하세요.</figcaption>
+        </figure>
         <p className="mt-5 leading-relaxed">굿데이 {regionName} {city} 출장마사지는 고객님이 요청하신 자택·호텔·오피스텔로 방문하는 마사지 서비스를 안내합니다. 스웨디시·아로마·스포츠·림프순환·VIP 등 원하는 코스와 시간을 상담해 주세요.</p>
         <p className="mt-3 leading-relaxed">{regionName} {city}의 상세 주소와 희망 시간을 알려주시면 배정 가능 여부, 예상 이동 시간과 이용 비용을 확인해 드립니다. 100% 후불제이며, 신규 회원님은 예약하기로 문의해 주세요.</p>
       </div>

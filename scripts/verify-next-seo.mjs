@@ -73,6 +73,11 @@ for (const [key, landmark, , source] of profiles) {
   const html = readFileSync(join(directory, 'cities', key + '.html'), 'utf8')
   assert.ok(!html.includes('전국'), key + ': regional detail must only promote its own locality')
   assert.ok(!html.includes('주변 지역을 찾고 계신가요'), key + ': no other-city promotion')
+  for (const image of ['local-brand-banner.webp', 'local-homecare-banner.webp', 'local-swedish-banner.webp']) {
+    assert.ok(html.includes(image), key + ': supplied service image ' + image)
+  }
+  assert.ok(html.includes('마사지샵을 비교할 때, 이 네 가지를 확인하세요'), key + ': useful comparison criteria')
+  assert.ok(html.includes('내 일정에 맞추고, 내 공간에서 쉬고, 내 취향으로 선택하세요.'), key + ': brand value proposition')
   const local = html.split('id="local-characteristics"')[1].split('</section>')[0].replace(/<[^>]+>/g, '')
   assert.ok(local.includes(landmark.split('·')[0]), key + ': local landmark must be rendered')
   assert.ok(local.includes('출장마사지·출장안마') && local.includes('24시간 상담'), key + ': service introduction')
