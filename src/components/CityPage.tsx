@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import CityBookingActions from './CityBookingActions'
 import LocalMassageGuide from './LocalMassageGuide'
+import NeighborhoodGuide from './NeighborhoodGuide'
 import { getLocalBookingFaqs } from '../data/booking-faq'
 export default function CityPage({ city, regionName }: { city: string; regionName: string }) {
   return <main className="min-h-screen bg-white pb-32 text-rose-950">
@@ -19,6 +20,7 @@ export default function CityPage({ city, regionName }: { city: string; regionNam
         <p className="mt-3 leading-relaxed">{regionName} {city}의 상세 주소와 희망 시간을 알려주시면 배정 가능 여부, 예상 이동 시간과 이용 비용을 확인해 드립니다. 100% 후불제이며, 신규 회원님은 예약하기로 문의해 주세요.</p>
       </div>
     </header>
+    <NeighborhoodGuide region={regionName} city={city} />
     <LocalMassageGuide region={regionName} city={city} />
     <section className="mx-auto max-w-5xl px-6 py-10">
       <h2 className="text-2xl font-semibold">{regionName} {city} 방문 장소를 안내할 때</h2>
