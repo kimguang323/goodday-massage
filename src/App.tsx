@@ -1008,7 +1008,6 @@ export default function App() {
             <Link to="/services" className="inline-flex h-12 w-40 items-center justify-center rounded-full bg-white text-rose-950 px-3 font-semibold">코스·가격 확인</Link>
             <Link to="/cities" className="rounded-full border border-white px-6 py-3">방문 지역 확인</Link>
           </div>
-          <details className="mt-8"><summary className="cursor-pointer text-sm">소개 영상 보기</summary><video src="/hero-video.mp4" controls muted playsInline preload="none" className="mt-4 mx-auto max-h-96" aria-label="굿데이 소개 영상" /></details>
         </div>
         {/* Scroll hint */}
         <div className="absolute bottom-8 inset-x-0 hidden sm:flex justify-center z-10 animate-bounce">
@@ -1016,7 +1015,13 @@ export default function App() {
         </div>
       </section>}
 
-      {currentPage === 'home' && <NationwideOverview />}
+      {currentPage === 'home' && <>
+        <figure className="mx-auto max-w-5xl px-6 py-6 sm:py-10">
+          <Image src="/home-welcome-banner.webp" width={1280} height={720} sizes="(max-width: 1024px) calc(100vw - 48px), 976px" loading="lazy" alt="굿데이출장마사지 예약 상담·방문 케어·코스 안내 브랜드 배너" className="h-auto w-full rounded-2xl" />
+          <figcaption className="mt-2 text-center text-xs leading-relaxed text-rose-800">편안한 휴식, 찾아가는 힐링 · 굿데이 서비스 소개 이미지</figcaption>
+        </figure>
+        <NationwideOverview />
+      </>}
 
       {/* ── SERVICES ── */}
       {currentPage === 'services' && <section id="services" className="py-0 min-h-screen" style={{ background: 'white' }}>
