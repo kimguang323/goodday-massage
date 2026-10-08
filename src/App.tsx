@@ -1002,7 +1002,6 @@ export default function App() {
               </li>
             ))}
           </ul>
-          <p className="mt-3 text-xs leading-relaxed text-rose-100">도착 시간은 방문 주소·교통·배정 상황에 따라 달라지며, 예약 상담에서 확인합니다.</p>
           <div className="flex flex-wrap justify-center gap-3 mt-8">
             <Link to="/contact" className="booking-shimmer inline-flex h-12 w-40 items-center justify-center rounded-full bg-yellow-300 text-rose-950 px-3 font-semibold">예약 상담</Link>
             <Link to="/services" className="inline-flex h-12 w-40 items-center justify-center rounded-full bg-white text-rose-950 px-3 font-semibold">코스·가격 확인</Link>
