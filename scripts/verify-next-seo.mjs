@@ -79,6 +79,7 @@ for (const [key, landmark, , source] of profiles) {
     assert.ok(html.includes(image), key + ': supplied service image ' + image)
   }
   assert.ok(html.includes('마사지샵을 비교할 때, 이 네 가지를 확인하세요'), key + ': useful comparison criteria')
+  assert.ok(/href="\/therapists"/.test(html) && html.includes('테라피스트 보기'), key + ': therapist profile internal link')
   assert.ok(html.includes('내 일정에 맞추고, 내 공간에서 쉬고, 내 취향으로 선택하세요.'), key + ': brand value proposition')
   const local = html.split('id="local-characteristics"')[1].split('</section>')[0].replace(/<[^>]+>/g, '')
   assert.ok(local.includes(landmark.split('·')[0]), key + ': local landmark must be rendered')

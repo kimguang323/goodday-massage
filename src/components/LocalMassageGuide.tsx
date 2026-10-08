@@ -31,6 +31,10 @@ export default function LocalMassageGuide({ region, city }: { region: string; ci
     <figure className="mx-auto max-w-5xl px-6 pb-10">
       <div className="mx-auto max-w-xl">
         <Image src="/local-homecare-banner.webp" width={960} height={960} sizes="(max-width: 640px) calc(100vw - 48px), 576px" loading="lazy" alt={`${place} 홈타이 방문 서비스 소개 이미지`} className="h-auto w-full rounded-2xl" />
+        <Link href="/therapists" prefetch={false} className="mt-4 flex min-h-14 w-full items-center justify-center gap-3 rounded-2xl border-2 border-rose-300 bg-rose-800 px-5 py-4 text-lg font-bold text-white shadow-md transition-colors hover:bg-rose-900 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-rose-800">
+          <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><circle cx="12" cy="7" r="4" /><path d="M4 21v-2a8 8 0 0 1 16 0v2" /></svg>
+          <span>테라피스트 보기</span><span aria-hidden="true">→</span>
+        </Link>
         <figcaption className="mt-3 text-sm text-rose-800">{place} 홈케어 서비스 소개 이미지 · 실제 배정은 상담으로 확인합니다.</figcaption>
       </div>
     </figure>
