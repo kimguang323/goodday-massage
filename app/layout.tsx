@@ -6,7 +6,10 @@ import '../src/index.css'
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.gdymassage.com'),
   verification: { google: 'JWJC6zNgbqpoZgMXv-ozVTY3b_TtVl4rf7-aq8OlL04' },
-  icons: { icon: '/favicon.svg' },
+  icons: {
+    icon: { url: '/favicon-burgundy.png', type: 'image/png', sizes: '96x96' },
+    apple: { url: '/apple-touch-icon.png', sizes: '180x180' },
+  },
 }
 export const viewport: Viewport = { width: 'device-width', initialScale: 1 }
 
