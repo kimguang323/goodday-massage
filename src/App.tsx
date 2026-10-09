@@ -680,9 +680,6 @@ function FaqItem({ faq }: { faq: { q: string; a: string } }) {
 function CitiesDirectory() {
   const [query, setQuery] = useState('')
   const navigate = useNavigate()
-  const openCrispChat = () => {
-    try { (window as any).$crisp?.push(['do', 'chat:open']) } catch {}
-  }
   const q = query.trim().toLowerCase()
   const filtered = q
     ? REGIONS.map(r => ({

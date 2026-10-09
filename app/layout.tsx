@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import Script from 'next/script'
 import type { ReactNode } from 'react'
 import '../src/index.css'
+import CrispPreparation from '../src/components/CrispPreparation'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://www.gdymassage.com'),
@@ -16,8 +17,8 @@ export const viewport: Viewport = { width: 'device-width', initialScale: 1 }
 export default function RootLayout({ children }: { children: ReactNode }) {
   return <html lang="ko"><body>
     {children}
+    <CrispPreparation />
     <Script src="https://www.googletagmanager.com/gtag/js?id=G-GYJQ38MVCQ" strategy="lazyOnload" />
     <Script id="google-analytics" strategy="lazyOnload">{`window.dataLayer = window.dataLayer || []; function gtag(){dataLayer.push(arguments);} gtag('js', new Date()); gtag('config', 'G-GYJQ38MVCQ');`}</Script>
   </body></html>
 }
-
