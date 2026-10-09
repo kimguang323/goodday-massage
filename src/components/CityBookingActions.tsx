@@ -2,7 +2,7 @@
 import { openCrispChat, prepareCrispChat } from '../crisp'
 export default function CityBookingActions({ regionName, city }: { regionName: string; city: string }) {
   return (
-    <aside aria-label={`${regionName} ${city} 고정 예약 상담`} className="fixed inset-x-0 bottom-0 z-50 border-t border-rose-100 bg-white px-4 pt-3" style={{ paddingBottom: 'max(12px, env(safe-area-inset-bottom))' }}>
+    <aside aria-label={`${regionName} ${city} 고정 예약 상담`} className="fixed inset-x-0 bottom-0 z-50 border-t border-rose-200 bg-rose-50 px-4 pt-3" style={{ paddingBottom: 'max(12px, env(safe-area-inset-bottom))' }}>
       <div className="mx-auto grid max-w-2xl grid-cols-2 gap-3">
       <button type="button" onPointerEnter={prepareCrispChat} onFocus={prepareCrispChat} onPointerDown={prepareCrispChat} onClick={openCrispChat} className="booking-shimmer min-h-16 w-full rounded-full bg-rose-800 px-3 py-3 text-sm font-semibold text-white sm:text-base">{regionName} {city}<br />방문 상담하기</button>
       <a href="https://t.me/sy2267" target="_blank" rel="noopener noreferrer" className="booking-shimmer inline-flex min-h-16 w-full items-center justify-center gap-2 rounded-full bg-[#087eaf] px-3 py-3 text-sm font-semibold text-white hover:opacity-90 sm:text-base">
