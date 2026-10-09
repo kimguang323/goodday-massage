@@ -1614,9 +1614,9 @@ export default function App() {
               <div className="text-xs tracking-widest mt-0.5" style={{ color: '#9a607a' }}>프리미엄 출장마사지</div>
               <p className="text-xs mt-3 leading-relaxed" style={{ color: '#7a4055' }}>
                 (주) 굿데이출장마사지<br />
-                대표이사: 강우빈<br />
-                사업자등록번호: 641-46-12023<br />
-                본사 주소: 서울 서대문구 신촌로 109
+                대표이사: 강우민<br />
+                사업자등록번호: 641-46-12033<br />
+                본사 주소: 서울 서대문구 신촌로 107
               </p>
             </div>
           </div>
