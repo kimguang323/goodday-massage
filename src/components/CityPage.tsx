@@ -34,6 +34,7 @@ export default function CityPage({ city, regionName }: { city: string; regionNam
         <summary className="cursor-pointer font-semibold">{faq.q}</summary><p className="mt-3 leading-relaxed">{faq.a}</p>
       </details>)}</div>
     </section>
+    <footer className="mx-auto max-w-5xl px-6 pb-6 text-xs leading-relaxed text-rose-800">지역명 자료: <a href="https://sgis.kostat.go.kr" target="_blank" rel="noopener noreferrer" className="underline">통계청 SGIS (공공누리 제1유형)</a> · 가공 <a href="https://github.com/vuski/admdongkor/tree/master/ver20260701" target="_blank" rel="noopener noreferrer" className="underline">vuski/admdongkor</a> · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer" className="underline">CC BY 4.0</a> · 지역명 추출</footer>
     <CityBookingActions regionName={regionName} city={city} />
   </main>
 }
