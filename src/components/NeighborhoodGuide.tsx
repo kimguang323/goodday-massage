@@ -7,7 +7,7 @@ export default function NeighborhoodGuide({ region, city }: { region: string; ci
   const area = areas[`${region}/${city}`]
   if (!area) return null
   const example = area.groups[0].names[0]
-  return <section className="mx-auto max-w-5xl px-6 py-10" aria-labelledby="neighborhood-guide">
+  return <section className="mx-auto max-w-5xl px-6 py-6 sm:py-10" aria-labelledby="neighborhood-guide">
     <p className="mb-2 text-sm font-semibold text-rose-700">내가 머무는 지역 확인</p>
     <h2 id="neighborhood-guide" className="text-2xl font-semibold leading-snug">{city} 동·읍·면별 출장마사지 방문 안내</h2>
     <p className="mt-4 leading-relaxed">굿데이 {city} 출장마사지 예약 시 아래 목록에서 머무는 동·읍·면을 확인해 주세요. {example}처럼 지역 이름을 알려주신 뒤 도로명 주소와 건물명을 전달하면 방문 위치를 구체적으로 확인할 수 있습니다.</p>

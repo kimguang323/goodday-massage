@@ -5,11 +5,11 @@ import LocalMassageGuide from './LocalMassageGuide'
 import NeighborhoodGuide from './NeighborhoodGuide'
 import { getLocalBookingFaqs } from '../data/booking-faq'
 export default function CityPage({ city, regionName }: { city: string; regionName: string }) {
-  return <main className="min-h-screen bg-white pb-32 text-rose-950">
+  return <main className="min-h-screen bg-white pb-24 text-rose-950">
     <nav aria-label="현재 위치" className="mx-auto flex max-w-5xl flex-wrap gap-3 px-6 py-5 text-sm">
       <Link prefetch={false} href="/" className="underline">굿데이 홈</Link><span>/</span><Link prefetch={false} href="/cities" className="underline">지역 안내</Link><span>/</span><span>{regionName} {city}</span>
     </nav>
-    <header className="bg-rose-950 px-6 py-12 text-white">
+    <header className="bg-rose-950 px-6 py-8 sm:py-12 text-white">
       <div className="mx-auto max-w-5xl">
         <h1 className="text-3xl font-semibold leading-snug">{regionName} {city} 출장마사지 · 24시간 방문 서비스</h1>
         <figure className="mt-6">
@@ -20,7 +20,7 @@ export default function CityPage({ city, regionName }: { city: string; regionNam
         <p className="mt-3 leading-relaxed">{regionName} {city}의 상세 주소와 희망 시간을 알려주시면 배정 가능 여부, 예상 이동 시간과 이용 비용을 확인해 드립니다. 100% 후불제이며, 신규 회원님은 예약하기로 문의해 주세요.</p>
       </div>
     </header>
-    <figure className="mx-auto max-w-5xl px-6 py-10">
+    <figure className="mx-auto max-w-5xl px-6 py-6 sm:py-10">
       <div className="mx-auto max-w-xl">
         <Image src="/local-homecare-banner.webp" width={960} height={960} sizes="(max-width: 640px) calc(100vw - 48px), 576px" loading="lazy" alt={`${regionName} ${city} 홈타이 방문 서비스 소개 이미지`} className="h-auto w-full rounded-2xl" />
         <Link href="/therapists" prefetch={false} className="mt-4 flex min-h-14 w-full items-center justify-center gap-3 rounded-2xl border-2 border-rose-300 bg-rose-800 px-5 py-4 text-lg font-bold text-white shadow-md transition-colors hover:bg-rose-900 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-rose-800">
@@ -32,13 +32,13 @@ export default function CityPage({ city, regionName }: { city: string; regionNam
     </figure>
     <NeighborhoodGuide region={regionName} city={city} />
     <LocalMassageGuide region={regionName} city={city} />
-    <section className="mx-auto max-w-5xl px-6 py-10">
+    <section className="mx-auto max-w-5xl px-6 py-6 sm:py-10">
       <h2 className="text-2xl font-semibold">{regionName} {city} 방문 장소를 안내할 때</h2>
       <p className="mt-4 leading-relaxed">{regionName} {city}에서 머무는 자택이나 숙소를 기준으로 방문을 상담합니다. 호텔이나 오피스텔은 방문객 출입 방법과 주차 가능 여부를 확인해 주세요. 상세 주소와 필요한 출입 안내는 예약 상담에서 전달하시면 됩니다.</p>
       <p className="mt-4 leading-relaxed">지역명만으로 정확한 도착 시간이나 추가 비용을 확정할 수 없습니다. 도로·이동 여건과 당일 배정 상황을 확인한 뒤 확정된 안내를 받으세요.</p>
       <Link prefetch={false} href="/blog/business-trip-massage-booking-guide" className="mt-5 inline-block underline">예약 방법과 결제 안내 자세히 보기</Link>
     </section>
-    <section className="mx-auto max-w-5xl px-6 py-10" aria-labelledby="local-booking-faq">
+    <section className="mx-auto max-w-5xl px-6 py-6 sm:py-10" aria-labelledby="local-booking-faq">
       <h2 id="local-booking-faq" className="text-2xl font-semibold">{regionName} {city} 예약 질문과 답변</h2>
       <div className="mt-6 space-y-3">{getLocalBookingFaqs(regionName, city).map(faq => <details key={faq.q} className="rounded-2xl border border-rose-100 bg-rose-50 p-5">
         <summary className="cursor-pointer font-semibold">{faq.q}</summary><p className="mt-3 leading-relaxed">{faq.a}</p>

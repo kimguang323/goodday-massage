@@ -11,7 +11,7 @@ function LocalIntroText({ text, highlights = [] }: { text: string; highlights?: 
 export default function LocalMassageGuide({ region, city }: { region: string; city: string }) {
   const place = `${region} ${city}`
   const local = getLocalGuide(region, city)
-  const sectionClass = 'mx-auto max-w-5xl px-6 py-10'
+  const sectionClass = 'mx-auto max-w-5xl px-6 py-6 sm:py-10'
   return <>
     <section className={sectionClass} aria-labelledby="local-massage-guide">
       <p className="mb-2 text-xs font-semibold tracking-widest text-rose-700">출장마사지 이용 가이드</p>
@@ -43,7 +43,7 @@ export default function LocalMassageGuide({ region, city }: { region: string; ci
       <div className="mt-6 grid gap-4 sm:grid-cols-2">{COURSE_COMBINATIONS.map(item => <article key={item.title} className={item.courses.startsWith('VIP') ? "overflow-hidden rounded-2xl border-2 border-amber-500 bg-amber-50 shadow-md" : "overflow-hidden rounded-2xl border border-rose-100"}><div className="bg-rose-950 p-5 text-white">{item.courses.startsWith('VIP') && <span className="mb-3 inline-block rounded-full bg-amber-300 px-3 py-1 text-xs font-bold text-rose-950">VIP · 림프순환 안내</span>}<h3 className="font-semibold">{item.title}</h3><p className={item.courses.startsWith('VIP') ? "mt-2 text-xl font-bold text-amber-200" : "mt-2 text-rose-200"}>{item.courses}</p></div><p className="p-5 leading-relaxed">{item.description}</p></article>)}</div>
     </section>
 
-    <figure className="mx-auto max-w-5xl px-6 pb-10">
+    <figure className="mx-auto max-w-5xl px-6 pb-6 sm:pb-10">
       <div className="mx-auto max-w-xl">
         <Image src="/local-swedish-banner.webp" width={960} height={800} sizes="(max-width: 640px) calc(100vw - 48px), 576px" loading="lazy" alt="굿데이 스웨디시와 편안한 관리 공간을 소개하는 홍보 이미지" className="h-auto w-full rounded-2xl" />
         <figcaption className="mt-3 text-sm text-rose-800">스웨디시 서비스 분위기 소개 이미지 · 사진 속 공간은 {city}의 실제 방문 장소를 뜻하지 않습니다.</figcaption>
