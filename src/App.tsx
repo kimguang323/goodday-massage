@@ -930,7 +930,7 @@ export default function App() {
       <header className="fixed top-0 inset-x-0 z-50 bg-white/95 backdrop-blur-md border-b border-rose-100">
         <div className="max-w-7xl mx-auto px-4 h-14 flex items-center justify-between">
           <Link to="/" className="flex flex-col leading-none">
-            <span style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: '1.4rem', fontWeight: 600, color: '#c0406a', letterSpacing: '0.05em', whiteSpace: 'nowrap' }}>굿데이출장마사지</span>
+            <span style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(1.05rem, 4.5vw, 1.2rem)', fontWeight: 600, color: '#c0406a', letterSpacing: '0.02em', whiteSpace: 'nowrap' }}>굿데이출장마사지</span>
           </Link>
           {/* Desktop */}
           <nav className="hidden lg:flex items-center gap-6">
