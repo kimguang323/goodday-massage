@@ -35,13 +35,12 @@ export default function LocalMassageGuide({ region, city }: { region: string; ci
       <p className="mt-4 leading-relaxed"><LocalIntroText text={local.description} highlights={local.highlights} /></p>
       {local.serviceIntro && <p className="mt-4 leading-relaxed"><LocalIntroText text={local.serviceIntro} highlights={local.highlights} /></p>}
       <div className="mt-5 rounded-2xl bg-white p-5"><h3 className="font-semibold">{place} 예약 메모</h3><p className="mt-3 leading-relaxed">{local.tip}</p></div>
-      {local.source && <a href={local.source} target="_blank" rel="noopener noreferrer" className="mt-4 inline-block text-sm underline">{local.sourceLabel}</a>}
     </div></section>
 
     <section className={sectionClass} aria-labelledby="local-course-combinations">
       <h2 id="local-course-combinations" className="text-2xl font-semibold leading-snug">{place} 추천 코스 조합과 선택 예시</h2>
       <p className="mt-4 leading-relaxed">한 가지 코스로 정하기 어렵다면 아래 선택 예시를 상담에서 활용하세요. 조합은 구성 상담을 위한 예시이며, 별도 패키지·할인·총 이용 시간을 뜻하지 않습니다. 실제 조합 가능 여부와 가격은 예약 전에 확인하세요.</p>
-      <div className="mt-6 grid gap-4 sm:grid-cols-2">{COURSE_COMBINATIONS.map(item => <article key={item.title} className="overflow-hidden rounded-2xl border border-rose-100"><div className="bg-rose-950 p-5 text-white"><h3 className="font-semibold">{item.title}</h3><p className="mt-2 text-rose-200">{item.courses}</p></div><p className="p-5 leading-relaxed">{item.description}</p></article>)}</div>
+      <div className="mt-6 grid gap-4 sm:grid-cols-2">{COURSE_COMBINATIONS.map(item => <article key={item.title} className={item.courses.startsWith('VIP') ? "overflow-hidden rounded-2xl border-2 border-amber-500 bg-amber-50 shadow-md" : "overflow-hidden rounded-2xl border border-rose-100"}><div className="bg-rose-950 p-5 text-white">{item.courses.startsWith('VIP') && <span className="mb-3 inline-block rounded-full bg-amber-300 px-3 py-1 text-xs font-bold text-rose-950">VIP · 림프순환 안내</span>}<h3 className="font-semibold">{item.title}</h3><p className={item.courses.startsWith('VIP') ? "mt-2 text-xl font-bold text-amber-200" : "mt-2 text-rose-200"}>{item.courses}</p></div><p className="p-5 leading-relaxed">{item.description}</p></article>)}</div>
     </section>
 
     <figure className="mx-auto max-w-5xl px-6 pb-10">
