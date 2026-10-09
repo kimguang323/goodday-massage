@@ -8,6 +8,11 @@ const CRISP_CHAT_URL = 'https://go.crisp.chat/chat/embed/?website_id=8228327c-a1
 
 let crispRequested = false
 let connectionNotice: HTMLDivElement | undefined
+const CHAT_USED_KEY = 'goodday-chat-used'
+
+export function hasUsedCrispChat() {
+  try { return localStorage.getItem(CHAT_USED_KEY) === '1' } catch { return false }
+}
 
 function clearConnectionNotice() {
   connectionNotice?.remove()
@@ -48,6 +53,7 @@ export function prepareCrispChat() {
 }
 
 export function openCrispChat() {
+  try { localStorage.setItem(CHAT_USED_KEY, '1') } catch { /* Chat works without storage. */ }
   crispRequested = true
   if (!connectionNotice) {
     connectionNotice = document.createElement('div')

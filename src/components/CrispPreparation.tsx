@@ -1,11 +1,12 @@
 'use client'
 import { useEffect } from 'react'
-import { prepareCrispChat } from '../crisp'
+import { hasUsedCrispChat, prepareCrispChat } from '../crisp'
 
 export default function CrispPreparation() {
   useEffect(() => {
     let timer: ReturnType<typeof setTimeout> | undefined
-    const schedule = () => { timer = setTimeout(prepareCrispChat, 1500) }
+    const returning = hasUsedCrispChat()
+    const schedule = () => { timer = setTimeout(prepareCrispChat, returning ? 0 : 1500) }
     const events = ['scroll', 'pointerdown', 'keydown'] as const
     const warmUp = () => {
       events.forEach(event => window.removeEventListener(event, warmUp))
@@ -13,7 +14,8 @@ export default function CrispPreparation() {
       if (document.readyState === 'complete') schedule()
       else window.addEventListener('load', schedule, { once: true })
     }
-    events.forEach(event => window.addEventListener(event, warmUp, { passive: true }))
+    if (returning) warmUp()
+    else events.forEach(event => window.addEventListener(event, warmUp, { passive: true }))
     return () => {
       events.forEach(event => window.removeEventListener(event, warmUp))
       if (timer) clearTimeout(timer)
