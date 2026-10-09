@@ -52,8 +52,8 @@ export function openCrispChat() {
   if (!connectionNotice) {
     connectionNotice = document.createElement('div')
     connectionNotice.setAttribute('role', 'status')
-    connectionNotice.textContent = '상담 연결 중…'
-    connectionNotice.style.cssText = 'position:fixed;bottom:110px;left:50%;transform:translateX(-50%);z-index:999999;background:#4c0519;color:white;padding:12px 18px;border-radius:12px;max-width:90vw;font-size:14px;'
+    connectionNotice.textContent = '상담 연결 중… 잠시만 기다려 주세요'
+    connectionNotice.style.cssText = 'position:fixed;bottom:110px;left:50%;transform:translateX(-50%);z-index:999999;background:#9f1239;color:white;border:2px solid #fcd34d;box-shadow:0 6px 24px rgba(76,5,25,.35);padding:16px 20px;border-radius:16px;width:max-content;max-width:calc(100vw - 32px);font-size:15px;font-weight:700;line-height:1.6;text-align:center;'
     document.body.appendChild(connectionNotice)
   }
   prepareCrispChat()
