@@ -34,6 +34,8 @@ export function getPageInfo(pathname: string) {
   const canonical = SITE_URL + (city?.path ?? path)
   const organization = {
     '@type': 'Organization', '@id': SITE_URL + '/#organization', name: '굿데이출장마사지', url: SITE_URL,
+    legalName: '(주) 굿데이출장마사지', taxID: '641-46-12033',
+    address: { '@type': 'PostalAddress', streetAddress: '신촌로 107', addressLocality: '서대문구', addressRegion: '서울', addressCountry: 'KR' },
     logo: { '@type': 'ImageObject', url: SITE_URL + '/apple-touch-icon.png', width: 180, height: 180 },
     contactPoint: { '@type': 'ContactPoint', contactType: '예약 상담', url: SITE_URL + '/contact', availableLanguage: 'ko', hoursAvailable: { '@type': 'OpeningHoursSpecification', dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], opens: '00:00', closes: '23:59' } },
   }
