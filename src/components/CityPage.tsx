@@ -30,6 +30,21 @@ export default function CityPage({ city, regionName }: { city: string; regionNam
         <figcaption className="mt-3 text-sm text-rose-800">{regionName} {city} 홈케어 서비스 소개 이미지 · 실제 배정은 상담으로 확인합니다.</figcaption>
       </div>
     </figure>
+    <section className="mx-auto max-w-5xl px-6 py-6 sm:py-10" aria-labelledby="local-service-summary">
+      <h2 id="local-service-summary" className="text-2xl font-semibold">{city} 출장마사지 핵심 안내</h2>
+      <dl className="mt-4 grid gap-4 rounded-2xl border border-rose-100 bg-rose-50 p-5 sm:grid-cols-2">
+        {[
+          ['방문 지역과 장소', `${regionName} ${city}의 자택·호텔·오피스텔 방문을 상담합니다. 아래 동·읍·면 안내에서 머무는 지역을 확인하세요.`],
+          ['관리 종류', '홈타이는 방문 이용 형태이며, 스웨디시·아로마·스포츠·림프순환·VIP는 선택할 수 있는 관리 코스입니다.'],
+          ['상담과 결제', '24시간 상담, 100% 후불제로 운영합니다. 신규 회원님은 예약하기로 이용 조건을 문의해 주세요.'],
+          ['가격과 방문 시간', '코스별 가격·시간을 먼저 비교하고, 방문 주소에 따른 최종 비용과 가능한 일정은 상담에서 확정하세요.'],
+        ].map(([label, value]) => <div key={label}><dt className="font-semibold text-rose-800">{label}</dt><dd className="mt-2 leading-relaxed">{value}</dd></div>)}
+      </dl>
+      <nav aria-label={`${city} 코스와 예약 안내`} className="mt-4 flex flex-wrap gap-3">
+        <Link href="/services" prefetch={false} className="inline-flex min-h-11 items-center rounded-xl border border-rose-200 px-4 py-2 font-semibold underline">코스별 가격·시간 확인</Link>
+        <Link href="/contact" prefetch={false} className="inline-flex min-h-11 items-center rounded-xl border border-rose-200 px-4 py-2 font-semibold underline">예약·결제 안내 확인</Link>
+      </nav>
+    </section>
     <NeighborhoodGuide region={regionName} city={city} />
     <LocalMassageGuide region={regionName} city={city} />
     <section className="mx-auto max-w-5xl px-6 py-6 sm:py-10">
