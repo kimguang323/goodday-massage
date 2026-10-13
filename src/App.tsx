@@ -1419,7 +1419,7 @@ export default function App() {
 
         {/* 배너 이미지 */}
         <div className="w-full">
-          <Image width={1280} height={720} sizes="100vw" priority src="/contact-new-banner.webp" alt="굿데이마사지 예약문의" className="w-full h-auto max-h-[22svh] object-contain sm:max-h-none" style={{ display: 'block' }} />
+          <Image width={1280} height={720} sizes="100vw" priority src="/contact-new-banner.webp" alt="굿데이마사지 예약문의" className="w-full h-auto max-h-[22svh] object-cover sm:max-h-none" style={{ display: 'block' }} />
         </div>
 
         {/* 헤더 */}
