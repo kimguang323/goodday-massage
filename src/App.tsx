@@ -1423,7 +1423,7 @@ export default function App() {
         </div>
 
         {/* 헤더 */}
-        <div className="py-14 text-center px-6" style={{ background: 'linear-gradient(160deg, #3a1828, #6b2040)' }}>
+        <div className="py-6 sm:py-14 text-center px-6" style={{ background: 'linear-gradient(160deg, #3a1828, #6b2040)' }}>
           <div className="flex items-center justify-center gap-4 flex-wrap">
             <h1 style={{ color: 'white', fontWeight: 400, fontSize: 'clamp(1.5rem, 3.5vw, 2.5rem)', margin: 0 }}>24시간 전국 방문 예약 상담</h1>
           </div>
@@ -1434,7 +1434,7 @@ export default function App() {
           <button
             type="button"
             onClick={openCrispChat}
-            className="mt-7 flex flex-col items-center gap-2 mx-auto"
+            className="mt-3 sm:mt-7 flex flex-col items-center gap-1 mx-auto"
             style={{ background: 'none', border: 'none', cursor: 'pointer' }}
           >
             <span
@@ -1455,7 +1455,7 @@ export default function App() {
           </button>
 
           {/* 예약 버튼 */}
-          <div className="flex flex-col sm:flex-row gap-3 justify-center mt-8">
+          <div className="flex flex-col sm:flex-row gap-3 justify-center mt-3 sm:mt-8">
             <button type="button" onClick={openCrispChat}
               className="booking-shimmer inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-medium text-sm hover:opacity-90 transition-opacity"
               data-booking-tone="red"
