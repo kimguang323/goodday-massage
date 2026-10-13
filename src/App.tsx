@@ -1419,11 +1419,11 @@ export default function App() {
 
         {/* 배너 이미지 */}
         <div className="w-full">
-          <Image width={1280} height={720} sizes="100vw" priority src="/contact-new-banner.webp" alt="굿데이마사지 예약문의" className="w-full h-auto" style={{ display: 'block' }} />
+          <Image width={1280} height={720} sizes="100vw" priority src="/contact-new-banner.webp" alt="굿데이마사지 예약문의" className="w-full h-auto max-h-[22svh] object-contain sm:max-h-none" style={{ display: 'block' }} />
         </div>
 
         {/* 헤더 */}
-        <div className="py-6 sm:py-14 text-center px-6" style={{ background: 'linear-gradient(160deg, #3a1828, #6b2040)' }}>
+        <div className="py-4 sm:py-14 text-center px-6" style={{ background: 'linear-gradient(160deg, #3a1828, #6b2040)' }}>
           <div className="flex items-center justify-center gap-4 flex-wrap">
             <h1 style={{ color: 'white', fontWeight: 400, fontSize: 'clamp(1.5rem, 3.5vw, 2.5rem)', margin: 0 }}>24시간 전국 방문 예약 상담</h1>
           </div>
