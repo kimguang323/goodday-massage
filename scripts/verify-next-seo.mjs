@@ -7,10 +7,10 @@ function walk(directory) {
 }
 const directory = '.next/server/app'
 const pages = walk(directory).filter(file => file.endsWith('.html') && !file.endsWith('_global-error.html'))
-assert.equal(pages.length, 285, 'All site pages and the custom 404 must be prerendered')
+assert.equal(pages.length, 286, 'All site pages and the custom 404 must be prerendered')
 const sitemap = readFileSync(join(directory, 'sitemap.xml.body'), 'utf8')
 const urls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => match[1])
-assert.equal(urls.length, 186, 'Only complete, indexable pages belong in the sitemap')
+assert.equal(urls.length, 187, 'Only complete, indexable pages belong in the sitemap')
 assert.equal(new Set(urls).size, urls.length, 'Sitemap URLs must be unique')
 let noindex = 0
 let faqPages = 0
@@ -44,7 +44,7 @@ for (const file of pages) {
   for (const match of html.matchAll(/src="(\/[^"?#]+\.(?:webp|png|svg|mp4))"/g)) assert.ok(existsSync('public' + match[1]), file + ': local asset ' + match[1])
 }
 assert.equal(noindex, 98, 'Summary-only articles must not be submitted as complete articles')
-assert.equal(faqPages, 177, '174 local pages plus home, region directory and FAQ must expose matching answers')
+assert.equal(faqPages, 178, '175 local pages plus home, region directory and FAQ must expose matching answers')
 const home = readFileSync(join(directory, 'index.html'), 'utf8')
 assert.ok(home.includes('굿데이 출장마사지') && home.includes('100% 후불제'))
 assert.ok(home.includes('/_next/image'), 'Hero must use the Next.js image optimizer')
@@ -69,8 +69,8 @@ for (const file of pages.filter(path => path.includes(join('app', 'cities') + '\
 assert.ok(!readFileSync('src/index.css', 'utf8').includes('fonts.googleapis.com'), 'No blocking remote font import')
 assert.ok(readFileSync(join(directory, 'robots.txt.body'), 'utf8').includes('https://www.gdymassage.com/sitemap_index.xml'))
 const profiles = readFileSync('src/data/regional-profiles.ts', 'utf8').split('\n').filter(line => /^\s*\[/.test(line)).map(line => JSON.parse(line.trim().replace(/,$/, '').replaceAll("'", '"')))
-assert.equal(profiles.length, 174, 'Every detailed region must have researched local content')
-assert.equal(new Set(profiles.map(row => row[0])).size, 174, 'Regional introductions must not duplicate keys')
+assert.equal(profiles.length, 175, 'Every detailed region must have researched local content')
+assert.equal(new Set(profiles.map(row => row[0])).size, 175, 'Regional introductions must not duplicate keys')
 for (const [key, landmark, , source] of profiles) {
   const html = readFileSync(join(directory, 'cities', key + '.html'), 'utf8')
   assert.ok(!html.includes('전국'), key + ': regional detail must only promote its own locality')

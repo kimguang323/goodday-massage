@@ -26,6 +26,7 @@ export const REGIONAL_PROFILE_ROWS = [
   ['서울/종로구', '경복궁·북촌한옥마을', '궁궐과 한옥 골목의 전통이 살아 있는 종로구', 'https://mediahub.seoul.go.kr/archives/2013628'],
   ['서울/중구', '남산·명동', '도심 관광과 산책의 매력이 가까운 중구', 'https://seoulcitywall.seoul.go.kr/wallcourse/4.do'],
   ['서울/중랑구', '용마산·망우역사문화공원', '자연 산책과 근현대 역사를 함께 만나는 중랑구', 'https://mediahub.seoul.go.kr/archives/2017211'],
+  ['경기/양평', '두물머리·용문산', '두물머리의 강변 풍경과 용문산의 자연이 어우러진 양평', 'https://www.yp21.go.kr/www/index.do'],
   ['경기/수원', '수원화성·광교호수공원', '성곽의 역사와 도심 호수의 여유가 공존하는 수원', 'https://www.suwon.go.kr/sw-www/sw-visitsuwon/sw-visitsuwon-01.jsp'],
   ['경기/성남', '탄천·율동공원', '도심을 가로지르는 물길과 산책 공간이 있는 성남', 'https://www.seongnam.go.kr/tour/index'],
   ['경기/고양', '일산호수공원', '호수와 문화 산책의 여유를 품은 고양', 'https://www.goyang.go.kr/park/park02/park02_1.jsp'],
