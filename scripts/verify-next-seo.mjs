@@ -10,7 +10,7 @@ const pages = walk(directory).filter(file => file.endsWith('.html') && !file.end
 assert.equal(pages.length, 286, 'All site pages and the custom 404 must be prerendered')
 const sitemap = readFileSync(join(directory, 'sitemap.xml.body'), 'utf8')
 const urls = [...sitemap.matchAll(/<loc>(.*?)<\/loc>/g)].map(match => match[1])
-assert.equal(urls.length, 187, 'Only complete, indexable pages belong in the sitemap')
+assert.equal(urls.length, 189, 'Only complete, indexable pages belong in the sitemap')
 assert.equal(new Set(urls).size, urls.length, 'Sitemap URLs must be unique')
 let noindex = 0
 let faqPages = 0
@@ -43,7 +43,7 @@ for (const file of pages) {
   }
   for (const match of html.matchAll(/src="(\/[^"?#]+\.(?:webp|png|svg|mp4))"/g)) assert.ok(existsSync('public' + match[1]), file + ': local asset ' + match[1])
 }
-assert.equal(noindex, 98, 'Summary-only articles must not be submitted as complete articles')
+assert.equal(noindex, 96, 'Summary-only articles must not be submitted as complete articles')
 assert.equal(faqPages, 178, '175 local pages plus home, region directory and FAQ must expose matching answers')
 const home = readFileSync(join(directory, 'index.html'), 'utf8')
 assert.ok(home.includes('굿데이 출장마사지') && home.includes('100% 후불제'))

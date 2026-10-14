@@ -37,6 +37,11 @@ export default function BlogPage() {
               <p className="text-sm leading-relaxed" style={{ color: '#5a3040' }}>{sec.p}</p>
             </div>
           ))}
+          {selected.body?.length && <nav aria-label="가이드 관련 안내" className="mt-6 flex flex-wrap gap-3 text-sm text-rose-800">
+            <Link to="/services" className="inline-flex min-h-11 items-center rounded-xl border border-rose-200 px-4 underline">코스별 시간·가격 확인</Link>
+            <Link to="/cities" className="inline-flex min-h-11 items-center rounded-xl border border-rose-200 px-4 underline">방문 지역 확인</Link>
+            <Link to="/contact" className="inline-flex min-h-11 items-center rounded-xl border border-rose-200 px-4 underline">예약·결제 조건 확인</Link>
+          </nav>}
           <div className="mt-12 rounded-2xl p-8 text-center" style={{ background: 'linear-gradient(160deg, #3a1828, #6b2040)' }}>
             <p className="text-sm font-medium mb-4" style={{ color: 'white' }}>지금 바로 예약하고 경험하세요</p>
             <button type="button" onClick={openCrispChat}

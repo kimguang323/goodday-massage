@@ -27,7 +27,7 @@ const SERVICES = [
     name: '스웨디시',
     tag: '전신 순환 · 숙면',
     desc: '전신 혈액순환 촉진 및 깊은 수면 유도에 특화된 클래식 마사지. 장거리 이동 후 피로 회복에 최적입니다.',
-    time: '60 · 90 · 120분',
+    time: '80 · 110 · 140분',
     recommend: '장거리 이동 후',
     icon: '🌸',
   },
@@ -35,7 +35,7 @@ const SERVICES = [
     name: '아로마',
     tag: '신경 과각성 완화',
     desc: '천연 에센셜 오일로 과민해진 신경계를 진정시키는 감각 테라피. 야간 릴랙스에 특화되어 있습니다.',
-    time: '60 · 90 · 120분',
+    time: '80 · 110 · 140분',
     recommend: '야간 릴랙스',
     icon: '🌿',
   },
@@ -43,7 +43,7 @@ const SERVICES = [
     name: '림프순환',
     tag: '부종 · 피로 관리',
     desc: '정밀한 드레나지 기법으로 부종과 피로를 동시에 해소합니다. 도보 또는 장거리 운전 후 권장합니다.',
-    time: '60 · 90 · 120분',
+    time: '80 · 110 · 140분',
     recommend: '도보 · 장거리 운전 후',
     icon: '💧',
   },
@@ -51,26 +51,26 @@ const SERVICES = [
     name: '스포츠 · 근막',
     tag: '근육 이동성 회복',
     desc: '뭉친 근막과 딥티슈를 집중 이완하는 전문 테라피. 운동 후 또는 현장 노동 직후 효과적입니다.',
-    time: '60 · 90 · 120분',
+    time: '80 · 110 · 140분',
     recommend: '운동 · 현장 노동 후',
     icon: '✦',
   },
 ]
 
 const THERAPISTS = [
-  { name: '가인', stars: 4.9, desc: '밝고 섬세한 응대, 밸런스 케어', status: '실시간 상담 가능', img: '/therapist-ga-in.webp' },
-  { name: '나연', stars: 5.0, desc: '부드러운 리듬감, 꼼꼼한 컨디션 체크', status: '상담중', img: '/therapist-na-yeon.webp' },
-  { name: '미영', stars: 4.9, desc: '활기찬 에너지, 압 조절, 피로 포인트 집중', status: '실시간 상담 가능', img: '/therapist-mi-young.webp' },
-  { name: '미유', stars: 4.9, desc: '차분한 분위기, 릴랙싱 중심', status: '실시간 상담 가능', img: '/therapist-mi-yu.webp' },
-  { name: '민영', stars: 4.9, desc: '부드러운 리듬, 스트레스 완화', status: '상담중', img: '/therapist-min-young.webp' },
-  { name: '소연', stars: 5.0, desc: '정돈된 진행, 집중도 높은 케어', status: '실시간 상담 가능', img: '/therapist-so-yeon.webp' },
-  { name: '수연', stars: 4.9, desc: '편안한 대화, 꼼꼼한 진행', status: '실시간 상담 가능', img: '/therapist-su-yeon.webp' },
-  { name: '은별', stars: 4.9, desc: '경쾌한 분위기, 또렷한 리듬', status: '실시간 상담 가능', img: '/therapist-eun-byeol.webp' },
-  { name: '은영', stars: 4.9, desc: '차분한 릴랙싱, 안정적 흐름', status: '실시간 상담 가능', img: '/therapist-eun-young.webp' },
-  { name: '재인', stars: 5.0, desc: '안정적 압 조절, 완성도 높은 루틴', status: '상담중', img: '/therapist-jae-in.webp' },
-  { name: '지은', stars: 4.9, desc: '밝은 분위기, 부드러운 진행', status: '실시간 상담 가능', img: '/therapist-ji-eun.webp' },
-  { name: '하린', stars: 5.0, desc: '섬세하고 가벼운 리듬, 긴장 완화', status: '실시간 상담 가능', img: '/therapist-ha-rin.webp' },
-  { name: '하은', stars: 4.9, desc: '균형 잡힌 템포, 전신 케어', status: '상담중', img: '/therapist-ha-eun.webp' },
+  { name: '가인', desc: '밝고 섬세한 응대, 밸런스 케어', status: '일정 상담', img: '/therapist-ga-in.webp' },
+  { name: '나연', desc: '부드러운 리듬감, 꼼꼼한 컨디션 체크', status: '일정 상담', img: '/therapist-na-yeon.webp' },
+  { name: '미영', desc: '활기찬 에너지, 압 조절, 피로 포인트 집중', status: '일정 상담', img: '/therapist-mi-young.webp' },
+  { name: '미유', desc: '차분한 분위기, 릴랙싱 중심', status: '일정 상담', img: '/therapist-mi-yu.webp' },
+  { name: '민영', desc: '부드러운 리듬, 스트레스 완화', status: '일정 상담', img: '/therapist-min-young.webp' },
+  { name: '소연', desc: '정돈된 진행, 집중도 높은 케어', status: '일정 상담', img: '/therapist-so-yeon.webp' },
+  { name: '수연', desc: '편안한 대화, 꼼꼼한 진행', status: '일정 상담', img: '/therapist-su-yeon.webp' },
+  { name: '은별', desc: '경쾌한 분위기, 또렷한 리듬', status: '일정 상담', img: '/therapist-eun-byeol.webp' },
+  { name: '은영', desc: '차분한 릴랙싱, 안정적 흐름', status: '일정 상담', img: '/therapist-eun-young.webp' },
+  { name: '재인', desc: '안정적 압 조절, 완성도 높은 루틴', status: '일정 상담', img: '/therapist-jae-in.webp' },
+  { name: '지은', desc: '밝은 분위기, 부드러운 진행', status: '일정 상담', img: '/therapist-ji-eun.webp' },
+  { name: '하린', desc: '섬세하고 가벼운 리듬, 긴장 완화', status: '일정 상담', img: '/therapist-ha-rin.webp' },
+  { name: '하은', desc: '균형 잡힌 템포, 전신 케어', status: '일정 상담', img: '/therapist-ha-eun.webp' },
 ]
 
 const REVIEWS = [
@@ -101,11 +101,11 @@ const REVIEWS = [
 ]
 
 const FAQS = [
-  { q: '서비스 철학이 궁금합니다.', a: '저희는 단순한 마사지를 넘어 고객의 몸과 마음을 진정으로 케어하는 프리미엄 테라피를 제공합니다. 상위 1% 고객을 위한 맞춤형 서비스로, 모든 예약에는 검증된 테라피스트만 배정됩니다.' },
+  { q: '서비스 철학이 궁금합니다.', a: '저희는 단순한 마사지를 넘어 고객의 몸과 마음을 진정으로 케어하는 프리미엄 테라피를 제공합니다. 상위 1% 고객을 위한 맞춤형 서비스로, 원하는 관리 방식과 배정 가능 여부는 예약 상담에서 확인합니다.' },
   { q: '프리미엄 서비스란 무엇인가요?', a: '일회용 비품 사용, 사전·사후 위생 관리, 100% 예약제 안심 예약, 개인정보 즉시 삭제를 포함한 완전한 프라이버시 보호가 포함된 서비스입니다.' },
   { q: '일반 마사지와 어떻게 다른가요?', a: '국가 공인 자격을 보유한 테라피스트만 선발하며, 매 회 고객 맞춤 케어 플랜을 수립합니다. 고급 오일과 의료 등급 소모품을 사용하여 최상의 환경을 제공합니다.' },
   { q: '어느 지역까지 방문 가능한가요?', a: '전국 모든 지역의 고객을 대상으로 방문 서비스를 운영합니다. 목록에 없는 지역도 문의해 주세요. 정확한 배정 가능 여부와 도착 시간은 주소·희망 시간·이동 여건을 확인한 뒤 안내합니다.' },
-  { q: '테라피스트 신원은 어떻게 확인하나요?', a: '모든 테라피스트는 입사 전 신원조회, 자격증 검증, 위생 교육을 완료합니다. 고객 방문 시 고유 인증 코드가 발급되며, 개인정보는 서비스 완료 즉시 삭제됩니다.' },
+  { q: '테라피스트 신원은 어떻게 확인하나요?', a: '담당자 프로필과 제공 가능한 관리 방식은 예약 상담에서 확인해 주세요. 배정 전 요청사항을 전달하고 가능한 일정을 확인하세요.' },
 ]
 
 
@@ -210,11 +210,11 @@ function CityModal({ city, therapists, onClose }: {
                   </div>
                   <div className="absolute top-2 right-2 px-2 py-0.5 rounded-full text-[9px] font-medium"
                     style={{ background: t.status === '실시간 상담 가능' ? '#10b981' : '#f59e0b', color: 'white' }}>
-                    {t.status === '실시간 상담 가능' ? '상담가능' : '상담중'}
+                    {t.status}
                   </div>
                 </div>
                 <div className="px-2.5 py-2">
-                  <div className="text-[10px]" style={{ color: '#fda4b2' }}>{'★'.repeat(Math.round(t.stars))} {t.stars}</div>
+                  <div className="text-[10px]" style={{ color: '#fda4b2' }}>프로필 안내</div>
                   <p className="text-[10px] leading-snug mt-0.5" style={{ color: '#7a4055' }}>{t.desc}</p>
                 </div>
               </div>
@@ -290,7 +290,7 @@ const FAQ_DATA = [
     cat: '서비스',
     items: [
       { q: '어떤 코스가 있나요?', a: '스웨디시, 아로마, 스포츠, 림프순환, VIP 프리미엄 등 다양한 코스를 제공합니다. 코스보기 메뉴에서 상세 내용을 확인하실 수 있습니다.' },
-      { q: '서비스 시간은 얼마나 되나요?', a: '코스에 따라 80분, 110분, 140분 등 다양하게 선택 가능합니다. VIP 코스는 90분부터 시작합니다.' },
+      { q: '서비스 시간은 얼마나 되나요?', a: '코스에 따라 80분, 110분, 140분 등 다양하게 선택 가능합니다. VIP 코스는 80분·120분·240분으로 안내합니다.' },
       { q: '어느 지역까지 방문 가능한가요?', a: '전국 모든 지역에서 방문을 요청하실 수 있습니다. 목록에 없는 지역도 상담해 주세요. 실제 배정과 방문 일정은 요청하신 지역과 시간에 따라 확정합니다.' },
       { q: '운영 시간이 어떻게 되나요?', a: '연중무휴 24시간 운영합니다. 지역별 배정 상황에 따라 다소 차이가 있을 수 있습니다.' },
       { q: '음주 상태에서 서비스 이용이 가능한가요?', a: '안전상의 이유로 음주 상태에서는 서비스 진행이 제한되거나 불가할 수 있습니다.' },
@@ -299,7 +299,7 @@ const FAQ_DATA = [
   {
     cat: '안전·위생',
     items: [
-      { q: '테라피스트 신원은 어떻게 확인하나요?', a: '모든 테라피스트는 입사 전 신원조회, 자격증 검증, 위생 교육을 완료합니다. 고객 방문 시 고유 인증 코드가 발급됩니다.' },
+      { q: '테라피스트 신원은 어떻게 확인하나요?', a: '담당자 프로필과 제공 가능한 관리 방식은 예약 상담에서 확인해 주세요. 배정 전 요청사항을 전달하고 가능한 일정을 확인하세요.' },
       { q: '위생 관리는 어떻게 하나요?', a: '모든 소모품은 1회용으로 1회 사용 후 즉시 폐기됩니다. 도착 전·서비스 완료 후 철저한 위생 관리를 수행합니다.' },
       { q: '개인정보는 어떻게 관리되나요?', a: '고객 개인정보는 최소한만 수집하며, 서비스 완료 즉시 삭제합니다. 보관기간 경과 시 완전히 파기됩니다.' },
       { q: '의료 행위도 제공하나요?', a: '아니요. 저희 서비스는 힐링·컨디셔닝 범위 내에서만 제공되며, 의료 행위는 제공하지 않습니다.' },
@@ -445,14 +445,14 @@ function VipPage({ onClose, onGoTherapists }: { onClose: () => void; onGoTherapi
         <div className="relative z-10 max-w-2xl mx-auto px-6">
           <div className="text-xs tracking-widest uppercase mb-4" style={{ color: '#fda4b2' }}>PREMIUM · VIP</div>
           <h1 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(2rem, 6vw, 3.5rem)', color: 'white', fontWeight: 400 }}>
-            VIP 프리미엄 힐링 코스<br /><span style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontWeight: 700, letterSpacing: '-0.02em' }}>(90분~)</span>
+            VIP 프리미엄 힐링 코스<br /><span style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontWeight: 700, letterSpacing: '-0.02em' }}>(80분~)</span>
           </h1>
           <p className="mt-4 text-sm leading-relaxed" style={{ color: 'rgba(255,210,225,0.85)' }}>
             과로·야근·출장·여행 후 완전한 회복을 위한<br />단 1%를 위한 프리미엄 케어
           </p>
           {/* 메타 정보 */}
           <div className="flex flex-wrap justify-center gap-3 mt-6">
-            {[['★★★★★', '4.9/5.0 · 후기 128건'], ['💰', '150,000원~'], ['🚗', '방문형 · 출장마사지'], ['🕐', '연중무휴 · 24시간']].map(([icon, text]) => (
+            {[['★★★★★', '코스·시간 예약 상담'], ['💰', '150,000원~'], ['🚗', '방문형 · 출장마사지'], ['🕐', '연중무휴 · 24시간']].map(([icon, text]) => (
               <div key={text} className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs"
                 style={{ background: 'rgba(255,255,255,0.1)', color: 'rgba(255,220,230,0.9)', border: '1px solid rgba(253,164,178,0.25)' }}>
                 <span>{icon}</span><span>{text}</span>
@@ -547,39 +547,13 @@ function VipPage({ onClose, onGoTherapists }: { onClose: () => void; onGoTherapi
         </div>
       </div>
 
-      {/* 실제 이용 후기 */}
-      <div className="py-14" style={{ background: 'white' }}>
-        <div className="max-w-3xl mx-auto px-6">
-          <div className="text-center mb-8">
-            <div className="text-xs tracking-widest uppercase mb-2" style={{ color: '#c0406a' }}>Reviews</div>
-            <h2 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', color: '#3a1828', fontWeight: 400 }}>VIP 코스 실제 이용 후기</h2>
-            <p className="mt-2 text-sm" style={{ color: '#fda4b2' }}>★★★★★ 4.9/5.0 · 인증 후기 포함</p>
-          </div>
-          <p className="text-xs leading-relaxed mb-6 text-center" style={{ color: '#7a4055' }}>
-            모든 후기는 실제 이용 고객의 경험을 바탕으로 작성되었습니다.<br />
-            전국 모든 지역, 모든 시간대에서 동일한 품질을 보장합니다.
-          </p>
-          <div className="grid sm:grid-cols-2 gap-4">
-            {[
-              { area: '강남', time: '방금 전', text: '야근 후 예약했는데 정말 개운하게 풀렸어요. VIP만의 루틴이 확실히 다릅니다. 압 조절이 너무 세심해요.' },
-              { area: '여의도', time: '어젯밤', text: '출장 중에 이용했는데 호텔 입실도 자연스럽고 서비스 퀄리티가 일반 코스와 확연히 달랐습니다.' },
-              { area: '잠실', time: '2일 전', text: '240분 코스 이용했는데 진짜 숙면 유도가 됩니다. 다음날 컨디션이 완전히 달랐어요. 강추합니다.' },
-              { area: '마포', time: '3일 전', text: '시크릿 아로마가 특히 좋았어요. 향이 은은하고 릴랙싱이 잘 됩니다. 재방문 결정했습니다.' },
-            ].map((r, i) => (
-              <div key={i} className="rounded-2xl p-5 border" style={{ background: '#fff8fa', borderColor: '#fce8ef' }}>
-                <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs px-2.5 py-0.5 rounded-full font-medium" style={{ background: '#fce8ef', color: '#c0406a' }}>{r.area}</span>
-                  <span className="text-xs" style={{ color: '#c0a0a8' }}>{r.time}</span>
-                </div>
-                <div className="text-xs mb-2" style={{ color: '#fda4b2' }}>★★★★★</div>
-                <p className="text-xs leading-relaxed" style={{ color: '#5a3040' }}>"{r.text}"</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+      <section className="mx-auto max-w-3xl px-6 py-8" aria-label="예약 전 확인 안내">
+          <h2 className="text-xl font-semibold text-rose-950">예약 전에 확인하세요</h2>
+          <p className="mt-3 text-sm leading-relaxed text-rose-900">원하는 코스와 이용 시간, 방문 주소에 따른 총 비용을 확인한 뒤 예약을 결정하세요. 담당자와 실제 배정 가능 일정은 상담에서 안내합니다.</p>
+          <Link to="/contact" className="mt-4 inline-flex min-h-11 items-center font-semibold text-rose-800 underline">예약 조건 확인하기 →</Link>
+        </section>
 
-      {/* FAQ */}
+        {/* FAQ */}
       <div className="py-14" style={{ background: '#fff8fa' }}>
         <div className="max-w-3xl mx-auto px-6">
           <div className="text-center mb-8">
@@ -1183,31 +1157,11 @@ export default function App() {
           </div>
         </div>
 
-        {/* 이용 후기 */}
-        <div className="py-16" style={{ background: '#fff8fa' }}>
-          <div className="max-w-5xl mx-auto px-6">
-            <div className="text-center mb-10">
-              <div className="text-xs tracking-widest uppercase mb-3" style={{ color: '#c0406a' }}>Reviews</div>
-              <h2 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(1.6rem, 3vw, 2.4rem)', color: '#3a1828', fontWeight: 400 }}>실제 이용 후기</h2>
-            </div>
-            <div className="grid md:grid-cols-3 gap-5">
-              {[
-                { area: '강남', svc: '스포츠 90분', text: '운동 직후 예약했는데 30분 만에 도착해주셨어요. 압이 세서 뭉친 근육이 확실히 풀렸습니다. 최고예요.' },
-                { area: '여의도', svc: '스웨디시 120분', text: '호텔 출장 중 이용했는데 프라이빗하게 입실해주셔서 좋았어요. 릴랙싱이 확실히 됐습니다.' },
-                { area: '마포', svc: '아로마 90분', text: '오일 향이 너무 좋았고, 스트레스가 확 풀리는 느낌이었어요. 심야에도 빠르게 배정해주셨습니다.' },
-              ].map((r, i) => (
-                <div key={i} className="rounded-2xl p-6 border bg-white" style={{ borderColor: '#fce8ef' }}>
-                  <div style={{ color: '#fda4b2' }}>{'★★★★★'}</div>
-                  <p className="text-xs leading-relaxed my-4" style={{ color: '#5a3040' }}>"{r.text}"</p>
-                  <div className="border-t pt-3" style={{ borderColor: '#fce8ef' }}>
-                    <div className="text-xs font-medium" style={{ color: '#3a1828' }}>{r.area}</div>
-                    <div className="text-xs" style={{ color: '#c0406a' }}>{r.svc}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        <section className="mx-auto max-w-3xl px-6 py-8" aria-label="예약 전 확인 안내">
+          <h2 className="text-xl font-semibold text-rose-950">예약 전에 확인하세요</h2>
+          <p className="mt-3 text-sm leading-relaxed text-rose-900">원하는 코스와 이용 시간, 방문 주소에 따른 총 비용을 확인한 뒤 예약을 결정하세요. 담당자와 실제 배정 가능 일정은 상담에서 안내합니다.</p>
+          <Link to="/contact" className="mt-4 inline-flex min-h-11 items-center font-semibold text-rose-800 underline">예약 조건 확인하기 →</Link>
+        </section>
 
         {/* 코스 선택 가이드 */}
         <div className="py-16" style={{ background: 'white' }}>
@@ -1310,7 +1264,7 @@ export default function App() {
             <h2 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#3a1828', fontWeight: 400 }}>
               테라피스트 소개
             </h2>
-            <p className="text-xs mt-3" style={{ color: '#9a607a' }}>검증된 여성 전문 테라피스트만 배정됩니다</p>
+            <p className="text-xs mt-3" style={{ color: '#9a607a' }}>프로필을 살펴보고 원하는 일정의 배정 가능 여부를 상담하세요</p>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
             {THERAPISTS.map(t => (
@@ -1349,7 +1303,7 @@ export default function App() {
                   </div>
                   <div className="flex items-center justify-between">
                     <h3 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: '1.15rem', color: '#3a1828', fontWeight: 500 }}>{t.name}</h3>
-                    <span style={{ fontSize: '0.7rem', color: '#c0406a' }}>★ {t.stars}</span>
+                    <span style={{ fontSize: '0.7rem', color: '#c0406a' }}>프로필 안내</span>
                   </div>
                   <p className="text-xs leading-relaxed mt-0.5" style={{ color: '#9a607a', fontSize: '0.68rem' }}>{t.desc}</p>
                 </div>
@@ -1523,30 +1477,18 @@ export default function App() {
           </div>
         </div>
 
-        {/* 이용 후기 */}
-        <div className="max-w-3xl mx-auto px-6 mt-12">
-          <h3 className="font-medium mb-5 text-center" style={{ color: '#3a1828', fontSize: '1.1rem' }}>실제 이용 후기</h3>
-          <div className="grid sm:grid-cols-3 gap-4">
-            {[
-              { area: '강남 · 스웨디시 90분', text: '어깨·목이 확 풀렸어요. 다음 날 일정이 훨씬 가벼웠습니다.' },
-              { area: '마포 · 아로마 60분', text: '심야인데 배정이 빠르고, 위생·매너 모두 만족합니다.' },
-              { area: '잠실 · 림프 90분', text: '붓기가 빠졌어요. 친절한 설명 덕분에 신뢰가 갔습니다.' },
-            ].map(r => (
-              <div key={r.area} className="rounded-2xl p-5 bg-white border" style={{ borderColor: '#fce8ef' }}>
-                <div className="text-yellow-400 text-sm mb-2">★★★★★</div>
-                <div className="text-xs font-medium mb-2" style={{ color: '#c0406a' }}>{r.area}</div>
-                <p className="text-xs leading-relaxed" style={{ color: '#7a4055' }}>{r.text}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+        <section className="mx-auto max-w-3xl px-6 py-8" aria-label="예약 전 확인 안내">
+          <h2 className="text-xl font-semibold text-rose-950">예약 전에 확인하세요</h2>
+          <p className="mt-3 text-sm leading-relaxed text-rose-900">원하는 코스와 이용 시간, 방문 주소에 따른 총 비용을 확인한 뒤 예약을 결정하세요. 담당자와 실제 배정 가능 일정은 상담에서 안내합니다.</p>
+          <Link to="/contact" className="mt-4 inline-flex min-h-11 items-center font-semibold text-rose-800 underline">예약 조건 확인하기 →</Link>
+        </section>
 
         {/* 이용 유의사항 */}
         <div className="max-w-3xl mx-auto px-6 mt-12">
           <h3 className="font-medium mb-5 text-center" style={{ color: '#3a1828', fontSize: '1.1rem' }}>이용 유의사항</h3>
           <div className="grid sm:grid-cols-2 gap-4">
             {[
-              { title: '예약·변경·취소', items: ['배정 확정 전 일정·코스 변경 가능', '확정 후 취소 시 콜 이동 비용 발생 가능', '지연·부재 시 진행 시간 단축 가능', '100% 후불제로 운영', '신규 회원님은 예약하기로 문의', '10년 이상 한결같이 운영된 신뢰도 높은 업체'] },
+              { title: '예약·변경·취소', items: ['배정 확정 전 일정·코스 변경 가능', '확정 후 취소 시 콜 이동 비용 발생 가능', '지연·부재 시 진행 시간 단축 가능', '100% 후불제로 운영', '신규 회원님은 예약하기로 문의', '예약 전에 코스와 총 비용 확인'] },
               { title: '서비스 이용 안내', items: ['맘에 드시는 테라피스트 선택 및 출장여부 확인', '상담매니저와 스케줄 잡기 (이름 / 장소 / 시간)', '신규 회원님은 예약하기로 문의', '예약완료'] },
               { title: '위생·방역', items: ['일회용 시트/타월, 장비 현장 소독', '손 위생 및 위생 프로토콜 준수', '감염성 증상 시 예약 보류 권장'] },
               { title: '프라이버시', items: ['민감 정보 최소 보관', 'CCTV 각도 조정·가림 권장', '무단 촬영 금지'] },

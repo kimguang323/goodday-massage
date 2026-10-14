@@ -14,6 +14,26 @@ const BLOG_IMG = [
 // These guides use the published price table and the owner's confirmed payment policy.
 // Other entries are retained as summaries until their individual article bodies are supplied.
 const completedGuides: Record<string, { title: string; desc: string; body: { h: string; p: string }[] }> = {
+  'first-time-massage-guide': {
+    title: '출장마사지 첫 예약: 코스·시간·총 비용 확인 순서',
+    desc: '굿데이 첫 이용 전 방문 주소, 코스별 시간과 비용, 결제 및 변경 조건을 확인하는 순서를 안내합니다.',
+    body: [
+      { h: '방문할 장소와 시간을 먼저 정하세요', p: '자택·호텔·오피스텔 등 장소 유형, 시·군·구와 동네, 희망 날짜와 시간을 정리하세요. 숙소라면 체크인 이후 시간을 선택하고 외부 방문객 출입 가능 여부를 확인하세요.' },
+      { h: '홈타이와 관리 코스를 구분하세요', p: '홈타이는 머무는 장소에서 이용하는 방문 형태입니다. 스웨디시·아로마·스포츠·림프순환·VIP는 관리 코스이며, 원하는 압과 오일 사용 선호를 기준으로 비교하세요.' },
+      { h: '표시 가격과 최종 비용을 구분하세요', p: '코스 안내에서 일반 코스의 80·110·140분 구성과 VIP의 80·120·240분 구성을 확인하세요. 방문 주소에 따른 출장비와 추가 비용 유무를 상담하고 최종 금액을 확정하세요.' },
+      { h: '상담에서 예약을 확정하세요', p: '예약 상담 또는 텔레그램으로 주소·시간·코스를 전달하세요. 24시간 상담을 운영하지만 요청만으로 배정이 확정되지는 않습니다. 가능한 일정과 변경·취소 조건을 확인하세요. 100% 후불제이며 신규 회원님은 예약하기로 문의해 주세요.' },
+    ],
+  },
+  'itaewon-weekend-reservation': {
+    title: '이태원 숙소 방문 예약: 체크인·출입·주차 확인 가이드',
+    desc: '이태원 호텔·숙소에서 굿데이 방문 서비스를 상담할 때 확인할 주소, 출입 조건과 예약 변경 사항을 안내합니다.',
+    body: [
+      { h: '숙소 이름과 도로명 주소를 준비하세요', p: '이태원 숙소 방문을 문의할 때는 용산구의 정확한 도로명 주소와 숙소 이름을 알려주세요. 지도에 표시된 입구와 실제 방문자 출입구가 다른 경우 출입구 위치도 함께 전달하세요.' },
+      { h: '외부 방문객 규정은 숙소에 확인하세요', p: '호텔이나 숙소의 외부 방문객 허용 여부, 프런트 등록 절차와 출입 가능 시간을 미리 확인하세요. 숙소 규정에 따라 방문 서비스 이용이 제한될 수 있으며, 굿데이가 출입 허용을 대신 보장할 수는 없습니다.' },
+      { h: '체크인과 주차 시간을 고려하세요', p: '체크인 이후 여유 있는 시간을 제안하고 주차 가능 여부와 요금, 차량 진입 위치를 전달하세요. 주말의 실제 이동 시간은 주소와 당일 상황에 따라 상담에서 확인합니다.' },
+      { h: '코스·총 비용·변경 조건을 확인하세요', p: '코스 안내에서 시간과 가격을 비교하고, 출장비를 포함한 최종 비용과 예약 변경·취소 조건을 확인하세요. 체크인이나 귀가 시간이 바뀌면 상담 채널로 먼저 알려주세요. 100% 후불제이며 신규 회원님은 예약하기로 문의해 주세요.' },
+    ],
+  },
   'business-trip-massage-booking-guide': {
     title: '출장마사지 예약 방법과 100% 후불제·신규 회원 예약 안내',
     desc: '굿데이 예약 상담에 필요한 지역·시간·코스 정보, 100% 후불제와 신규 회원 예약 방법을 안내합니다.',
@@ -166,5 +186,5 @@ export const BLOG_POSTS: BlogPost[] = [
 
 
 for (const post of BLOG_POSTS) {
-  if (completedGuides[post.slug]) Object.assign(post, completedGuides[post.slug], { updated: '2026.10.07' })
+  if (completedGuides[post.slug]) Object.assign(post, completedGuides[post.slug], { updated: ['first-time-massage-guide', 'itaewon-weekend-reservation'].includes(post.slug) ? '2026.10.15' : '2026.10.07' })
 }
