@@ -10,7 +10,7 @@ const COURSES = [
 ]
 
 export default function HomeCourseSummary() {
-  return <section aria-labelledby="home-course-heading" className="mx-auto max-w-5xl px-6 py-8 text-rose-950">
+  return <section aria-labelledby="home-course-heading" className="home-course-summary mx-auto max-w-5xl px-6 py-8 text-rose-950">
     <h2 id="home-course-heading" className="text-2xl font-bold">마사지 코스·시간·가격 한눈에 보기</h2>
     <p className="mt-3 leading-relaxed">처음 이용한다면 관리 방식과 이용 시간을 먼저 비교하세요. 아래는 코스 안내에 게시된 80분 기준 가격입니다.</p>
     <dl className="mt-5 grid gap-3 sm:grid-cols-2">

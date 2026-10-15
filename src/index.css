@@ -136,3 +136,30 @@ h2 {
 @media (forced-colors: active) {
   .nationwide-color-slide { animation: none; background-image: none; color: CanvasText; }
 }
+
+/* Home: warm gold and burgundy, with readable text and no additional assets. */
+#home { border-bottom: 1px solid #b89758; background: #201019; }
+#home .home-brand-eyebrow { margin: 0 0 20px; color: #e7c98e; font-size: 10px; font-weight: 600; letter-spacing: .24em; }
+#home .home-brand-eyebrow::before, #home .home-brand-eyebrow::after { content: ''; display: inline-block; width: 24px; height: 1px; margin: 0 12px 3px; background: #b89758; }
+#home h1 { font-weight: 600; }
+#home .nationwide-color-slide { color: #f3dfb1; background-image: linear-gradient(100deg, #cfab63, #fff3d4, #e6c988, #fff3d4, #cfab63); }
+#home h1 + p { color: #f3e9e1; }
+#home ul li { border-color: #b8975866; background: #24131de6; border-radius: 12px; color: #f8efdf; }
+#home ul svg { stroke: #dfbf7c; }
+#home a[href='/contact'] { background: linear-gradient(110deg, #d3ae67, #f2ddaa, #d3ae67); color: #321a20; box-shadow: 0 4px 18px #0003; }
+#home a[href='/services'] { background: #fff9ed; color: #482536; }
+#home a[href='/cities'] { border-color: #c8a86c; color: #f5e7c9; background: #24131d80; }
+#home a:focus-visible { outline: 3px solid #fff0c9; outline-offset: 4px; }
+.home-brand-figure img { border: 1px solid #d9be8966; box-shadow: 0 12px 28px #39172912; }
+.home-brand-figure figcaption { color: #765b43; }
+.home-course-summary { padding-top: 28px; padding-bottom: 40px; }
+.home-course-summary h2 { font-weight: 600; line-height: 1.5; word-break: keep-all; text-wrap: balance; }
+.home-course-summary h2::before { content: ''; display: block; width: 40px; height: 2px; margin-bottom: 16px; background: #b18a47; }
+.home-course-summary dl > div { border-color: #e6d9c4; background: linear-gradient(120deg, #fffdf8, #f8f2e8); border-radius: 14px; }
+.home-course-summary dd strong { color: #6d263f; font-variant-numeric: tabular-nums; }
+.home-course-summary p { word-break: keep-all; }
+@media (min-width: 640px) { #home .home-brand-eyebrow { font-size: 12px; margin-bottom: 28px; } }
+@media (forced-colors: active) { #home .nationwide-color-slide { background-image: none; color: CanvasText; } }
+@supports ((background-clip: text) or (-webkit-background-clip: text)) { #home .nationwide-color-slide { color: transparent; } }
+@media (prefers-reduced-motion: reduce) { #home .nationwide-color-slide { animation: none; background-image: none; color: #f3dfb1; } }
+@media (forced-colors: active) { #home .nationwide-color-slide { background-image: none; color: CanvasText; } }
