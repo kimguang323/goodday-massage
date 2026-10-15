@@ -1268,13 +1268,13 @@ export default function App() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ background: '#fda4b2' }} />
               <span className="relative inline-flex rounded-full h-2 w-2" style={{ background: '#fb7190' }} />
             </span>
-            <span className="text-xs font-medium tracking-widest" style={{ color: '#fda4b2' }}>LIVE 테라피스트 프로필</span>
+            <span className="text-xs font-medium tracking-widest" style={{ color: '#fda4b2' }}>굿데이 테라피스트 안내</span>
           </div>
           <div className="flex items-center justify-center gap-3 flex-wrap">
-            <h1 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(1.5rem, 3.5vw, 2.4rem)', color: 'white', fontWeight: 400, margin: 0 }}>현재 매칭 가능한 테라피스트 확인하기</h1>
+            <h1 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(1.5rem, 3.5vw, 2.4rem)', color: 'white', fontWeight: 400, margin: 0 }}>나에게 맞는 테라피스트 찾기</h1>
           </div>
           <p className="mt-3 text-sm" style={{ color: 'rgba(255,210,225,0.8)' }}>
-            고객님 인근에서 상담 가능한 테라피스트 프로필을 한눈에 확인하세요.
+            프로필을 살펴보고 마음에 드는 테라피스트의 방문 일정을 상담해 보세요.
           </p>
         </div>
 
@@ -1284,7 +1284,7 @@ export default function App() {
             <h2 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#3a1828', fontWeight: 400 }}>
               테라피스트 소개
             </h2>
-            <p className="text-xs mt-3" style={{ color: '#9a607a' }}>오늘의 추천은 매일 바뀌는 프로필 소개입니다. 실제 배정 가능 여부는 예약 상담에서 확인하세요.</p>
+            <p className="text-xs mt-3" style={{ color: '#9a607a' }}>오늘의 추천 프로필은 매일 새롭게 소개합니다. 원하는 테라피스트와 이용 시간은 상담에서 확인해 주세요.</p>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
             {THERAPISTS.map(t => (
@@ -1334,7 +1334,7 @@ export default function App() {
             <button type="button" onClick={openCrispChat}
               className="booking-shimmer inline-flex items-center gap-2 px-8 py-3 rounded-full text-sm font-medium text-white transition-all hover:opacity-90"
               style={{ background: 'linear-gradient(135deg, #f9a8b8, #e05080)' }}>
-              테라피스트 예약 문의하기
+              테라피스트 지정·일정 상담
             </button>
           </div>
         </div>
@@ -1399,10 +1399,10 @@ export default function App() {
         {/* 헤더 */}
         <div className="py-4 sm:py-14 text-center px-6" style={{ background: 'linear-gradient(160deg, #3a1828, #6b2040)' }}>
           <div className="flex items-center justify-center gap-4 flex-wrap">
-            <h1 style={{ color: 'white', fontWeight: 400, fontSize: 'clamp(1.5rem, 3.5vw, 2.5rem)', margin: 0 }}>24시간 전국 방문 예약 상담</h1>
+            <h1 style={{ color: 'white', fontWeight: 400, fontSize: 'clamp(1.5rem, 3.5vw, 2.5rem)', margin: 0 }}>24시간 1:1 예약 상담</h1>
           </div>
           <p className="mt-3 text-sm max-w-xl mx-auto" style={{ color: 'rgba(255,210,225,0.85)' }}>
-            서울 포함 전국 서비스 · 홈타이·스웨디시 등 다양한 코스<br />24시간 실시간 상담 제공
+            방문할 지역과 원하는 코스·시간을 알려주세요.<br />가능한 일정과 이용 비용을 1:1로 안내해 드립니다.
           </p>
 
           <button
@@ -1421,7 +1421,7 @@ export default function App() {
                 fontWeight: 700,
               }}
             >
-              터치시 상담연결
+              눌러서 상담 시작하기
             </span>
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
               <path d="M12 5v14M5 12l7 7 7-7" stroke="#fda4b2" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
@@ -1434,7 +1434,7 @@ export default function App() {
               className="booking-shimmer inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-medium text-sm hover:opacity-90 transition-opacity"
               data-booking-tone="red"
               style={{ background: 'linear-gradient(135deg, #ef4444, #dc2626)', color: 'white', border: '1px solid rgba(255,255,255,0.25)' }}>
-              번호공개❌ 익명 예약 (추천)
+              번호 공개 없이 상담하기 (추천)
             </button>
             <button type="button" onClick={openCrispChat}
               className="booking-shimmer inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-medium text-sm hover:opacity-90 transition-opacity"
@@ -1445,7 +1445,7 @@ export default function App() {
             <a href="https://t.me/sy2267" target="_blank" rel="noopener noreferrer"
               className="booking-shimmer inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-medium text-sm text-white hover:opacity-90 transition-opacity"
               style={{ background: '#2AABEE' }}>
-              ✈️ 텔레그램 예약
+              ✈️ 텔레그램으로 상담하기
             </a>
           </div>
         </div>
@@ -1453,13 +1453,13 @@ export default function App() {
 
         {/* 왜 굿데이인가 */}
         <div className="max-w-3xl mx-auto px-6 mt-10">
-          <h3 className="font-medium mb-5 text-center" style={{ color: '#3a1828', fontSize: '1.1rem' }}>왜 굿데이일까요?</h3>
+          <h3 className="font-medium mb-5 text-center" style={{ color: '#3a1828', fontSize: '1.1rem' }}>굿데이 예약 상담은 이렇게 안내합니다</h3>
           <div className="grid sm:grid-cols-2 gap-4">
             {[
-              { icon: '🕐', title: '24시간 운영', desc: '심야·주말 상시 상담·배정' },
-              { icon: '🗺️', title: '전국 커버리지', desc: '서울·수도권·광역시 전역' },
-              { icon: '👩', title: '여성 전담팀', desc: '숙련 테라피스트 매칭' },
-              { icon: '🧴', title: '위생·안전', desc: '일회용·소독·프라이버시 철저' },
+              { icon: '🕐', title: '24시간 상담', desc: '심야·주말에도 원하는 일정을 문의하세요.' },
+              { icon: '🗺️', title: '방문 지역 확인', desc: '머무는 주소를 기준으로 방문 조건을 안내합니다.' },
+              { icon: '👩', title: '테라피스트 상담', desc: '원하는 프로필과 관리 방식을 알려주세요.' },
+              { icon: '🧴', title: '이용 전 확인', desc: '준비사항과 출입 안내를 미리 확인하세요.' },
             ].map(f => (
               <div key={f.title} className="flex items-start gap-4 rounded-2xl p-5 bg-white border" style={{ borderColor: '#fce8ef' }}>
                 <div className="text-2xl">{f.icon}</div>
@@ -1477,11 +1477,11 @@ export default function App() {
           <h3 className="font-medium mb-6 text-center" style={{ color: '#3a1828', fontSize: '1.1rem' }}>서비스 진행 과정</h3>
           <div className="flex flex-col gap-3">
             {[
-              { step: '01', title: '상담', desc: '지역·코스·선호/주의 부위 확인' },
-              { step: '02', title: '배정', desc: '평균 20~30분 내 테라피스트 매칭 안내' },
-              { step: '03', title: '방문·진행', desc: '호텔·오피스텔·자택 방문 서비스' },
+              { step: '01', title: '요청사항 상담', desc: '방문 지역·희망 시간·코스와 원하는 압을 알려주세요.' },
+              { step: '02', title: '일정 확인', desc: '배정 가능 여부와 예상 방문 시간, 총 비용을 안내합니다.' },
+              { step: '03', title: '방문·이용', desc: '확정된 일정에 맞춰 자택·호텔·오피스텔로 방문합니다.' },
               { step: '04', title: '결제', desc: '100% 후불제 · 신규 회원은 예약하기로 문의' },
-              { step: '05', title: '사후 안내', desc: '케어 포인트 및 재방문 추천 안내' },
+              { step: '05', title: '이용 후 문의', desc: '궁금한 점이나 다음 이용 일정은 상담으로 문의해 주세요.' },
             ].map((s, i, arr) => (
               <div key={s.step} className="flex items-start gap-4">
                 <div className="flex flex-col items-center">
@@ -1509,7 +1509,7 @@ export default function App() {
           <div className="grid sm:grid-cols-2 gap-4">
             {[
               { title: '예약·변경·취소', items: ['배정 확정 전 일정·코스 변경 가능', '확정 후 취소 시 콜 이동 비용 발생 가능', '지연·부재 시 진행 시간 단축 가능', '100% 후불제로 운영', '신규 회원님은 예약하기로 문의', '예약 전에 코스와 총 비용 확인'] },
-              { title: '서비스 이용 안내', items: ['맘에 드시는 테라피스트 선택 및 출장여부 확인', '상담매니저와 스케줄 잡기 (이름 / 장소 / 시간)', '신규 회원님은 예약하기로 문의', '예약완료'] },
+              { title: '서비스 이용 안내', items: ['원하는 테라피스트와 방문 가능 여부 확인', '상담 매니저와 장소·날짜·시간 조율', '신규 회원님은 예약하기로 문의', '이용 조건 확인 후 예약 확정'] },
               { title: '위생·방역', items: ['일회용 시트/타월, 장비 현장 소독', '손 위생 및 위생 프로토콜 준수', '감염성 증상 시 예약 보류 권장'] },
               { title: '프라이버시', items: ['민감 정보 최소 보관', 'CCTV 각도 조정·가림 권장', '무단 촬영 금지'] },
             ].map(g => (
@@ -1544,7 +1544,7 @@ export default function App() {
         {/* 하단 예약 CTA */}
         <div className="max-w-3xl mx-auto px-6 mt-12 text-center">
           <div className="rounded-2xl py-10 px-6" style={{ background: 'linear-gradient(160deg, #3a1828, #6b2040)' }}>
-            <p className="text-sm mb-6" style={{ color: 'rgba(255,210,225,0.85)' }}>지금 바로 문의하고 빠른 배정 받으세요</p>
+            <p className="text-sm mb-6" style={{ color: 'rgba(255,210,225,0.85)' }}>원하는 시간과 코스를 알려주세요. 나에게 맞는 방문 일정을 함께 확인하겠습니다.</p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <button type="button" onClick={openCrispChat}
                 className="booking-shimmer inline-flex items-center justify-center gap-2 px-7 py-3.5 rounded-full font-medium text-sm hover:opacity-90"
