@@ -981,25 +981,25 @@ export default function App() {
           <div className="absolute inset-0" style={{ background: 'rgba(35,10,25,0.72)' }} />
         </div>
         {/* Content */}
-        <div className="relative z-10 max-w-5xl mx-auto px-6 py-8 sm:py-16 text-center text-white">
-          <h1 className="text-3xl sm:text-5xl font-bold leading-snug"><span className="nationwide-color-slide">전국 출장마사지</span><br /><span className="nationwide-color-slide">굿데이 24시간 방문 서비스</span></h1>
-          <p className="mt-6 leading-relaxed">전국 모든 지역의 자택·호텔·오피스텔로 찾아갑니다.<br />홈타이·스웨디시·아로마·스포츠·림프순환·VIP 등 원하는 마사지 종류와 방문 시간을 상담해 주세요.</p>
-          <ul aria-label="서비스 핵심 포인트" className="mt-6 flex flex-wrap justify-center gap-2 sm:gap-3">
+        <div className="relative z-10 w-full max-w-5xl mx-auto px-5 py-8 sm:px-6 sm:py-16 text-center text-white">
+          <h1 className="font-bold leading-snug tracking-tight"><span className="nationwide-color-slide block whitespace-nowrap text-[clamp(1.65rem,6.8vw,3rem)]">전국 출장마사지</span><span className="nationwide-color-slide mt-2 block whitespace-nowrap text-[clamp(1.05rem,4.65vw,3rem)]">굿데이 24시간 방문 서비스</span></h1>
+          <p className="mx-auto mt-5 max-w-2xl break-keep text-balance text-sm leading-7 sm:text-base">전국 모든 지역의 자택·호텔·오피스텔로 찾아갑니다.<br />홈타이·스웨디시·아로마·스포츠·림프순환·VIP 등 원하는 마사지 종류와 방문 시간을 상담해 주세요.</p>
+          <ul aria-label="서비스 핵심 포인트" className="mx-auto mt-6 grid max-w-xl grid-cols-3 gap-2 sm:gap-3">
             {[
               { label: '100% 후불제', icon: <><rect x="3" y="5" width="18" height="14" rx="3" /><path d="M3 10h18m-12 5 2 2 4-4" /></> },
               { label: '30분 내 도착', icon: <><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></> },
               { label: '철저한 프라이버시', icon: <><path d="M12 3 4 6v6c0 5 8 9 8 9s8-4 8-9V6l-8-3Z" /><path d="m8 12 3 3 5-5" /></> },
             ].map(point => (
-              <li key={point.label} className="flex items-center gap-2 rounded-full border border-rose-300/40 bg-[#3a1828] px-4 py-2 text-sm font-semibold text-white">
+              <li key={point.label} className="flex min-w-0 flex-col items-center justify-center gap-1.5 rounded-2xl border border-rose-300/40 bg-[#3a1828] px-1 py-3 text-[10px] font-semibold text-white min-[375px]:text-[11px] sm:flex-row sm:gap-2 sm:px-3 sm:text-sm">
                 <svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fda4b2" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="shrink-0">{point.icon}</svg>
-                <span>{point.label}</span>
+                <span className="whitespace-nowrap">{point.label}</span>
               </li>
             ))}
           </ul>
-          <div className="flex flex-wrap justify-center gap-3 mt-8">
-            <Link to="/contact" className="booking-shimmer inline-flex h-12 w-40 items-center justify-center rounded-full bg-yellow-300 text-rose-950 px-3 font-semibold">예약 상담</Link>
-            <Link to="/services" className="inline-flex h-12 w-40 items-center justify-center rounded-full bg-white text-rose-950 px-3 font-semibold">코스·가격 확인</Link>
-            <Link to="/cities" className="rounded-full border border-white px-6 py-3">방문 지역 확인</Link>
+          <div className="mx-auto mt-7 grid max-w-xl grid-cols-2 gap-3 sm:grid-cols-3">
+            <Link to="/contact" className="booking-shimmer inline-flex h-12 items-center justify-center whitespace-nowrap rounded-full bg-yellow-300 text-rose-950 px-3 text-sm font-semibold">예약 상담</Link>
+            <Link to="/services" className="inline-flex h-12 items-center justify-center whitespace-nowrap rounded-full bg-white text-rose-950 px-3 text-sm font-semibold">코스·가격 확인</Link>
+            <Link to="/cities" className="col-span-2 inline-flex h-12 items-center justify-center whitespace-nowrap rounded-full border border-white px-3 text-sm sm:col-span-1">방문 지역 확인</Link>
           </div>
         </div>
         {/* Scroll hint */}
