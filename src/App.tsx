@@ -74,6 +74,17 @@ const THERAPISTS = [
   { name: '하은', desc: '균형 잡힌 템포, 전신 케어', status: '일정 상담', img: '/therapist-ha-eun.webp' },
 ]
 
+function recommendedNames(day: number): Set<string> {
+  const names = THERAPISTS.map(t => t.name)
+  let seed = day >>> 0
+  for (let i = names.length - 1; i > 0; i--) {
+    seed = (Math.imul(seed, 1664525) + 1013904223) >>> 0
+    const j = seed % (i + 1)
+    ;[names[i], names[j]] = [names[j], names[i]]
+  }
+  return new Set(names.slice(0, Math.round(names.length * 0.6)))
+}
+
 const REVIEWS = [
   {
     name: '서울 — 강남구',
@@ -854,6 +865,14 @@ export default function App() {
   const [lightboxImg, setLightboxImg] = useState<{ src: string; name: string } | null>(null)
   const [transitioning, setTransitioning] = useState(false)
   const [showVip, setShowVip] = useState(false)
+  const [recommendationDay, setRecommendationDay] = useState<number | null>(null)
+  useEffect(() => {
+    const refresh = () => setRecommendationDay(Math.floor((Date.now() + 9 * 3600000) / 86400000))
+    refresh()
+    const timer = window.setInterval(refresh, 60000)
+    return () => window.clearInterval(timer)
+  }, [])
+  const todayRecommended = recommendationDay === null ? new Set<string>() : recommendedNames(recommendationDay)
   const location = useLocation()
   const navigate = useNavigate()
   const pageKey = Object.keys(PAGE_PATHS).find(key => PAGE_PATHS[key] === location.pathname)
@@ -1265,7 +1284,7 @@ export default function App() {
             <h2 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#3a1828', fontWeight: 400 }}>
               테라피스트 소개
             </h2>
-            <p className="text-xs mt-3" style={{ color: '#9a607a' }}>프로필을 살펴보고 원하는 일정의 배정 가능 여부를 상담하세요</p>
+            <p className="text-xs mt-3" style={{ color: '#9a607a' }}>오늘의 추천은 매일 바뀌는 프로필 소개입니다. 실제 배정 가능 여부는 예약 상담에서 확인하세요.</p>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
             {THERAPISTS.map(t => (
@@ -1291,8 +1310,8 @@ export default function App() {
                   <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(to top, rgba(58,24,40,0.45) 0%, transparent 55%)' }} />
                   <div className="absolute top-2 right-2">
                     <span className="text-xs px-2 py-0.5 rounded-full font-medium"
-                      style={{ background: t.status === '실시간 상담 가능' ? 'rgba(34,197,94,0.85)' : 'rgba(251,191,36,0.85)', color: 'white', backdropFilter: 'blur(4px)', fontSize: '0.6rem' }}>
-                      {t.status === '실시간 상담 가능' ? '● 상담가능' : '● 상담중'}
+                      style={{ background: todayRecommended.has(t.name) ? '#9f1239' : '#fff1f2', color: todayRecommended.has(t.name) ? 'white' : '#881337', fontSize: '0.7rem' }}>
+                      {todayRecommended.has(t.name) ? '오늘의 추천' : '일정 상담'}
                     </span>
                   </div>
                 </div>
