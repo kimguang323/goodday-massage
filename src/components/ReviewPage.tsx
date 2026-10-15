@@ -6,8 +6,8 @@ export default function ReviewPage({ onBook }: { onBook: () => void }) {
     <Image width={1280} height={1280} sizes="100vw" priority src="/reviews-banner.webp" alt="굿데이 고객 후기 안내" className="h-auto w-full" />
     <div className="mx-auto max-w-3xl px-6 py-8">
       <h1 className="text-2xl font-semibold">고객 후기 안내</h1>
-      <p className="mt-4 leading-relaxed">굿데이 이용을 고민하고 계신가요? 후기를 참고할 때는 이용한 코스와 관리 방식, 방문 장소 등 나의 이용 조건과 비슷한 경험인지 함께 살펴보세요.</p>
-      <p className="mt-3 text-sm leading-relaxed">공개할 이용 후기는 내용을 확인한 뒤 안내할 예정입니다. 현재는 예약 전에 비교하면 좋은 내용을 정리해 두었습니다.</p>
+      <p className="mt-4 leading-relaxed">굿데이는 기존 회원님의 프라이버시를 존중합니다. 개인정보와 이용 경험을 보호하기 위해 신규 회원님께는 기존 회원님의 이용 후기를 공유하지 않습니다.</p>
+      <p className="mt-3 text-sm leading-relaxed">서비스가 궁금하신 신규 회원님은 코스 안내를 살펴보거나 예약 상담으로 문의해 주세요. 이용 시간과 비용, 방문 조건을 확인하실 수 있습니다.</p>
       <h2 className="mt-8 text-xl font-semibold">나에게 맞는 이용을 위한 체크 포인트</h2>
       <ul className="mt-4 list-disc space-y-3 pl-5 leading-relaxed"><li>코스와 이용 시간을 비교하고, 출장비를 포함한 최종 비용을 확인하세요.</li><li>방문할 주소와 희망 시간을 알려주고, 가능한 일정을 상담하세요.</li><li>담당자 프로필을 살펴보고, 선호하는 압과 오일 사용 여부를 전달하세요.</li><li>예약 변경·취소 조건과 건물의 방문객 출입 규정을 확인하세요.</li></ul>
       <p className="mt-6 leading-relaxed">처음이라 선택이 어렵다면 상담에서 궁금한 점을 편하게 물어보세요. 원하는 코스와 방문 조건을 확인한 뒤 예약을 결정하시면 됩니다.</p>
