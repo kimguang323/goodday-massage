@@ -1296,7 +1296,7 @@ export default function App() {
                 <div className="relative overflow-hidden" style={{ aspectRatio: '3/4', background: 'linear-gradient(160deg, #fce8ef, #f9d0de)' }}>
                   {t.img ? (
                     <>
-                      <img loading="lazy" decoding="async" src={t.img} srcSet={`${t.img.replace('.webp', '-thumb.webp')} 400w, ${t.img} ${/su-yeon|eun-byeol|eun-young|ha-rin/.test(t.img) ? 500 : 1024}w`} sizes="(max-width: 639px) 45vw, (max-width: 1023px) 30vw, 220px" alt={t.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                      <img loading="lazy" decoding="async" src={t.img} srcSet={`${t.img.replace('.webp', '-thumb.webp')} 400w, ${t.img} 1024w`} sizes="(max-width: 639px) 45vw, (max-width: 1023px) 30vw, 220px" alt={t.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
                       <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                         style={{ background: 'rgba(58,24,40,0.25)' }}>
                         <div className="bg-white/80 rounded-full px-3 py-1 text-xs font-medium" style={{ color: '#c0406a' }}>🔍 크게 보기</div>
