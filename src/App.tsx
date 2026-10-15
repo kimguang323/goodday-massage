@@ -663,8 +663,7 @@ function FaqItem({ faq }: { faq: { q: string; a: string } }) {
   )
 }
 
-function CitiesDirectory() {
-  const [query, setQuery] = useState('')
+function CitiesDirectory({ query }: { query: string }) {
   const navigate = useNavigate()
   const q = query.trim().toLowerCase()
   const filtered = q
@@ -676,23 +675,6 @@ function CitiesDirectory() {
 
   return (
     <div style={{ background: '#fff8fa' }}>
-      {/* 검색 바 */}
-      <div className="max-w-3xl mx-auto px-6 pt-10 pb-6">
-        <div className="relative">
-          <svg className="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c0406a" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
-          </svg>
-          <input
-            type="text"
-            value={query}
-            onChange={e => setQuery(e.target.value)}
-            placeholder="지역명으로 검색 (예: 강남, 수원, 해운대)"
-            className="w-full pl-10 pr-4 py-3 rounded-xl text-sm outline-none"
-            style={{ background: 'white', border: '1.5px solid #fce8ef', color: '#3a1828' }}
-          />
-        </div>
-      </div>
-
       {/* 지역 목록 */}
       <div className="max-w-5xl mx-auto px-6 pb-16">
         {filtered.length === 0 ? (
@@ -865,6 +847,7 @@ export default function App() {
   const [lightboxImg, setLightboxImg] = useState<{ src: string; name: string } | null>(null)
   const [transitioning, setTransitioning] = useState(false)
   const [showVip, setShowVip] = useState(false)
+  const [regionQuery, setRegionQuery] = useState('')
   const [recommendationDay, setRecommendationDay] = useState<number | null>(null)
   useEffect(() => {
     const refresh = () => setRecommendationDay(Math.floor((Date.now() + 9 * 3600000) / 86400000))
@@ -1368,6 +1351,10 @@ export default function App() {
               <h1 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(1.6rem, 4vw, 2.8rem)', color: 'white', fontWeight: 400 }}>
                 굿데이 마사지 서비스 지역
               </h1>
+              <div className="mt-5 w-full max-w-lg">
+                <label htmlFor="region-name-search" className="sr-only">지역명으로 검색</label>
+                <input id="region-name-search" type="search" value={regionQuery} onChange={e => setRegionQuery(e.target.value)} placeholder="지역명으로 검색 (예: 강남, 수원, 해운대)" className="min-h-12 w-full rounded-xl border border-rose-200 bg-white px-4 py-3 text-sm text-rose-950 focus:outline-2 focus:outline-offset-2 focus:outline-rose-300" aria-controls="region-search-results" />
+              </div>
               <p className="mt-3 text-sm leading-relaxed" style={{ color: 'rgba(255,220,230,0.85)' }}>
                 서울 전 구역부터 전국 광역시·도까지<br />24시간 언제 어디서든 방문합니다
               </p>
@@ -1383,9 +1370,9 @@ export default function App() {
           </div>
         </div>
 
+        {/* 지역 검색 결과와 디렉토리 */}
+        <div id="region-search-results"><CitiesDirectory query={regionQuery} /></div>
         <NationwideOverview />
-        {/* 검색 + 지역 디렉토리 */}
-        <CitiesDirectory />
 
       </section>}
 
