@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import NationwideOverview from './components/NationwideOverview'
+import HomeCourseSummary from './components/HomeCourseSummary'
 import { useState, useCallback, useEffect } from 'react'
 import { Link, useLocation, useNavigate, useParams } from './router'
 import { REGIONS } from './data/regions'
@@ -993,6 +994,7 @@ export default function App() {
           <Image src="/home-welcome-banner.webp" width={1280} height={720} sizes="(max-width: 1024px) calc(100vw - 48px), 976px" loading="lazy" alt="굿데이출장마사지 예약 상담·방문 케어·코스 안내 브랜드 배너" className="h-auto w-full rounded-2xl" />
           <figcaption className="mt-2 text-center text-xs leading-relaxed text-rose-800">편안한 휴식, 찾아가는 힐링 · 굿데이 서비스 소개 이미지</figcaption>
         </figure>
+        <HomeCourseSummary />
         <NationwideOverview />
       </>}
 
