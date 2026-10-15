@@ -1311,7 +1311,7 @@ export default function App() {
                   <div className="absolute top-2 right-2">
                     <span className="text-xs px-2 py-0.5 rounded-full font-medium"
                       style={{ background: todayRecommended.has(t.name) ? '#9f1239' : '#fff1f2', color: todayRecommended.has(t.name) ? 'white' : '#881337', fontSize: '0.7rem' }}>
-                      {todayRecommended.has(t.name) ? '오늘의 추천' : '일정 상담'}
+                      {todayRecommended.has(t.name) ? '오늘의 추천' : '상담중'}
                     </span>
                   </div>
                 </div>
