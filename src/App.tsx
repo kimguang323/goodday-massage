@@ -1000,8 +1000,6 @@ export default function App() {
 
       {/* ── SERVICES ── */}
       {currentPage === 'services' && <section id="services" className="py-0 min-h-screen" style={{ background: 'white' }}>
-        <NationwideOverview compact />
-
         {/* 코스 상세 안내 */}
         <div className="py-16" style={{ background: '#fff8fa' }}>
           <div className="max-w-5xl mx-auto px-6">
@@ -1238,6 +1236,7 @@ export default function App() {
           </div>
         </div>
 
+        <NationwideOverview compact />
       </section>}
 
       {/* ── THERAPISTS ── */}
