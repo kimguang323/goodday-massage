@@ -1282,7 +1282,7 @@ export default function App() {
           <div className="text-center mb-12">
             <div className="text-xs tracking-widest uppercase mb-3" style={{ color: '#c0406a' }}>Our Team</div>
             <h2 style={{ fontFamily: "'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif", fontSize: 'clamp(2rem, 4vw, 3rem)', color: '#3a1828', fontWeight: 400 }}>
-              테라피스트 소개
+              내 주변 테라피스트 보기
             </h2>
             <p className="text-xs mt-3" style={{ color: '#9a607a' }}>오늘의 추천 프로필은 매일 새롭게 소개합니다. 원하는 테라피스트와 이용 시간은 상담에서 확인해 주세요.</p>
           </div>
