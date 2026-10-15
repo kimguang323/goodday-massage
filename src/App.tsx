@@ -58,6 +58,17 @@ const SERVICES = [
   },
 ]
 
+// Add names only after confirming an actual booking.
+const BOOKED_THERAPIST_NAMES: readonly string[] = []
+const bookingStatus = (name: string) => BOOKED_THERAPIST_NAMES.includes(name) ? '예약 중' : '예약하기'
+const koreaDay = () => Math.floor((Date.now() + 9 * 60 * 60 * 1000) / 86400000)
+function dailyOrder(name: string, day: number) {
+  let hash = day >>> 0
+  for (const letter of name) hash = Math.imul(hash ^ letter.charCodeAt(0), 16777619) >>> 0
+  hash ^= hash >>> 16
+  return Math.imul(hash, 2246822507) >>> 0
+}
+
 const THERAPISTS = [
   { name: '가인', desc: '밝고 섬세한 응대, 밸런스 케어', status: '일정 상담', img: '/therapist-ga-in.webp' },
   { name: '나연', desc: '부드러운 리듬감, 꼼꼼한 컨디션 체크', status: '일정 상담', img: '/therapist-na-yeon.webp' },
@@ -217,6 +228,7 @@ function CityModal({ city, therapists, onClose }: {
                 <div className="px-2.5 py-2">
                   <div className="text-[10px]" style={{ color: '#fda4b2' }}>프로필 안내</div>
                   <p className="text-[10px] leading-snug mt-0.5" style={{ color: '#7a4055' }}>{t.desc}</p>
+                  <button type="button" onClick={event => { event.stopPropagation(); openCrispChat() }} className="mt-3 min-h-11 w-full rounded-lg bg-rose-900 px-2 py-2 text-sm font-semibold text-white">{bookingStatus(t.name) === '예약 중' ? '다음 일정 상담' : '예약하기'}</button>
                 </div>
               </div>
             ))}
@@ -854,6 +866,15 @@ export default function App() {
   const [lightboxImg, setLightboxImg] = useState<{ src: string; name: string } | null>(null)
   const [transitioning, setTransitioning] = useState(false)
   const [showVip, setShowVip] = useState(false)
+  const [therapistGroup, setTherapistGroup] = useState('예약하기')
+  const [displayDay, setDisplayDay] = useState<number | null>(null)
+  useEffect(() => {
+    const refresh = () => setDisplayDay(koreaDay())
+    refresh()
+    const timer = window.setInterval(refresh, 60000)
+    return () => window.clearInterval(timer)
+  }, [])
+  const listedTherapists = THERAPISTS.filter(t => bookingStatus(t.name) === therapistGroup).sort((a, b) => displayDay === null ? 0 : dailyOrder(a.name, displayDay) - dailyOrder(b.name, displayDay))
   const location = useLocation()
   const navigate = useNavigate()
   const pageKey = Object.keys(PAGE_PATHS).find(key => PAGE_PATHS[key] === location.pathname)
@@ -1267,8 +1288,13 @@ export default function App() {
             </h2>
             <p className="text-xs mt-3" style={{ color: '#9a607a' }}>프로필을 살펴보고 원하는 일정의 배정 가능 여부를 상담하세요</p>
           </div>
+          <div className="mb-6 flex justify-center gap-3" role="group" aria-label="예약 상태별 관리사">
+            {['예약하기', '예약 중'].map(group => <button key={group} type="button" aria-pressed={therapistGroup === group} onClick={() => setTherapistGroup(group)} className={`min-h-12 rounded-full border px-6 font-semibold ${therapistGroup === group ? 'bg-rose-900 text-white border-rose-900' : 'bg-white text-rose-900 border-rose-200'}`}>{group} ({THERAPISTS.filter(t => bookingStatus(t.name) === group).length})</button>)}
+          </div>
+          <p className="mb-5 text-center text-sm text-rose-900">예약하기를 눌러 원하는 일정의 배정 가능 여부를 상담하세요.</p>
+          {listedTherapists.length === 0 && <p role="status" className="rounded-xl bg-rose-50 p-6 text-center text-rose-900">현재 예약 중으로 표시된 관리사가 없습니다.</p>}
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
-            {THERAPISTS.map(t => (
+            {listedTherapists.map(t => (
               <div key={t.name}
                 className="group rounded-2xl overflow-hidden border transition-all duration-300 hover:-translate-y-1 hover:shadow-xl cursor-pointer"
                 style={{ background: 'white', borderColor: '#fce8ef' }}
@@ -1291,8 +1317,8 @@ export default function App() {
                   <div className="absolute inset-0 pointer-events-none" style={{ background: 'linear-gradient(to top, rgba(58,24,40,0.45) 0%, transparent 55%)' }} />
                   <div className="absolute top-2 right-2">
                     <span className="text-xs px-2 py-0.5 rounded-full font-medium"
-                      style={{ background: t.status === '실시간 상담 가능' ? 'rgba(34,197,94,0.85)' : 'rgba(251,191,36,0.85)', color: 'white', backdropFilter: 'blur(4px)', fontSize: '0.6rem' }}>
-                      {t.status === '실시간 상담 가능' ? '● 상담가능' : '● 상담중'}
+                      style={{ background: bookingStatus(t.name) === '예약 중' ? '#fbbf24' : '#9f1239', color: 'white', backdropFilter: 'blur(4px)', fontSize: '0.6rem' }}>
+                      {bookingStatus(t.name)}
                     </span>
                   </div>
                 </div>
@@ -1307,6 +1333,7 @@ export default function App() {
                     <span style={{ fontSize: '0.7rem', color: '#c0406a' }}>프로필 안내</span>
                   </div>
                   <p className="text-xs leading-relaxed mt-0.5" style={{ color: '#9a607a', fontSize: '0.68rem' }}>{t.desc}</p>
+                  <button type="button" onClick={event => { event.stopPropagation(); openCrispChat() }} className="mt-3 min-h-11 w-full rounded-lg bg-rose-900 px-2 py-2 text-sm font-semibold text-white">{bookingStatus(t.name) === '예약 중' ? '다음 일정 상담' : '예약하기'}</button>
                 </div>
               </div>
             ))}
